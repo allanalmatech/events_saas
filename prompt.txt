@@ -1,0 +1,1253 @@
+**Prompt: Build a Multi-Tenant Event Management SaaS in Core PHP (No MVC)**
+
+Build a **modern, modular, multi-tenant SaaS application** using **Core PHP, MySQL, HTML, CSS, JavaScript, Bootstrap where helpful**, but **strictly no MVC framework**. The system is for **event service providers** such as decorators, tent hire businesses, cake makers, chair hire businesses, sound providers, and other rentable-event-item businesses. The platform must support **multiple tenants**, where each tenant runs their own business independently, but also participates in a **community marketplace and messaging ecosystem** within the SaaS.
+
+## 1. Architecture and General Requirements
+
+The project must be:
+
+* **Core PHP only**
+* **Modular file structure**
+* **No MVC**
+* **MySQL database**
+* **Responsive on mobile, tablet, laptop, and large screens**
+* **Modern UI with glassmorphism feel**
+* **Beautiful icons**
+* **Collapsible sidebar with submenu behavior**
+* **Theme customization with up to 10 themes**
+* **Dark mode included**
+* **Default theme: shades of brown**
+* **Clean separation of concerns using include files, function files, module folders, CSS files, JS files, and API/action handlers**
+
+The system should feel premium, practical, and business-ready.
+
+## 2. Multi-Tenant SaaS Model
+
+The application must support **tenants**, where each tenant represents a business owner using the system.
+
+### SaaS role hierarchy:
+
+1. **Director of the SaaS**
+
+   * Highest platform-level authority
+   * Approves or rejects newly created business-owner accounts
+   * Can broadcast messages to super admins
+   * Can see all tenants, subscriptions, support tickets, usage, and system analytics
+   * Can manage platform-wide settings
+
+2. **Super Admin (Tenant Owner / Business Owner)**
+
+   * Created after approval by the Director
+   * Fully controls only their own tenant/business
+   * Can add employees/users under their business
+   * Can assign permissions to employees using RBAC
+   * Can customize business details, branding, themes, and settings
+   * Can manage inventory, services, bookings, invoices, receipts, returns, workers, broadcasts, and reports for only their tenant
+
+3. **Employees / Staff under a Tenant**
+
+   * Created by the Super Admin
+   * Access only what the Super Admin allows
+   * Must have profile management
+   * Can upload profile image, phone, contacts, role details, and other personal profile info
+   * Their actions must be logged in audit trails
+
+### Tenant isolation:
+
+* One tenant **must never access** another tenant’s internal records directly
+* All data must be scoped by `tenant_id`
+* Every module must enforce tenant boundaries
+* Shared communication between tenants must only happen through the designated marketplace/messaging area
+
+---
+
+## 3. Core Business Purpose
+
+This SaaS is meant to support an event service provider **from the moment they get a customer, through booking, service/item hiring, payment tracking, event execution, return of items, balance follow-up, damaged/lost item tracking, and event completion**.
+
+The system must manage:
+
+* Decoration services
+* Tent hire
+* Chair hire
+* Cake provision
+* Sound systems
+* Event packages
+* Any other rentable/hirable item or service
+
+---
+
+## 4. Theme and Dashboard Personalization
+
+Every tenant must be able to customize their dashboard.
+
+### Theme requirements:
+
+* Up to **10 themes**
+* Include:
+
+  * Default brown shades theme
+  * Dark theme
+  * Blue theme
+  * Green theme
+  * Gold theme
+  * Red/maroon theme
+  * Purple theme
+  * Gray professional theme
+  * Teal theme
+  * Light modern theme
+* Theme selection saved per tenant
+* Employees under tenant inherit tenant theme, unless later extended to personal preference
+* Theme changes should affect:
+
+  * Sidebar
+  * Topbar
+  * Buttons
+  * Cards
+  * Tables
+  * Forms
+  * Modals
+  * Calendar accents
+  * Notification badges
+
+### Business customization:
+
+Tenant can edit:
+
+* Business name
+* Logo
+* Tagline
+* Address
+* Contact numbers
+* Email
+* Invoice footer
+* Receipt footer
+* Currency
+* Default tax settings
+* Business initials
+* Signature/stamp upload if needed
+
+---
+
+## 5. Modules to Build
+
+## A. Authentication and Account Approval
+
+* SaaS Director login
+* Business owner signup
+* Business owner account goes into **pending approval**
+* Director approves/rejects
+* Only approved super admins can access tenant dashboard
+* Super admin creates staff accounts
+* Login/logout must be logged
+* Password hashing
+* Session security
+* CSRF protection
+* Role-based route access
+* Account status management: pending, active, suspended, rejected
+
+---
+
+## B. Robust RBAC (Role-Based Access Control)
+
+Tenant-side RBAC must be powerful.
+
+Super Admin can:
+
+* Create roles
+* Assign permissions
+* Edit permissions
+* Activate/deactivate users
+* Limit users to certain modules and actions
+
+Permissions must support:
+
+* View
+* Create
+* Edit
+* Delete
+* Approve
+* Print
+* Export
+* Assign
+* Return
+* Mark complete
+* Broadcast
+* Message
+* View reports
+
+Examples:
+
+* Storekeeper can manage returns but not invoices
+* Cashier can record payments but not edit inventory
+* Events manager can create bookings but not manage user accounts
+
+---
+
+## C. Audit Logs
+
+This is critical.
+
+The system must have **serious audit logs** showing exactly who did what from login until logout.
+
+Must log:
+
+* Login
+* Logout
+* Failed login attempts
+* Profile updates
+* Theme changes
+* Item creation/edit/delete
+* Stock adjustments
+* Booking creation/edit/cancel
+* Invoice creation/edit/void
+* Receipt generation
+* Payment entries
+* Return processing
+* Missing item declaration
+* Damaged item declaration
+* Worker assignment
+* Ticket creation/reply
+* Broadcast sent/replied
+* Permission changes
+* User creation/update/deactivation
+* Messaging actions where relevant
+
+Each log should capture:
+
+* User
+* Role
+* Tenant
+* Action
+* Module
+* Record affected
+* Old value / new value where possible
+* IP address
+* Timestamp
+* Device/browser info if possible
+
+---
+
+## D. Customer Management
+
+Manage customer details:
+
+* Full name
+* Phone
+* Alternative phone
+* Email
+* Address
+* Notes
+* Customer type
+* Repeat customer flag
+* Payment history
+* Bookings history
+* Invoices
+* Receipts
+* Outstanding balances
+
+System should help tenant know:
+
+* Who has paid
+* Who has not paid
+* Who has balance
+* Who frequently hires
+* Who has damaged/lost items history
+
+---
+
+## E. Inventory / Hirable Items Management
+
+The inventory system must support rentable items.
+
+Each item should have:
+
+* Category
+* Subcategory
+* Item name
+* SKU/code
+* Description
+* Unit type
+* Quantity available
+* Quantity hired out
+* Quantity in store
+* Quantity damaged
+* Quantity lost
+* Reorder threshold
+* Image
+* Status
+* Owner type:
+
+  * Owned by business
+  * Sourced externally
+
+### Rules:
+
+* Orders cannot exceed available quantity
+* An item hired out should not be double-booked beyond availability
+* Some items are sourced from outside providers and should be marked as such
+* When such items return, system should indicate they need to go back to owner/provider
+* The system must track return status per item
+* Items can only be hired to one person at a time based on available stock count
+* No backdated orders allowed
+
+---
+
+## F. External Provider / Community Supply Support
+
+Some items may be sourced from outside the tenant’s business.
+
+System must allow:
+
+* External source/provider registry
+* External provider contact details
+* Source cost
+* Quantity sourced
+* Linked booking/invoice
+* Return-to-owner tracking
+* Alerts for items that must be returned to owner
+* Performance tracking of how often items are sourced externally
+
+The platform should later use this data to suggest:
+
+* “You frequently source this item from others. Consider purchasing your own.”
+
+---
+
+## G. Services Management
+
+Tenant can define services such as:
+
+* Decoration
+* Catering
+* Cake baking
+* Photography
+* Sound setup
+* Tent installation
+* MC services
+* Bridal services
+* Transport
+
+Each service can have:
+
+* Name
+* Price
+* Description
+* Optional package grouping
+* Availability notes
+* Unit pricing or flat pricing
+
+---
+
+## H. Booking / Order Management
+
+This is a major workflow.
+
+Tenant must be able to:
+
+* Create booking/order
+* Select customer
+* Add event date
+* Add event location
+* Add event type
+* Add services
+* Add hirable items
+* Add external sourced items if needed
+* Add notes
+* Assign workers
+* Track balances
+* Link to invoice
+* Track status
+
+### Rules:
+
+* No backdated orders/bookings
+* Booking date must be today or future
+* Cannot exceed available items
+* Booking must reflect service delivery flow until event is complete
+* Booking status examples:
+
+  * Draft
+  * Confirmed
+  * In progress
+  * Awaiting return
+  * Partially returned
+  * Completed
+  * Cancelled
+
+---
+
+## I. Worker Assignment and Accountability
+
+The system must record which workers took which items for an event.
+
+For each booking:
+
+* Assign staff/workers
+* Track which items each worker took
+* Track dispatch date/time
+* Track return handover
+* Record accountability notes
+* Record shortages against responsible staff if applicable
+
+This ensures that when items are missing or damaged, the business knows who handled them.
+
+---
+
+## J. Return Management / Store Return Workflow
+
+Very important.
+
+A storekeeper or authorized user must manage returned items.
+
+For each event return:
+
+* Select booking
+* Show all items sent out
+* Mark quantities returned
+* Mark quantities missing
+* Mark quantities damaged
+* Add notes
+* Mark sourced items to be returned to owner
+* Update store stock accordingly
+* Update booking return status
+
+The system should support:
+
+* Full return
+* Partial return
+* Pending return
+* Damaged return
+* Lost item declaration
+
+### On return:
+
+* Missing items can be declared
+* Damaged items can be declared
+* Charges can be linked if needed
+* Notifications/reminders can be generated for replacement or payment
+
+---
+
+## K. Invoicing
+
+The system must support professional invoicing.
+
+Invoice should include:
+
+* Business details
+* Customer details
+* Booking reference
+* Event details
+* Services
+* Hired items
+* External sourced items if relevant
+* Quantities
+* Rates
+* Totals
+* Tax
+* Amount paid
+* Balance
+* Terms and conditions
+
+### Requirements:
+
+* Invoice preview before final save
+* Print-ready invoice
+* PDF-ready invoice
+* Editable until finalized, based on permission
+* Can attach booking to specific invoice
+* Unique invoice numbers per tenant
+
+---
+
+## L. Receipts
+
+The system must generate receipts for payments made.
+
+Receipt should show:
+
+* Customer
+* Invoice reference
+* Amount paid
+* Payment method
+* Balance remaining
+* Date
+* Received by
+* Business details
+
+### Requirements:
+
+* Receipt preview before final generation
+* Print-ready
+* PDF-ready
+* Support partial payments
+* Can show running balance
+
+---
+
+## M. Payments and Balance Tracking
+
+Track:
+
+* Total invoice amount
+* Amount paid
+* Balance
+* Payment method
+* Multiple payments per invoice
+* Payment dates
+* Reference numbers
+* Notes
+
+The tenant must know:
+
+* Fully paid customers
+* Partially paid customers
+* Unpaid customers
+* Overdue balances
+* Damaged/lost replacement charges owed
+
+---
+
+## N. Calendar and Upcoming Events
+
+Each tenant should have a calendar.
+
+Calendar must show:
+
+* Upcoming events
+* Today’s events
+* This week’s events
+* Overdue returns
+* Payment reminders
+* Replacement reminders for damaged/lost items
+
+Tenant should get alerts/notifications for:
+
+* Upcoming event
+* Customer balance due
+* Return due
+* Missing item unresolved
+* Damaged item unresolved
+* External items needing return to owner
+
+---
+
+## O. Notifications and Reminders
+
+System notifications:
+
+* In-app alerts
+* Optional email-ready structure for future integration
+
+Use notifications for:
+
+* Event reminders
+* Balance reminders
+* Item return reminders
+* Lost/damaged replacement reminders
+* Ticket replies
+* Broadcast messages
+* Approval notices
+* Account activation status
+
+---
+
+## P. Tenant Community Marketplace / Messaging
+
+This is a unique SaaS feature.
+
+Tenants should communicate with each other through the system.
+
+### Community features:
+
+* A tenant can advertise services/products
+* Example:
+
+  * “I bake cakes”
+  * “I have 200 chairs for hire”
+  * “I provide decoration services”
+  * “I have tents available”
+* Include catalogue/gallery
+* Availability status
+* Description
+* Contact through internal messaging
+
+### Other tenants can:
+
+* View ads/listings
+* Send messages
+* Request collaboration/gigs
+* Ask availability
+* Hire from another tenant outside their own stock
+
+This should **not expose private internal business records**, only marketplace data intentionally published by the tenant.
+
+---
+
+## Q. Internal Messaging and Broadcasts
+
+### Within tenant:
+
+* Super admin can broadcast to employees
+* Employees can reply
+* Conversations stored per tenant
+* Attach subject, message body, date
+
+### Platform-level:
+
+* Director can broadcast to super admins
+* Super admins can receive and reply where allowed
+
+### Support/ticketing:
+
+* Tenants can create support tickets to SaaS directors/admins
+* Ticket categories
+* Priority
+* Replies
+* Status
+* Open/closed/escalated
+
+---
+
+## R. Reports and Business Intelligence
+
+System should generate reports for tenants.
+
+Reports:
+
+* Most hired items
+* Least hired items
+* Most sourced externally
+* Items needing purchase suggestion
+* Customer balances
+* Paid vs unpaid invoices
+* Revenue reports
+* Return/damage/loss reports
+* Worker accountability reports
+* Event completion reports
+* Booking trends
+* Tenant activity reports
+* Marketplace engagement reports
+
+### Intelligent suggestions:
+
+If a tenant keeps hiring a certain item from other providers often, system should suggest:
+
+* “This item is frequently outsourced. Consider buying stock for it.”
+
+---
+
+## S. Employee Profile Management
+
+Employees added by tenant should manage profile details:
+
+* Name
+* Phone
+* Email
+* Profile image
+* Address
+* Emergency contact
+* Job title
+* Bio/notes
+* Status
+
+---
+
+## T. UI / UX Requirements
+
+The interface must be:
+
+* Beautiful
+* Modern
+* Professional
+* Glass feel
+* Responsive
+* Fast and clear
+
+### Sidebar behavior:
+
+* Collapsible sidebar
+* Supports categories and submenus
+* When collapsed:
+
+  * show icons only
+  * on hover, submenu slides out
+* When expanded:
+
+  * show icons + text + nested menus
+* Works well on desktop and mobile
+* Mobile should use an offcanvas/sidebar drawer experience
+
+### UI elements:
+
+* Cards with glassmorphism
+* Soft shadows
+* Smooth transitions
+* Modern tables
+* Clean modals
+* Nice badges
+* Responsive forms
+* Elegant charts for reports
+* Full-width usable layout on large screens
+* Touch-friendly layout on small screens
+
+---
+
+## 6. Suggested Modules Folder Structure
+
+Use a modular Core PHP layout like this:
+
+```text
+/project-root
+    /assets
+        /css
+        /js
+        /images
+        /icons
+    /includes
+        config.php
+        db.php
+        auth.php
+        functions.php
+        helpers.php
+        tenant.php
+        rbac.php
+        audit.php
+        notifications.php
+    /templates
+        header.php
+        topbar.php
+        sidebar.php
+        footer.php
+    /modules
+        /auth
+        /dashboard
+        /tenants
+        /users
+        /roles
+        /permissions
+        /customers
+        /items
+        /categories
+        /services
+        /bookings
+        /returns
+        /invoices
+        /receipts
+        /payments
+        /workers
+        /calendar
+        /notifications
+        /messages
+        /broadcasts
+        /marketplace
+        /tickets
+        /reports
+        /settings
+        /audit_logs
+    /actions
+        login.php
+        save_booking.php
+        save_invoice.php
+        process_return.php
+        save_payment.php
+        ...
+    /uploads
+        /logos
+        /profiles
+        /items
+        /catalogues
+    index.php
+```
+
+---
+
+## 7. Important Business Rules
+
+Implement these rules clearly:
+
+* Orders cannot be backdated
+* Orders cannot exceed available stock
+* Hired items must not be double-allocated beyond quantity available
+* Return flow must update stock accurately
+* Missing items must be declared
+* Damaged items must be declared
+* Externally sourced items must be tracked back to owner
+* Booking should follow event lifecycle until completion
+* Payment balances must be tracked accurately
+* Tenant isolation must always be enforced
+* All actions must be auditable
+* Role-based permissions must be enforced everywhere
+
+---
+
+## 8. Database Design Expectations
+
+Design a full MySQL schema with proper relations for:
+
+* tenants
+* tenant_settings
+* director_users
+* tenant_users
+* roles
+* permissions
+* role_permissions
+* user_permissions if needed
+* audit_logs
+* customers
+* item_categories
+* items
+* item_stock_movements
+* services
+* bookings
+* booking_items
+* booking_services
+* booking_workers
+* returns
+* return_items
+* invoices
+* invoice_items
+* receipts
+* payments
+* notifications
+* support_tickets
+* ticket_replies
+* broadcasts
+* broadcast_replies
+* marketplace_profiles
+* marketplace_catalogue
+* tenant_messages
+* outsourced_items
+* worker_accountability
+* event_status_history
+
+Every main business table should carry `tenant_id`.
+
+---
+
+## 9. Output Expectations
+
+Build the complete project with:
+
+* Full database schema SQL
+* Seed data for themes, roles, permissions, statuses
+* Core PHP modules
+* Responsive UI
+* Clean reusable helper functions
+* Authentication guards
+* Tenant scoping
+* RBAC enforcement
+* Audit trail integration
+* Invoice and receipt preview pages
+* Print and PDF generation readiness
+* Calendar module
+* Notifications module
+* Marketplace/messaging module
+* Ticketing module
+* Reports dashboard
+* Theme engine
+
+---
+
+## 10. Final Goal
+
+The final application should help an event business:
+
+* capture a customer
+* create a booking
+* allocate services/items
+* track stock availability
+* invoice the customer
+* receive payments
+* issue receipts
+* send out workers/items
+* track returns
+* declare damages/losses
+* follow balances
+* complete the event lifecycle
+* analyze hiring trends
+* collaborate with other providers
+* manage staff and accountability
+* operate securely in a multi-tenant SaaS environment
+
+
+## U. SaaS Subscription Plans, Billing, Feature Limits, and Account Locking
+
+The platform must include a **director-controlled SaaS billing and subscription system** where tenants subscribe to a plan and their accessible features depend on that plan.
+
+### Plan categories
+
+Create **3 subscription plans**:
+
+1. **Basic**
+2. **Intermediate**
+3. **Pro**
+
+The Director must be able to:
+
+* Create and manage these plans
+* Edit plan names if needed
+* Set monthly, quarterly, semiannual, or annual pricing
+* Define what features each plan includes
+* Define usage limits per plan
+* Activate/deactivate a plan
+* Move a tenant from one plan to another
+* Give free trial or promotional access if needed
+
+---
+
+## V. Plan Feature Control
+
+The system must support **feature gating by subscription plan**.
+
+The Director should be able to decide what each plan can access.
+
+### Examples of plan-controlled limits/features:
+
+* Number of users/employees allowed
+* Number of events/bookings allowed per month
+* Number of invoices allowed per month
+* Number of receipts allowed per month
+* Number of items/products allowed
+* Number of customers allowed
+* Access to calendar
+* Access to reporting dashboards
+* Access to advanced reports
+* Access to marketplace/community advertising
+* Access to internal tenant-to-tenant messaging
+* Access to support ticketing
+* Access to PDF generation
+* Access to broadcast module
+* Access to analytics and intelligent purchase suggestions
+* Access to audit log viewing
+* Access to profile customization/branding
+* Access to multiple branches if added later
+* Storage/upload limits for images, catalogues, and files
+
+### Example plan logic:
+
+* **Basic**
+
+  * Few users
+  * Few events per month
+  * Limited reports
+  * Limited marketplace usage
+  * Basic invoice/receipt access
+* **Intermediate**
+
+  * More users
+  * More events per month
+  * Better reports
+  * Calendar and reminders
+  * Marketplace enabled
+  * More branding/customization
+* **Pro**
+
+  * Highest or unlimited limits
+  * Full reports
+  * Full marketplace/community access
+  * Priority support
+  * Advanced analytics
+  * Maximum branding and operational flexibility
+
+The plan system should not be hardcoded. It must be configurable in the database.
+
+---
+
+## W. Subscription Lifecycle
+
+Each tenant must have a subscription record showing:
+
+* Current plan
+* Subscription start date
+* Expiry date
+* Billing cycle
+* Amount due
+* Amount paid
+* Outstanding balance
+* Grace period if any
+* Status
+
+### Subscription statuses:
+
+* Trial
+* Active
+* Pending payment
+* Overdue
+* Suspended
+* Locked
+* Cancelled
+* Expired
+
+The system must keep full subscription history for each tenant.
+
+---
+
+## X. Tenant Billing Module
+
+The Director must be able to bill tenants directly from the system.
+
+### Billing features:
+
+* Generate subscription invoices for tenants
+* Define billing cycle:
+
+  * Monthly
+  * Quarterly
+  * Semiannual
+  * Annual
+* Apply discounts, promotions, or custom charges
+* Add notes to bills
+* Track payments made by tenants
+* Track outstanding balances
+* Show due dates
+* Show overdue accounts
+* Generate reminders automatically or manually
+
+### Billing records should include:
+
+* Tenant/business name
+* Plan name
+* Billing period
+* Invoice number
+* Amount charged
+* Amount paid
+* Balance
+* Due date
+* Payment date
+* Payment status
+* Reminder status
+* Lock status
+
+---
+
+## Y. Account Locking and Enforcement
+
+The Director must be able to **lock tenant accounts** if they fail to pay.
+
+### Locking rules:
+
+* If tenant subscription becomes overdue beyond allowed grace period, account can be restricted
+* Director can manually lock/unlock tenant
+* System can auto-lock based on unpaid status if enabled
+* Locked tenants should not lose data
+* Locked tenants should see a clear notice explaining:
+
+  * their plan
+  * amount due
+  * due date
+  * grace period status
+  * how to contact support/director
+
+### While locked:
+
+The tenant may be restricted from:
+
+* Creating bookings
+* Creating invoices
+* Adding new users
+* Accessing advanced features
+* Using marketplace
+* Printing new documents
+
+The director should be able to choose one of two lock modes:
+
+1. **Soft lock**
+
+   * Tenant can log in
+   * Can view records
+   * Cannot create new operational records
+2. **Hard lock**
+
+   * Tenant account access is fully blocked except billing/support page
+
+This must be configurable.
+
+---
+
+## Z. Reminder System for Subscription Payments
+
+Tenants should receive subscription reminders.
+
+### Reminder points:
+
+* Before due date
+* On due date
+* After due date
+* During grace period
+* Before account lock
+* After account lock
+
+### Reminder channels:
+
+* In-app notifications
+* Email-ready structure for future email integration
+* Optional SMS-ready structure for future integration
+
+The reminder system should track:
+
+* reminder sent date
+* reminder type
+* tenant response
+* follow-up state
+
+---
+
+## AA. Plan Upgrade and Downgrade Logic
+
+The system must support:
+
+* Upgrade from Basic to Intermediate or Pro
+* Downgrade from Pro to Intermediate or Basic
+* Immediate or next-cycle changes
+* Proper feature recalculation after plan change
+
+### On downgrade:
+
+* Existing data must not be deleted
+* But creation of new records beyond the new plan limit must be blocked
+* Example:
+
+  * If tenant already has 12 users and downgrades to a plan allowing 5 users, old users remain, but no new user can be added until count goes below allowed limit
+
+---
+
+## AB. Feature Limit Enforcement Engine
+
+Build a reusable plan-limitation engine that checks subscription limits before allowing certain actions.
+
+### Examples:
+
+* Before adding a new employee, check allowed number of users
+* Before creating a booking, check monthly event limit
+* Before adding a new item, check item limit
+* Before creating a marketplace advert, check plan permission
+* Before generating a PDF, check whether feature exists in current plan
+
+This logic should be centralized in helper functions such as:
+
+* `canUseFeature($tenantId, $featureKey)`
+* `getPlanLimit($tenantId, $limitKey)`
+* `hasExceededLimit($tenantId, $limitKey, $currentCount)`
+
+---
+
+## AC. Director SaaS Management Dashboard
+
+The Director should have a SaaS control dashboard showing:
+
+* Total tenants
+* Active tenants
+* Pending approvals
+* Locked tenants
+* Overdue tenants
+* Revenue by plan
+* Plan distribution
+* Tenants nearing expiry
+* Most used plans
+* Trial users
+* Tenants by status
+* Feature usage by plan
+
+The Director should also be able to:
+
+* View each tenant’s subscription history
+* View payments made
+* View current plan
+* Change plan manually
+* Send reminders
+* Lock/unlock account
+* Grant temporary grace period
+* Override plan features if needed
+
+---
+
+## AD. Suggested Plan Configuration Structure
+
+Each plan should be configurable with fields like:
+
+* plan_name
+* price_monthly
+* price_quarterly
+* price_semiannual
+* price_annual
+* max_users
+* max_events_per_month
+* max_items
+* max_customers
+* max_marketplace_ads
+* has_calendar
+* has_reports
+* has_advanced_reports
+* has_marketplace
+* has_internal_messaging
+* has_ticketing
+* has_pdf_exports
+* has_broadcasts
+* has_audit_log_access
+* has_branding_customization
+* status
+
+---
+
+## AE. Additional Tables to Add
+
+Add tables such as:
+
+* `subscription_plans`
+* `subscription_plan_features`
+* `tenant_subscriptions`
+* `tenant_subscription_history`
+* `tenant_billing_invoices`
+* `tenant_billing_payments`
+* `tenant_billing_reminders`
+* `tenant_feature_overrides`
+* `tenant_account_locks`
+* `tenant_plan_usage_stats`
+
+---
+
+## AF. Final Subscription Goal
+
+The SaaS must allow the Director to:
+
+* monetize the platform properly
+* define subscription plans clearly
+* restrict or unlock features based on plan
+* bill tenants
+* track payments and arrears
+* remind defaulters
+* suspend or lock accounts when necessary
+* maintain full history and accountability
+
+And it must allow the tenant to:
+
+* know their current plan
+* see what features they have
+* know their limits
+* track expiry dates
+* receive billing reminders
+* upgrade when needed
+
+---
+
+Your system now has these major layers:
+
+1. **SaaS governance layer**
+   Director, approvals, billing, subscriptions, locks, support
+
+2. **Tenant business layer**
+   bookings, event operations, invoices, receipts, returns, workers, customers
+
+3. **Community marketplace layer**
+   tenant-to-tenant advertising, collaboration, messaging
+
+4. **Access and accountability layer**
+   RBAC, audit logs, notifications, subscription enforcement
+===============================================================================================
+
+The first thing is creating a toDo.md that has all these tasks without leaving out even a single thing then tick whats complete at each step
+
+the system default currency is ugx and time zone is Nairobi GMT +3
+

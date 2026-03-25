@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(54, 52, 51, 0.6);
+            backdrop-filter: blur(20px);
+            border: 0.5px solid rgba(80, 68, 65, 0.2);
+        }
+        .editorial-shadow {
+            box-shadow: 0px 4px 12px rgba(0,0,0, 0.04), 0px 16px 32px rgba(0,0,0, 0.08), 0px 32px 64px rgba(0,0,0, 0.12);
+        }
+        body {
+            background-color: #141312;
+            color: #e6e2df;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "error": "#ffb4ab",
+                        "tertiary": "#b1ccc9",
+                        "on-tertiary-fixed": "#061f1e",
+                        "surface-container-highest": "#363433",
+                        "secondary-fixed": "#ece0dc",
+                        "surface-bright": "#3a3938",
+                        "on-surface-variant": "#d4c3be",
+                        "on-surface": "#e6e2df",
+                        "inverse-surface": "#e6e2df",
+                        "secondary-container": "#4c4542",
+                        "primary": "#e7bdb1",
+                        "secondary": "#cfc4c0",
+                        "primary-fixed": "#ffdbd0",
+                        "on-primary-fixed": "#2c160e",
+                        "surface-tint": "#e7bdb1",
+                        "tertiary-fixed-dim": "#b1ccc9",
+                        "on-primary": "#442a22",
+                        "surface-dim": "#141312",
+                        "surface-container-lowest": "#0f0e0d",
+                        "tertiary-fixed": "#cde8e5",
+                        "inverse-on-surface": "#31302f",
+                        "outline-variant": "#504441",
+                        "surface": "#141312",
+                        "primary-fixed-dim": "#e7bdb1",
+                        "on-tertiary-fixed-variant": "#334b49",
+                        "tertiary-container": "#334b49",
+                        "error-container": "#93000a",
+                        "surface-variant": "#363433",
+                        "surface-container-high": "#2b2a29",
+                        "inverse-primary": "#77574d",
+                        "on-primary-fixed-variant": "#5d4037",
+                        "primary-container": "#5d4037",
+                        "on-secondary-fixed": "#201a18",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-container": "#bdb3af",
+                        "secondary-fixed-dim": "#cfc4c0",
+                        "surface-container-low": "#1c1b1a",
+                        "outline": "#9c8d89",
+                        "on-tertiary": "#1d3433",
+                        "on-background": "#e6e2df",
+                        "on-tertiary-container": "#a0bab7",
+                        "on-secondary": "#352f2d",
+                        "on-primary-container": "#d4ada1",
+                        "on-secondary-fixed-variant": "#4c4542",
+                        "background": "#141312",
+                        "surface-container": "#201f1e",
+                        "on-error": "#690005"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-body min-h-screen">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-stone-900/60 backdrop-blur-xl border-b border-stone-700/20 shadow-2xl shadow-stone-950/50 flex justify-between items-center px-8 py-4">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tighter text-orange-200 font-headline">TerraEvent</span>
+<div class="hidden md:flex gap-6 font-headline text-sm font-medium tracking-tight">
+<a class="text-stone-400 hover:text-stone-200 transition-all duration-300" href="#">Events</a>
+<a class="text-stone-400 hover:text-stone-200 transition-all duration-300" href="#">Analytics</a>
+<a class="text-stone-400 hover:text-stone-200 transition-all duration-300" href="#">Schedules</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-stone-400 hover:text-stone-200">notifications</button>
+<button class="material-symbols-outlined text-stone-400 hover:text-stone-200">help_outline</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="User profile" data-alt="professional portrait of a creative director in a dimly lit studio with warm ambient backlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO-GgRMEeYBPATDHhzTXz5xeKKy5hOjNNqZvTEzyGQpIMuNSCdoy_P9Ti3WcUPKaFXVBQVWfBI8SaeeKyn6rJfHwUaOLfMUe600FVuyYsZf2UI66Nmgo9rsErUeyBcNVVqMTByoGZofo8aojoLkjKIsdwZn2EXKmmgGJHCB1lzFIfj3y0Jbj-FvfxCvbUlZnG2z8tNheu1UwJSdX-_YynRQqZdpjQ_voiaKDT6zCXDTl7i24Jqq5hCBnSG9LBp8l0B8Tu9DGhKTDiO"/>
+</div>
+</div>
+</nav>
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 hidden md:flex flex-col h-screen w-64 bg-stone-950/40 backdrop-blur-2xl border-r border-stone-700/10 py-6 px-4 gap-y-2 z-40 mt-[72px]">
+<div class="mb-8 px-2">
+<div class="flex items-center gap-3 mb-1">
+<div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">layers</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-orange-200">Terra Premium</h3>
+<p class="text-[10px] uppercase tracking-widest text-stone-500">Enterprise Tier</p>
+</div>
+</div>
+</div>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 transition-transform duration-200 hover:translate-x-1 font-inter text-sm font-semibold" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 transition-transform duration-200 hover:translate-x-1 font-inter text-sm font-semibold" href="#">
+<span class="material-symbols-outlined">group</span> Team
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-stone-800/60 text-orange-200 rounded-xl shadow-inner font-inter text-sm font-semibold" href="#">
+<span class="material-symbols-outlined">payments</span> Billing
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 transition-transform duration-200 hover:translate-x-1 font-inter text-sm font-semibold" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 transition-transform duration-200 hover:translate-x-1 font-inter text-sm font-semibold" href="#">
+<span class="material-symbols-outlined">inventory_2</span> Inventory
+            </a>
+</div>
+<div class="mt-auto space-y-1">
+<button class="w-full mb-4 py-3 rounded-xl bg-gradient-to-br from-primary to-on-primary-container text-on-primary font-headline font-bold text-sm shadow-lg shadow-primary/10">Upgrade Plan</button>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 transition-transform duration-200 hover:translate-x-1 font-inter text-sm font-semibold" href="#">
+<span class="material-symbols-outlined">contact_support</span> Support
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 transition-transform duration-200 hover:translate-x-1 font-inter text-sm font-semibold" href="#">
+<span class="material-symbols-outlined">logout</span> Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="md:ml-64 pt-24 pb-16 px-8 min-h-screen bg-surface overflow-x-hidden">
+<!-- Page Header -->
+<header class="mb-12">
+<h1 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface mb-2">Subscription &amp; Billing</h1>
+<p class="text-on-surface-variant max-w-2xl">Manage your organization's financial ecosystem, track resource consumption, and explore premium scaling options.</p>
+</header>
+<!-- Warning Banner -->
+<section class="mb-10">
+<div class="flex items-center gap-4 p-4 rounded-xl bg-error-container/20 border border-error/20 glass-card">
+<span class="material-symbols-outlined text-error text-3xl">report_problem</span>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-error">Payment Pending</h4>
+<p class="text-sm text-on-surface-variant">Your last subscription renewal was unsuccessful. Please update your payment method to avoid service interruption.</p>
+</div>
+<button class="px-6 py-2 rounded-full bg-error text-on-error font-bold text-sm">Retry Now</button>
+</div>
+</section>
+<!-- Bento Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+<!-- Current Plan Card -->
+<section class="lg:col-span-2 glass-card rounded-xl p-8 editorial-shadow">
+<div class="flex justify-between items-start mb-8">
+<div>
+<span class="text-[10px] uppercase tracking-widest text-primary font-bold">Currently Active</span>
+<h2 class="font-headline text-3xl font-bold text-on-surface mt-1">Professional Plan</h2>
+<p class="text-on-surface-variant">$149 / billed monthly</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-stone-500 mb-1">Renewal Date</p>
+<p class="font-mono font-bold text-on-surface">Oct 24, 2024</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Usage 1 -->
+<div>
+<div class="flex justify-between text-sm mb-2">
+<span class="text-on-surface-variant">Monthly Bookings</span>
+<span class="font-bold text-on-surface">85 / 100</span>
+</div>
+<div class="h-2 w-full bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-on-primary-container" style="width: 85%"></div>
+</div>
+<p class="text-[10px] text-stone-500 mt-2 uppercase tracking-tighter">85% of monthly capacity reached</p>
+</div>
+<!-- Usage 2 -->
+<div>
+<div class="flex justify-between text-sm mb-2">
+<span class="text-on-surface-variant">Active Events</span>
+<span class="font-bold text-on-surface">12 / 20</span>
+</div>
+<div class="h-2 w-full bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary" style="width: 60%"></div>
+</div>
+<p class="text-[10px] text-stone-500 mt-2 uppercase tracking-tighter">60% of slot allocation used</p>
+</div>
+</div>
+</section>
+<!-- Payment Method Card -->
+<section class="glass-card rounded-xl p-8 editorial-shadow bg-gradient-to-br from-surface-container-highest to-surface-container flex flex-col justify-between overflow-hidden relative">
+<div class="relative z-10">
+<div class="flex justify-between items-center mb-12">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant">credit_card</span>
+<button class="text-xs font-bold text-primary hover:underline">Edit</button>
+</div>
+<div class="mb-8">
+<p class="text-xs text-stone-500 tracking-widest uppercase mb-1">Current Method</p>
+<h3 class="font-headline text-xl font-medium tracking-widest text-on-surface">•••• •••• •••• 8842</h3>
+</div>
+</div>
+<div class="flex justify-between items-end relative z-10">
+<div>
+<p class="text-[10px] text-stone-500 uppercase">Expiry</p>
+<p class="text-sm font-bold text-on-surface">12 / 26</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-stone-500 uppercase">Type</p>
+<p class="text-sm font-bold text-on-surface">Mastercard</p>
+</div>
+</div>
+<!-- Abstract visual element -->
+<div class="absolute -bottom-12 -right-12 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
+</section>
+</div>
+<!-- Plan Comparison -->
+<section class="mb-16">
+<h3 class="font-headline text-2xl font-bold text-on-surface mb-8">Upgrade Your Workspace</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Basic -->
+<div class="glass-card rounded-xl p-8 border-transparent hover:border-outline-variant/30 transition-all duration-300">
+<h4 class="font-headline text-lg font-bold text-stone-400">Essential</h4>
+<div class="my-6">
+<span class="text-4xl font-extrabold text-on-surface">$49</span>
+<span class="text-stone-500">/mo</span>
+</div>
+<ul class="space-y-4 mb-8">
+<li class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-stone-600 text-sm">check_circle</span>
+                            25 Bookings / Month
+                        </li>
+<li class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-stone-600 text-sm">check_circle</span>
+                            5 Active Events
+                        </li>
+</ul>
+<button class="w-full py-3 rounded-full border border-outline-variant text-sm font-bold text-on-surface hover:bg-surface-container-high transition-colors">Downgrade</button>
+</div>
+<!-- Pro (Selected) -->
+<div class="glass-card rounded-xl p-8 ring-2 ring-primary relative editorial-shadow">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary px-4 py-1 rounded-full text-[10px] font-black uppercase text-on-primary">Current Plan</div>
+<h4 class="font-headline text-lg font-bold text-primary">Professional</h4>
+<div class="my-6">
+<span class="text-4xl font-extrabold text-on-surface">$149</span>
+<span class="text-stone-500">/mo</span>
+</div>
+<ul class="space-y-4 mb-8">
+<li class="flex items-center gap-3 text-sm text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                            100 Bookings / Month
+                        </li>
+<li class="flex items-center gap-3 text-sm text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                            20 Active Events
+                        </li>
+<li class="flex items-center gap-3 text-sm text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+                            Priority Support
+                        </li>
+</ul>
+<button class="w-full py-3 rounded-full bg-surface-container-highest/50 text-stone-500 text-sm font-bold cursor-not-allowed">Active</button>
+</div>
+<!-- Enterprise -->
+<div class="glass-card rounded-xl p-8 border-transparent hover:border-outline-variant/30 transition-all duration-300">
+<h4 class="font-headline text-lg font-bold text-on-surface">Enterprise</h4>
+<div class="my-6">
+<span class="text-4xl font-extrabold text-on-surface">$399</span>
+<span class="text-stone-500">/mo</span>
+</div>
+<ul class="space-y-4 mb-8">
+<li class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-tertiary text-sm">stars</span>
+                            Unlimited Bookings
+                        </li>
+<li class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-tertiary text-sm">stars</span>
+                            Unlimited Events
+                        </li>
+<li class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-tertiary text-sm">stars</span>
+                            Custom Branding
+                        </li>
+</ul>
+<button class="w-full py-3 rounded-full bg-gradient-to-br from-primary to-on-primary-container text-on-primary text-sm font-bold shadow-lg shadow-primary/10">Scale Up</button>
+</div>
+</div>
+</section>
+<!-- Billing History -->
+<section class="glass-card rounded-xl overflow-hidden editorial-shadow">
+<div class="p-8 border-b border-stone-700/10">
+<h3 class="font-headline text-2xl font-bold text-on-surface">Billing History</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-[10px] uppercase tracking-widest text-stone-500 bg-surface-container-low/50">
+<th class="px-8 py-4 font-bold">Date</th>
+<th class="px-8 py-4 font-bold">Plan</th>
+<th class="px-8 py-4 font-bold">Amount</th>
+<th class="px-8 py-4 font-bold">Status</th>
+<th class="px-8 py-4 font-bold text-right">Action</th>
+</tr>
+</thead>
+<tbody class="text-sm divide-y divide-stone-700/5">
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-8 py-6 font-medium text-on-surface">Sep 24, 2024</td>
+<td class="px-8 py-6 text-on-surface-variant">Professional Monthly</td>
+<td class="px-8 py-6 font-mono text-on-surface">$149.00</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-bold border border-emerald-500/20">PAID</span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="material-symbols-outlined text-stone-400 hover:text-primary transition-colors">download</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-8 py-6 font-medium text-on-surface">Aug 24, 2024</td>
+<td class="px-8 py-6 text-on-surface-variant">Professional Monthly</td>
+<td class="px-8 py-6 font-mono text-on-surface">$149.00</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-bold border border-emerald-500/20">PAID</span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="material-symbols-outlined text-stone-400 hover:text-primary transition-colors">download</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-8 py-6 font-medium text-on-surface">Jul 24, 2024</td>
+<td class="px-8 py-6 text-on-surface-variant">Professional Monthly</td>
+<td class="px-8 py-6 font-mono text-on-surface">$149.00</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-bold border border-emerald-500/20">PAID</span>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="material-symbols-outlined text-stone-400 hover:text-primary transition-colors">download</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-surface-container-low/50 text-center">
+<button class="text-xs font-bold text-stone-500 hover:text-on-surface transition-colors">View All Statements</button>
+</div>
+</section>
+</main>
+<!-- Floating Action for Contextual Help (FAB Suppression: Suppression ignored if purely for help/support in dashboard contexts) -->
+<!-- Not rendering FAB on billing/settings as per "Contextual FAB Suppression" rule. -->
+</body></html>

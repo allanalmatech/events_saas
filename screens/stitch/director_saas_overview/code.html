@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Terra Event | Director Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "background": "#141312",
+              "on-primary-container": "#d4ada1",
+              "primary": "#e7bdb1",
+              "secondary-fixed-dim": "#cfc4c0",
+              "surface-container-highest": "#363433",
+              "surface-tint": "#e7bdb1",
+              "surface-container-high": "#2b2a29",
+              "primary-fixed-dim": "#e7bdb1",
+              "inverse-primary": "#77574d",
+              "surface-dim": "#141312",
+              "tertiary-fixed": "#cde8e5",
+              "on-surface-variant": "#d4c3be",
+              "surface-container-lowest": "#0f0e0d",
+              "tertiary": "#b1ccc9",
+              "secondary": "#cfc4c0",
+              "secondary-container": "#4c4542",
+              "surface-container": "#201f1e",
+              "on-primary": "#442a22",
+              "tertiary-container": "#334b49",
+              "on-secondary-fixed-variant": "#4c4542",
+              "surface": "#141312",
+              "on-background": "#e6e2df",
+              "on-error": "#690005",
+              "on-tertiary": "#1d3433",
+              "on-tertiary-fixed-variant": "#334b49",
+              "on-secondary": "#352f2d",
+              "error": "#ffb4ab",
+              "on-secondary-container": "#bdb3af",
+              "surface-bright": "#3a3938",
+              "on-surface": "#e6e2df",
+              "primary-container": "#5d4037",
+              "on-tertiary-container": "#a0bab7",
+              "tertiary-fixed-dim": "#b1ccc9",
+              "secondary-fixed": "#ece0dc",
+              "on-error-container": "#ffdad6",
+              "on-secondary-fixed": "#201a18",
+              "on-tertiary-fixed": "#061f1e",
+              "on-primary-fixed": "#2c160e",
+              "outline-variant": "#504441",
+              "on-primary-fixed-variant": "#5d4037",
+              "error-container": "#93000a",
+              "inverse-surface": "#e6e2df",
+              "outline": "#9c8d89",
+              "inverse-on-surface": "#31302f",
+              "primary-fixed": "#ffdbd0",
+              "surface-variant": "#363433",
+              "surface-container-low": "#1c1b1a"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(54, 52, 51, 0.4);
+            backdrop-filter: blur(16px);
+            border: 0.5px solid rgba(80, 68, 65, 0.2);
+        }
+        .editorial-gradient {
+            background: linear-gradient(135deg, #e7bdb1 0%, #d4ada1 100%);
+        }
+        body {
+            background-color: #141312;
+            color: #e6e2df;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-4 z-40 h-screen w-64 border-r border-stone-800/20 bg-stone-950/60 backdrop-blur-xl shadow-2xl shadow-stone-950/50 font-['Plus_Jakarta_Sans'] text-sm tracking-wide">
+<div class="flex items-center gap-3 px-4 py-6 mb-8">
+<div class="w-10 h-10 rounded-xl editorial-gradient flex items-center justify-center shadow-lg shadow-[#5D4037]/20">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">diamond</span>
+</div>
+<div>
+<h1 class="text-xl font-bold text-[#E7BDB1] tracking-tight">Terra Event</h1>
+<p class="text-[10px] uppercase tracking-widest text-stone-500 font-semibold">Premium Hire Services</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-[#5D4037] text-white rounded-2xl shadow-lg shadow-[#5D4037]/20 transition-all scale-95 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-400 hover:text-stone-200 hover:bg-stone-800/40 rounded-2xl transition-all hover:backdrop-blur-2xl duration-300" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-400 hover:text-stone-200 hover:bg-stone-800/40 rounded-2xl transition-all hover:backdrop-blur-2xl duration-300" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span>Bookings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-400 hover:text-stone-200 hover:bg-stone-800/40 rounded-2xl transition-all hover:backdrop-blur-2xl duration-300" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Clients</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-400 hover:text-stone-200 hover:bg-stone-800/40 rounded-2xl transition-all hover:backdrop-blur-2xl duration-300" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span>Finances</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-400 hover:text-stone-200 hover:bg-stone-800/40 rounded-2xl transition-all hover:backdrop-blur-2xl duration-300" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-400 hover:text-stone-200 hover:bg-stone-800/40 rounded-2xl transition-all hover:backdrop-blur-2xl duration-300" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span>Marketplace</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-400 hover:text-stone-200 hover:bg-stone-800/40 rounded-2xl transition-all hover:backdrop-blur-2xl duration-300" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-stone-800/20">
+<button class="w-full editorial-gradient text-on-primary font-bold py-4 rounded-2xl shadow-xl shadow-stone-950/40 flex items-center justify-center gap-2 transition-transform hover:scale-[1.02] active:scale-95">
+<span class="material-symbols-outlined text-xl">add_circle</span>
+                New Booking
+            </button>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="sticky top-0 right-0 flex justify-between items-center px-8 z-30 ml-64 w-[calc(100%-16rem)] h-20 bg-stone-950/40 backdrop-blur-md font-['Plus_Jakarta_Sans'] font-medium">
+<div class="flex items-center gap-8">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-500 group-focus-within:text-primary">search</span>
+<input class="bg-surface-container-lowest border-0 rounded-full py-2 pl-10 pr-4 text-sm w-64 focus:ring-2 focus:ring-[#5D4037]/30 text-on-surface placeholder-stone-600 transition-all" placeholder="Search analytics..." type="text"/>
+</div>
+<nav class="flex gap-8">
+<a class="text-[#E7BDB1] border-b-2 border-[#E7BDB1] pb-2 transition-colors" href="#">Overview</a>
+<a class="text-stone-400 hover:text-[#E7BDB1] transition-colors" href="#">Schedule</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center text-stone-400 hover:bg-stone-800/30 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center text-stone-400 hover:bg-stone-800/30 rounded-full transition-colors">
+<span class="material-symbols-outlined">dark_mode</span>
+</button>
+</div>
+<div class="h-8 w-px bg-stone-800/30 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs font-bold text-on-surface leading-none">Julian Vane</p>
+<p class="text-[10px] text-stone-500 uppercase tracking-tighter">Director</p>
+</div>
+<img class="w-10 h-10 rounded-xl object-cover ring-2 ring-stone-800/50" data-alt="Close-up portrait of a professional male executive in a tailored dark suit with soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx1Vp_2Y-Xyw2GNolBRKSvC_yXqfu8Mxxm85eDa6g6OamERQD9pY3yG4SKuveAr3nvmZKv4NP7xfdARWc152kfvst5DAG7djkfcG0bkcXq6UVFE0lIdMFnIux-WECK_5_4eWxrp7ORa2ieHU0oGAFx4yAJWU1Kiw6EVEIUyhy4P9I-W2lGaNTadVKJn7Dg0Ii9r-CDvJABbmpEJfDLk2TyUZ9xU7O4wngp4ZhoGdQuSuHzyhWoW5CYDPCyIc8hnz--I18EHBfKbsIe"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 p-8 min-h-screen">
+<!-- Dashboard Header -->
+<div class="mb-10 flex justify-between items-end">
+<div>
+<h2 class="font-headline text-4xl font-extrabold text-on-surface tracking-tight mb-2">Director's Overview</h2>
+<p class="text-stone-400 max-w-lg">Welcome back. Here is the latest performance data for your tenant network and recurring revenue streams.</p>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-3 glass-card rounded-2xl text-on-surface flex items-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-xl">download</span>
+                    Export Report
+                </button>
+<button class="px-6 py-3 editorial-gradient rounded-2xl text-on-primary font-bold shadow-lg shadow-primary/10 hover:scale-105 transition-transform">
+                    Global Settings
+                </button>
+</div>
+</div>
+<!-- KPI Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+<!-- KPI 1 -->
+<div class="glass-card p-8 rounded-xl flex flex-col justify-between h-48 group hover:scale-[1.02] transition-all duration-300">
+<div class="flex justify-between items-start">
+<span class="text-stone-500 font-label uppercase tracking-widest text-xs font-bold">Total Tenants</span>
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">location_city</span>
+</div>
+</div>
+<div>
+<h3 class="text-3xl font-headline font-bold text-on-surface">1,482</h3>
+<p class="text-sm text-stone-500 mt-1 flex items-center gap-1">
+<span class="text-emerald-400 font-bold">+12%</span> from last month
+                    </p>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="glass-card p-8 rounded-xl flex flex-col justify-between h-48 group hover:scale-[1.02] transition-all duration-300">
+<div class="flex justify-between items-start">
+<span class="text-stone-500 font-label uppercase tracking-widest text-xs font-bold">Active Tenants</span>
+<div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+</div>
+<div>
+<h3 class="text-3xl font-headline font-bold text-on-surface">1,240</h3>
+<div class="w-full bg-stone-800 h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-tertiary h-full w-[84%]"></div>
+</div>
+<p class="text-[10px] text-stone-500 mt-2 uppercase tracking-widest">84% Engagement Rate</p>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="glass-card p-8 rounded-xl flex flex-col justify-between h-48 group hover:scale-[1.02] transition-all duration-300">
+<div class="flex justify-between items-start">
+<span class="text-stone-500 font-label uppercase tracking-widest text-xs font-bold">Overdue Payments</span>
+<div class="w-10 h-10 rounded-lg bg-error/10 flex items-center justify-center text-error group-hover:bg-error group-hover:text-on-error transition-colors">
+<span class="material-symbols-outlined">warning</span>
+</div>
+</div>
+<div>
+<h3 class="text-3xl font-headline font-bold text-on-surface">14</h3>
+<p class="text-sm text-stone-500 mt-1 flex items-center gap-1">
+                        Totaling <span class="text-error font-bold">$12.4k</span>
+</p>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="glass-card p-8 rounded-xl flex flex-col justify-between h-48 border-primary/20 bg-primary/5 hover:scale-[1.02] transition-all duration-300">
+<div class="flex justify-between items-start">
+<span class="text-stone-500 font-label uppercase tracking-widest text-xs font-bold">Monthly MRR</span>
+<div class="w-10 h-10 rounded-lg editorial-gradient flex items-center justify-center text-on-primary shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">payments</span>
+</div>
+</div>
+<div>
+<h3 class="text-3xl font-headline font-bold text-on-surface">$284.9k</h3>
+<p class="text-sm text-stone-500 mt-1 flex items-center gap-1">
+<span class="text-emerald-400 font-bold">+$22k</span> current month
+                    </p>
+</div>
+</div>
+</section>
+<!-- Charts Section -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12">
+<!-- Revenue Trends (Area Chart Visual) -->
+<div class="lg:col-span-8 glass-card rounded-xl p-8 h-[400px] flex flex-col">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h4 class="text-xl font-headline font-bold">Revenue Growth</h4>
+<p class="text-xs text-stone-500">Global performance across all plan types</p>
+</div>
+<div class="flex bg-surface-container-lowest rounded-xl p-1">
+<button class="px-4 py-1 text-xs bg-surface-container-high rounded-lg text-on-surface">12M</button>
+<button class="px-4 py-1 text-xs text-stone-500 hover:text-on-surface transition-colors">6M</button>
+<button class="px-4 py-1 text-xs text-stone-500 hover:text-on-surface transition-colors">30D</button>
+</div>
+</div>
+<div class="flex-1 relative">
+<!-- Placeholder for Area Chart -->
+<div class="absolute inset-0 flex items-end justify-between gap-4 px-2">
+<div class="w-full bg-primary/20 rounded-t-lg relative" style="height: 40%;"></div>
+<div class="w-full bg-primary/25 rounded-t-lg relative" style="height: 55%;"></div>
+<div class="w-full bg-primary/30 rounded-t-lg relative" style="height: 45%;"></div>
+<div class="w-full bg-primary/35 rounded-t-lg relative" style="height: 60%;"></div>
+<div class="w-full bg-primary/40 rounded-t-lg relative" style="height: 75%;"></div>
+<div class="w-full bg-primary/50 rounded-t-lg relative" style="height: 65%;"></div>
+<div class="w-full bg-primary/60 rounded-t-lg relative" style="height: 85%;"></div>
+<div class="w-full bg-primary/70 rounded-t-lg relative border-t-2 border-primary" style="height: 95%;"></div>
+</div>
+<!-- Chart Lines -->
+<div class="absolute left-0 w-full h-px bg-stone-800/50" style="bottom: 25%;"></div>
+<div class="absolute left-0 w-full h-px bg-stone-800/50" style="bottom: 50%;"></div>
+<div class="absolute left-0 w-full h-px bg-stone-800/50" style="bottom: 75%;"></div>
+</div>
+</div>
+<!-- Plan Distribution (Donut Visual) -->
+<div class="lg:col-span-4 glass-card rounded-xl p-8 h-[400px] flex flex-col">
+<h4 class="text-xl font-headline font-bold mb-8 text-center">Plan Distribution</h4>
+<div class="flex-1 flex flex-col items-center justify-center relative">
+<div class="w-48 h-48 rounded-full border-[16px] border-stone-800 flex items-center justify-center relative">
+<!-- Simulated Segments -->
+<div class="absolute inset-[-16px] rounded-full border-[16px] border-transparent border-t-primary border-r-primary rotate-[30deg]"></div>
+<div class="absolute inset-[-16px] rounded-full border-[16px] border-transparent border-l-secondary-fixed-dim rotate-[-45deg]"></div>
+<div class="text-center">
+<span class="text-3xl font-bold font-headline">1,482</span>
+<p class="text-[10px] text-stone-500 uppercase tracking-widest">Total Active</p>
+</div>
+</div>
+</div>
+<div class="space-y-3 mt-6">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-sm">Pro Edition</span>
+</div>
+<span class="text-sm font-bold">42%</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-secondary-fixed-dim"></div>
+<span class="text-sm">Intermediate</span>
+</div>
+<span class="text-sm font-bold">38%</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-stone-700"></div>
+<span class="text-sm">Basic</span>
+</div>
+<span class="text-sm font-bold">20%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Recently Onboarded Tenants Table -->
+<section class="glass-card rounded-xl overflow-hidden mb-12">
+<div class="p-8 border-b border-stone-800/20 flex justify-between items-center">
+<h4 class="text-xl font-headline font-bold">Recently Onboarded Tenants</h4>
+<a class="text-primary text-sm font-bold flex items-center gap-1 hover:underline" href="#">
+                    View all tenants <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-stone-500 font-label uppercase text-[10px] tracking-widest">
+<tr>
+<th class="px-8 py-4 font-bold">Tenant Name</th>
+<th class="px-8 py-4 font-bold">Subscription Plan</th>
+<th class="px-8 py-4 font-bold">Join Date</th>
+<th class="px-8 py-4 font-bold">Onboarding Status</th>
+<th class="px-8 py-4 font-bold"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-stone-800/20">
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-stone-800 flex items-center justify-center overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="Corporate minimalist logo icon for a technology company with geometric shapes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ_RAVKuMDZ7S2lAyo521hzZelDOsN0-Pn27UA10RC_OkOoqe03ZtryEdkCreua_5SY8pRP3fz_M3VOQ5_wC47RV3ZqpwAuFzKKJpdKk1SMNvKTb_XHduC6dbH0dx6W0aCGZkxKnWFtSO6XBkgYBR0Afm4zJIQQ8Q4Fjk5c2wjEnu3Uxo6vN-l6Z0ngCozAFkGirNjbVYk6zayGao0HOZPoC-02l8RXVVyM-viaslNyevnE4CEWfZZLEsC7SaGARpflt01-gYU8xSU"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Vanguard Logistics</p>
+<p class="text-xs text-stone-500">vanguard.terra.io</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded-full uppercase tracking-tighter ring-1 ring-primary/20">Enterprise Pro</span>
+</td>
+<td class="px-8 py-6 text-sm text-stone-400">Oct 12, 2023</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+<span class="text-sm font-medium">Active</span>
+</div>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="text-stone-500 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-stone-800 flex items-center justify-center overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="Modern abstract brand mark for a marketing agency with clean lines and soft earth tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRx6p_t01mjhPCEpD3_w8DVrrs0lterwHPYNd-22sK4zX9y6TvSVgAvTzeeoTvqKolFhAubnRBAOzaYceLe5XLnIyCHnYHYBpsdtfwUn0Uw36dDZsa1tKG7w7oHrcPKdhvQ1p3dtxJQo0jylLu0n0NWXcc4k0ucQA8LlisluolmSfav2o9RNwxbMnfe1fE1Y-a4yV3HrmbGwxO88O88pJMVjkbLoGhoQM3BYE3epEPeIhWXNdMlOBd9seFQlD0UGpA4WExTKMINoT3"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Lumina Creative</p>
+<p class="text-xs text-stone-500">lumina.creative.app</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 bg-stone-800 text-stone-400 text-[10px] font-bold rounded-full uppercase tracking-tighter ring-1 ring-stone-700">Starter</span>
+</td>
+<td class="px-8 py-6 text-sm text-stone-400">Oct 10, 2023</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></div>
+<span class="text-sm font-medium">Pending Setup</span>
+</div>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="text-stone-500 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/50 transition-colors">
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-stone-800 flex items-center justify-center overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="Luxury lifestyle brand emblem with elegant serif typography and muted gold accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5gycRmUJEbwpk4cHFRn73Hq9baFdwByCxz7N-bW_yj2m8VodNl9rg3xMh6UGGUS_RRapT7zAOxpY4uyx1suGWA8JyEyU4qobVy65s1fCLXPnKOM6wAtB5H8OzF4xkpX29XDR9EydxNg4RqOqr6ZG091pgKvwzLsivqOwga3Y31NIICXRMlTdsi-6nnFxYc108nJcIxSjXaWwS1kMqmLK6KULSQ8aey8pCc6F5OoOZYV1TBZ_5IMz3H35_Qh4sOsQYEmqCNwKx10fB"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Aura Hospitality</p>
+<p class="text-xs text-stone-500">aura-events.cloud</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="px-3 py-1 bg-secondary-container/50 text-secondary text-[10px] font-bold rounded-full uppercase tracking-tighter ring-1 ring-secondary/20">Intermediate</span>
+</td>
+<td class="px-8 py-6 text-sm text-stone-400">Oct 08, 2023</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+<span class="text-sm font-medium">Active</span>
+</div>
+</td>
+<td class="px-8 py-6 text-right">
+<button class="text-stone-500 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Visual Footer / Asymmetric Detail -->
+<footer class="flex justify-between items-center py-8 border-t border-stone-800/10 text-stone-600 text-[10px] uppercase tracking-[0.2em] font-bold">
+<p>© 2024 Terra Event Systems. Internal SaaS Admin Node: 771-DV.</p>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-colors" href="#">Compliance</a>
+<a class="hover:text-primary transition-colors" href="#">Security</a>
+<a class="hover:text-primary transition-colors" href="#">Audit Log</a>
+</div>
+</footer>
+</main>
+</body></html>

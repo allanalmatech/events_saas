@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Returns Management | EventGlass Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #141312;
+            color: #e6e2df;
+            -webkit-font-smoothing: antialiased;
+        }
+        .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-panel {
+            background: rgba(54, 52, 51, 0.6);
+            backdrop-filter: blur(20px);
+            border: 0.5px solid rgba(80, 68, 65, 0.2);
+        }
+        .ghost-border {
+            border: 0.5px solid rgba(80, 68, 65, 0.15);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #504441;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-high": "#2b2a29",
+                        "surface": "#141312",
+                        "secondary-fixed": "#ece0dc",
+                        "surface-container-lowest": "#0f0e0d",
+                        "on-primary-fixed": "#2c160e",
+                        "on-primary-fixed-variant": "#5d4037",
+                        "surface-container-low": "#1c1b1a",
+                        "inverse-primary": "#77574d",
+                        "surface-container-highest": "#363433",
+                        "tertiary-fixed": "#cde8e5",
+                        "primary-fixed-dim": "#e7bdb1",
+                        "surface-tint": "#e7bdb1",
+                        "inverse-on-surface": "#31302f",
+                        "tertiary-fixed-dim": "#b1ccc9",
+                        "outline": "#9c8d89",
+                        "on-primary-container": "#d4ada1",
+                        "tertiary": "#b1ccc9",
+                        "on-tertiary": "#1d3433",
+                        "primary": "#e7bdb1",
+                        "surface-bright": "#3a3938",
+                        "inverse-surface": "#e6e2df",
+                        "on-tertiary-fixed-variant": "#334b49",
+                        "on-tertiary-fixed": "#061f1e",
+                        "surface-container": "#201f1e",
+                        "on-surface-variant": "#d4c3be",
+                        "on-secondary": "#352f2d",
+                        "on-secondary-fixed-variant": "#4c4542",
+                        "on-secondary-fixed": "#201a18",
+                        "background": "#141312",
+                        "outline-variant": "#504441",
+                        "on-background": "#e6e2df",
+                        "secondary-fixed-dim": "#cfc4c0",
+                        "primary-container": "#5d4037",
+                        "on-surface": "#e6e2df",
+                        "surface-variant": "#363433",
+                        "on-error": "#690005",
+                        "primary-fixed": "#ffdbd0",
+                        "secondary": "#cfc4c0",
+                        "on-tertiary-container": "#a0bab7",
+                        "on-secondary-container": "#bdb3af",
+                        "secondary-container": "#4c4542",
+                        "error-container": "#93000a",
+                        "error": "#ffb4ab",
+                        "surface-dim": "#141312",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-container": "#334b49",
+                        "on-primary": "#442a22"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex overflow-hidden">
+<!-- SideNavBar (Authority Source: JSON) -->
+<aside class="hidden lg:flex flex-col h-full sticky left-0 top-0 p-6 space-y-4 bg-stone-900/40 backdrop-blur-2xl h-screen w-64 border-r border-stone-800/20 rounded-r-[24px] z-50">
+<div class="mb-8 px-4">
+<h1 class="text-xl font-bold text-orange-200 font-headline tracking-tight">EventGlass Pro</h1>
+<p class="text-[10px] uppercase tracking-widest text-stone-500 font-medium">Premium Management</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="text-stone-400 hover:text-stone-200 px-4 py-3 flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="text-stone-400 hover:text-stone-200 px-4 py-3 flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">event_seat</span>
+<span class="text-sm">Equipment Hire</span>
+</a>
+<a class="text-stone-400 hover:text-stone-200 px-4 py-3 flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">group_add</span>
+<span class="text-sm">Worker Teams</span>
+</a>
+<!-- Active State: Returns Log -->
+<a class="bg-stone-800/60 text-orange-200 font-medium rounded-xl px-4 py-3 flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">assignment_return</span>
+<span class="text-sm">Returns Log</span>
+</a>
+<a class="text-stone-400 hover:text-stone-200 px-4 py-3 flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+<span class="text-sm">Payments</span>
+</a>
+<a class="text-stone-400 hover:text-stone-200 px-4 py-3 flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+</nav>
+<button class="mt-auto w-full bg-gradient-to-br from-primary to-on-primary-container text-on-primary font-semibold py-3 px-4 rounded-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+<span>New Booking</span>
+</button>
+</aside>
+<main class="flex-1 flex flex-col relative overflow-hidden">
+<!-- TopNavBar (Authority Source: JSON) -->
+<header class="flex justify-between items-center w-full px-8 py-4 z-40 bg-stone-950/60 backdrop-blur-xl sticky top-0 border-b border-stone-800/20">
+<div class="flex items-center gap-8">
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-stone-400 hover:text-stone-200 transition-colors text-sm font-medium" href="#">Inventory</a>
+<a class="text-stone-400 hover:text-stone-200 transition-colors text-sm font-medium" href="#">Schedule</a>
+<a class="text-orange-200 border-b-2 border-orange-200 pb-1 text-sm font-medium" href="#">Returns</a>
+<a class="text-stone-400 hover:text-stone-200 transition-colors text-sm font-medium" href="#">Finances</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-500 text-lg">search</span>
+<input class="bg-stone-900/40 border-none rounded-full pl-10 pr-4 py-2 text-sm text-on-surface focus:ring-1 focus:ring-primary/30 w-64 transition-all" placeholder="Search booking ID..." type="text"/>
+</div>
+<button class="p-2 rounded-full hover:bg-stone-800/40 text-stone-400 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-stone-700">
+<img alt="Account" data-alt="professional male portrait for user profile avatar in dark aesthetic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrhdM1kgHB4jQn16tFdmir4VFcHg06o2hlnfOjtoVsc4Q3GiytD605L31n5_EdxvZf68vtCLqFUVym92phlxKqBQkrpfIVgl8DIBeAZuLiZUZcqU5MLX3TzyX_Yspvrx7empYagIewkrm1N4Dzp2TyhYNHEYKvCxAXzakw3k5wC6OfTuEgBeIAmoyktyUeDXE7l8_3H9VKsHgKLkWL5HGoaPVA95SNIvejCoZdnyIileZAlL4E9JAH1NnjyWvmpWbGdU5A2edUDdUc"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="flex-1 p-8 flex gap-8 overflow-hidden">
+<!-- Left: Returns Table -->
+<div class="flex-[1.5] flex flex-col space-y-6 overflow-hidden">
+<div class="flex justify-between items-end">
+<div>
+<h2 class="text-4xl font-headline font-bold text-on-surface tracking-tight">Returns Log</h2>
+<p class="text-stone-400 mt-1">Manage equipment re-entry and condition reports</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 glass-panel rounded-full text-xs font-semibold text-stone-300 hover:bg-stone-800/60 transition-all">Export Report</button>
+<button class="px-4 py-2 bg-surface-container-highest rounded-full text-xs font-semibold text-primary hover:bg-surface-container-high transition-all">Filter: All Status</button>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-xl overflow-hidden flex-1 flex flex-col shadow-2xl ghost-border">
+<div class="overflow-y-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-surface-container-low/95 backdrop-blur-md z-10">
+<tr>
+<th class="px-6 py-4 text-[11px] font-semibold text-stone-500 uppercase tracking-widest border-b border-stone-800/20">Booking ID</th>
+<th class="px-6 py-4 text-[11px] font-semibold text-stone-500 uppercase tracking-widest border-b border-stone-800/20">Event Name</th>
+<th class="px-6 py-4 text-[11px] font-semibold text-stone-500 uppercase tracking-widest border-b border-stone-800/20">Client</th>
+<th class="px-6 py-4 text-[11px] font-semibold text-stone-500 uppercase tracking-widest border-b border-stone-800/20">Status</th>
+<th class="px-6 py-4 text-[11px] font-semibold text-stone-500 uppercase tracking-widest border-b border-stone-800/20">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-stone-800/10">
+<!-- Row 1 -->
+<tr class="hover:bg-stone-800/20 transition-colors group cursor-pointer">
+<td class="px-6 py-5 font-mono text-sm text-primary">#BK-9421</td>
+<td class="px-6 py-5">
+<div class="text-sm font-medium">Luxe Garden Gala</div>
+<div class="text-xs text-stone-500 italic">224 Items</div>
+</td>
+<td class="px-6 py-5 text-sm text-stone-300">Vanguard Media</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-400">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                            Complete
+                                        </span>
+</td>
+<td class="px-6 py-5">
+<button class="text-stone-500 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 (Active/Highlighted) -->
+<tr class="bg-stone-800/30 transition-colors group cursor-pointer">
+<td class="px-6 py-5 font-mono text-sm text-primary">#BK-8850</td>
+<td class="px-6 py-5">
+<div class="text-sm font-medium">Urban Tech Summit</div>
+<div class="text-xs text-stone-500 italic">1,402 Items</div>
+</td>
+<td class="px-6 py-5 text-sm text-stone-300">Cyberdyne Systems</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-orange-500/10 text-orange-400">
+<span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span>
+                                            Partial
+                                        </span>
+</td>
+<td class="px-6 py-5">
+<button class="text-primary">
+<span class="material-symbols-outlined">arrow_forward_ios</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-stone-800/20 transition-colors group cursor-pointer">
+<td class="px-6 py-5 font-mono text-sm text-primary">#BK-9003</td>
+<td class="px-6 py-5">
+<div class="text-sm font-medium">Riverside Wedding</div>
+<div class="text-xs text-stone-500 italic">85 Items</div>
+</td>
+<td class="px-6 py-5 text-sm text-stone-300">Elena Richardson</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-stone-700/30 text-stone-400">
+<span class="w-1.5 h-1.5 rounded-full bg-stone-500"></span>
+                                            Pending
+                                        </span>
+</td>
+<td class="px-6 py-5">
+<button class="text-stone-500 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-stone-800/20 transition-colors group cursor-pointer">
+<td class="px-6 py-5 font-mono text-sm text-primary">#BK-7712</td>
+<td class="px-6 py-5">
+<div class="text-sm font-medium">Skyline VIP Lounge</div>
+<div class="text-xs text-stone-500 italic">412 Items</div>
+</td>
+<td class="px-6 py-5 text-sm text-stone-300">Global Hospitality</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-400">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                            Complete
+                                        </span>
+</td>
+<td class="px-6 py-5">
+<button class="text-stone-500 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right: Assessment Panel -->
+<div class="flex-1 max-w-md flex flex-col space-y-6 overflow-hidden">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<h3 class="text-xl font-headline font-semibold">Damage Assessment</h3>
+</div>
+<div class="glass-panel rounded-xl p-6 flex-1 flex flex-col space-y-6 shadow-xl ghost-border">
+<div class="flex items-start justify-between">
+<div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-orange-200/60">Processing Return</span>
+<h4 class="text-lg font-bold">#BK-8850 Details</h4>
+</div>
+<span class="px-2 py-1 bg-stone-800 text-[10px] rounded text-stone-400 font-mono">14-OCT-2023</span>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container rounded-lg p-4 space-y-3 ghost-border">
+<div class="flex justify-between items-center">
+<span class="text-xs font-medium text-stone-300">Crystal Glassware (Lrg)</span>
+<span class="text-xs font-bold text-error">Missing (12)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs text-stone-500">Unit Replacement: $14.50</span>
+<span class="text-xs font-mono font-bold">$174.00</span>
+</div>
+</div>
+<div class="bg-surface-container rounded-lg p-4 space-y-3 ghost-border">
+<div class="flex justify-between items-center">
+<span class="text-xs font-medium text-stone-300">Silk Drapes - Ivory</span>
+<span class="text-xs font-bold text-orange-400">Damaged (2)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs text-stone-500">Repair Assessment</span>
+<span class="text-xs font-mono font-bold">$85.00</span>
+</div>
+<div class="pt-2 border-t border-stone-700/30">
+<p class="text-[10px] text-stone-500">Note: Red wine stains on lower hem. Professional restoration required.</p>
+</div>
+</div>
+</div>
+<div class="mt-auto space-y-4">
+<div class="flex justify-between items-end border-t border-stone-800 pt-4">
+<span class="text-sm font-medium text-stone-400">Total Liability Fee</span>
+<span class="text-2xl font-headline font-bold text-primary">$259.00</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<button class="py-3 px-4 glass-panel rounded-xl text-xs font-semibold hover:bg-stone-800 transition-all">Save Draft</button>
+<button class="py-3 px-4 bg-gradient-to-br from-primary to-on-primary-container text-on-primary rounded-xl text-xs font-bold shadow-lg shadow-primary/10 active:scale-95 transition-all">Submit Charge</button>
+</div>
+<p class="text-[10px] text-center text-stone-600">This will automatically generate a PDF invoice for Cyberdyne Systems.</p>
+</div>
+</div>
+<!-- Contextual Secondary Stat -->
+<div class="bg-surface-container-low p-4 rounded-xl border border-stone-800/30 flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-orange-400/10 flex items-center justify-center text-orange-400">
+<span class="material-symbols-outlined">history_edu</span>
+</div>
+<div>
+<div class="text-[10px] text-stone-500 font-bold uppercase tracking-tighter">Client History</div>
+<div class="text-sm font-medium">3 previous damage reports</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Navigation Shell (Authority Source: JSON & Responsive Pivot) -->
+<nav class="md:hidden fixed bottom-6 left-6 right-6 h-16 glass-panel rounded-full flex items-center justify-around px-6 z-50 border-t-0 shadow-2xl">
+<button class="text-stone-400"><span class="material-symbols-outlined">dashboard</span></button>
+<button class="text-stone-400"><span class="material-symbols-outlined">event_seat</span></button>
+<button class="text-primary scale-110"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment_return</span></button>
+<button class="text-stone-400"><span class="material-symbols-outlined">payments</span></button>
+<button class="text-stone-400"><span class="material-symbols-outlined">account_circle</span></button>
+</nav>
+</body></html>

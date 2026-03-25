@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Inventory Management | Terra Event</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "background": "#141312",
+              "on-primary-container": "#d4ada1",
+              "primary": "#e7bdb1",
+              "secondary-fixed-dim": "#cfc4c0",
+              "surface-container-highest": "#363433",
+              "surface-tint": "#e7bdb1",
+              "surface-container-high": "#2b2a29",
+              "primary-fixed-dim": "#e7bdb1",
+              "inverse-primary": "#77574d",
+              "surface-dim": "#141312",
+              "tertiary-fixed": "#cde8e5",
+              "on-surface-variant": "#d4c3be",
+              "surface-container-lowest": "#0f0e0d",
+              "tertiary": "#b1ccc9",
+              "secondary": "#cfc4c0",
+              "secondary-container": "#4c4542",
+              "surface-container": "#201f1e",
+              "on-primary": "#442a22",
+              "tertiary-container": "#334b49",
+              "on-secondary-fixed-variant": "#4c4542",
+              "surface": "#141312",
+              "on-background": "#e6e2df",
+              "on-error": "#690005",
+              "on-tertiary": "#1d3433",
+              "on-tertiary-fixed-variant": "#334b49",
+              "on-secondary": "#352f2d",
+              "error": "#ffb4ab",
+              "on-secondary-container": "#bdb3af",
+              "surface-bright": "#3a3938",
+              "on-surface": "#e6e2df",
+              "primary-container": "#5d4037",
+              "on-tertiary-container": "#a0bab7",
+              "tertiary-fixed-dim": "#b1ccc9",
+              "secondary-fixed": "#ece0dc",
+              "on-error-container": "#ffdad6",
+              "on-secondary-fixed": "#201a18",
+              "on-tertiary-fixed": "#061f1e",
+              "on-primary-fixed": "#2c160e",
+              "outline-variant": "#504441",
+              "on-primary-fixed-variant": "#5d4037",
+              "error-container": "#93000a",
+              "inverse-surface": "#e6e2df",
+              "outline": "#9c8d89",
+              "inverse-on-surface": "#31302f",
+              "primary-fixed": "#ffdbd0",
+              "surface-variant": "#363433",
+              "surface-container-low": "#1c1b1a"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(54, 52, 51, 0.4);
+            backdrop-filter: blur(20px);
+            border: 0.5px solid rgba(80, 68, 65, 0.15);
+        }
+        .shimmer-border {
+            border: 0.5px solid rgba(156, 141, 137, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-64 flex flex-col p-4 z-40 bg-stone-950/60 backdrop-blur-xl border-r border-stone-800/20 shadow-2xl shadow-stone-950/50">
+<div class="flex flex-col gap-1 mb-10 px-4">
+<h1 class="text-xl font-bold text-[#E7BDB1] tracking-tight font-headline">Terra Event</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-stone-500 font-label">Premium Hire Services</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-400 hover:text-stone-200 hover:bg-stone-800/40 rounded-2xl transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide">Dashboard</span>
+</a>
+<!-- Active State: Inventory -->
+<a class="flex items-center gap-3 px-4 py-3 bg-[#5D4037] text-white rounded-2xl shadow-lg shadow-[#5D4037]/20 transition-all scale-95 duration-200" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-400 hover:text-stone-200 hover:bg-stone-800/40 rounded-2xl transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined text-xl">calendar_today</span>
+<span class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide">Bookings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-400 hover:text-stone-200 hover:bg-stone-800/40 rounded-2xl transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined text-xl">group</span>
+<span class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide">Clients</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-400 hover:text-stone-200 hover:bg-stone-800/40 rounded-2xl transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined text-xl">payments</span>
+<span class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide">Finances</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-400 hover:text-stone-200 hover:bg-stone-800/40 rounded-2xl transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined text-xl">analytics</span>
+<span class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-400 hover:text-stone-200 hover:bg-stone-800/40 rounded-2xl transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined text-xl">storefront</span>
+<span class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide">Marketplace</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-400 hover:text-stone-200 hover:bg-stone-800/40 rounded-2xl transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide">Settings</span>
+</a>
+</nav>
+<div class="mt-auto p-4">
+<button class="w-full bg-gradient-to-br from-primary to-on-primary-container text-on-primary py-3 rounded-2xl font-semibold shadow-lg shadow-primary/10 flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span>
+<span>New Booking</span>
+</button>
+</div>
+</aside>
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="sticky top-0 right-0 w-full h-20 bg-stone-950/40 backdrop-blur-md flex justify-between items-center px-8 z-30 border-b border-stone-800/10">
+<div class="flex items-center gap-6 flex-1">
+<div class="relative w-full max-w-md focus-within:ring-2 focus-within:ring-[#5D4037]/30 rounded-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-stone-500">search</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-full py-2.5 pl-12 pr-4 text-sm text-on-surface focus:ring-0 placeholder:text-stone-600" placeholder="Search inventory..." type="text"/>
+</div>
+<nav class="hidden md:flex items-center gap-8 ml-4">
+<a class="text-stone-400 hover:text-[#E7BDB1] font-['Plus_Jakarta_Sans'] font-medium text-sm transition-colors" href="#">Overview</a>
+<a class="text-[#E7BDB1] border-b-2 border-[#E7BDB1] pb-2 font-['Plus_Jakarta_Sans'] font-medium text-sm" href="#">Schedule</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<button class="p-2 text-stone-400 hover:bg-stone-800/30 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-stone-400 hover:bg-stone-800/30 rounded-full transition-colors">
+<span class="material-symbols-outlined">dark_mode</span>
+</button>
+</div>
+<div class="h-8 w-px bg-stone-800/40"></div>
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant/20" data-alt="close-up portrait of a professional man in a dark studio setting with soft warm rim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPinqWMa6ZhobNwLtfuqUyH61edKMNnCMqnNTNBlw9NoQadp9dWi52vqomb-DGybHJ59Reh8HULVdjP9sUCzrZ3nXJl5VXO94IpanYwm8Rzqy4NvX339WYmhKcvy1KMrlPFRwwytDJVRlCy2x--phciFg03rSA1jiQsA-6cl-JTVAwnGylt-dYXWcHMnjf1vVBWKtDMO2TCxUzex3Kxc7sUeY9cOkqn6Xu7U84kEqCRQUTAXKS2dUiqdPVZUywhk8sV-4PrCj5Mirw"/>
+<div class="hidden lg:block text-right">
+<p class="text-sm font-semibold text-on-surface">Alex Mercer</p>
+<p class="text-[10px] text-stone-500 font-label uppercase tracking-widest">Administrator</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="p-8 space-y-8">
+<!-- Header Section -->
+<div class="flex justify-between items-end">
+<div class="space-y-1">
+<h2 class="text-4xl font-headline font-bold text-on-surface tracking-tight">Inventory Management</h2>
+<p class="text-stone-400 text-lg">Manage and track your premium event assets.</p>
+</div>
+<button class="bg-gradient-to-br from-primary to-on-primary-container text-on-primary px-8 py-4 rounded-xl font-bold text-lg shadow-xl shadow-primary/10 flex items-center gap-3 hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 600;">add_circle</span>
+                    Add New Item
+                </button>
+</div>
+<!-- Stats / Filter Glass Card -->
+<div class="glass-card rounded-xl p-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="space-y-4">
+<label class="text-[10px] font-label uppercase tracking-[0.2em] text-stone-500">Category</label>
+<select class="w-full bg-surface-container-lowest border-none rounded-xl py-3 px-4 text-sm text-on-surface focus:ring-1 focus:ring-primary/20">
+<option>All Categories</option>
+<option>Decor</option>
+<option>Seating</option>
+<option>Tents</option>
+<option>Catering</option>
+</select>
+</div>
+<div class="space-y-4">
+<label class="text-[10px] font-label uppercase tracking-[0.2em] text-stone-500">Status</label>
+<select class="w-full bg-surface-container-lowest border-none rounded-xl py-3 px-4 text-sm text-on-surface focus:ring-1 focus:ring-primary/20">
+<option>All Statuses</option>
+<option>In Stock</option>
+<option>Hired Out</option>
+<option>Maintenance</option>
+</select>
+</div>
+<div class="md:col-span-2 flex items-center justify-end gap-12">
+<div class="text-center">
+<p class="text-[10px] font-label uppercase tracking-widest text-stone-500 mb-1">Total Items</p>
+<p class="text-3xl font-headline font-bold text-primary">1,284</p>
+</div>
+<div class="h-10 w-px bg-stone-800/40"></div>
+<div class="text-center">
+<p class="text-[10px] font-label uppercase tracking-widest text-stone-500 mb-1">Items Out</p>
+<p class="text-3xl font-headline font-bold text-secondary-fixed-dim">412</p>
+</div>
+<div class="h-10 w-px bg-stone-800/40"></div>
+<div class="text-center">
+<p class="text-[10px] font-label uppercase tracking-widest text-stone-500 mb-1">In Maintenance</p>
+<p class="text-3xl font-headline font-bold text-error">24</p>
+</div>
+</div>
+</div>
+<!-- Inventory Table Section -->
+<div class="glass-card rounded-xl overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-stone-800/20">
+<th class="px-8 py-6 text-[10px] font-label uppercase tracking-[0.2em] text-stone-500">Item Details</th>
+<th class="px-6 py-6 text-[10px] font-label uppercase tracking-[0.2em] text-stone-500">SKU</th>
+<th class="px-6 py-6 text-[10px] font-label uppercase tracking-[0.2em] text-stone-500">Category</th>
+<th class="px-6 py-6 text-[10px] font-label uppercase tracking-[0.2em] text-stone-500">Stock Level</th>
+<th class="px-6 py-6 text-[10px] font-label uppercase tracking-[0.2em] text-stone-500">Price / Day</th>
+<th class="px-6 py-6 text-[10px] font-label uppercase tracking-[0.2em] text-stone-500">Status</th>
+<th class="px-8 py-6 text-[10px] font-label uppercase tracking-[0.2em] text-stone-500 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-stone-800/10">
+<!-- Item 1 -->
+<tr class="group hover:bg-stone-800/20 transition-colors">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<img class="w-14 h-14 rounded-lg object-cover bg-stone-900 border border-outline-variant/10" data-alt="modern minimalist white lounge chair with elegant wooden legs in a bright gallery setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc6ZSbGDzqw2DI2dhrumucPPvy_f5LamzcHCZ9CSc2J6zPSHssZ8Cge3aZ3WIVmIfEdkjULQUJxD6E68JlXqs4IBpXTvajTSpxAG5JT9ZwF7AXDGIqVW57oakW27nCoPh2GOfgRb1sb5HSbvTSb59q7fCA_UgPTL7DW1u0Wi7rxiQX0uybpZXJOk-essUxe1RboTaods1ci0A2hVjTcxbpHxYaqojzGVJIEHNUwIsEhDWm8_-ASjS81VWFmWgEc_9EA6S3qCaVODP6"/>
+<div>
+<p class="font-semibold text-on-surface">Nordic Lounge Chair</p>
+<p class="text-xs text-stone-500">Oak wood &amp; Pearl Linen</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-mono text-stone-400">FUR-OAK-021</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-surface-container-high text-stone-300 rounded-full text-[10px] font-medium uppercase tracking-wider">Seating</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="text-on-surface font-medium">85</span>
+<span class="text-xs text-stone-500">/ 120</span>
+</div>
+<div class="w-24 h-1 bg-stone-800 rounded-full mt-2 overflow-hidden">
+<div class="bg-primary h-full" style="width: 70%;"></div>
+</div>
+</td>
+<td class="px-6 py-5 font-semibold text-on-surface">$45.00</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-[#b1ccc9]">
+<span class="w-2 h-2 rounded-full bg-[#b1ccc9] animate-pulse"></span>
+<span class="text-[10px] font-bold uppercase tracking-wider">In Stock</span>
+</div>
+</td>
+<td class="px-8 py-5 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-stone-700/40 rounded-lg text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+<button class="p-2 hover:bg-stone-700/40 rounded-lg text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+<button class="p-2 hover:bg-stone-700/40 rounded-lg text-stone-400 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 2 -->
+<tr class="group hover:bg-stone-800/20 transition-colors">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<img class="w-14 h-14 rounded-lg object-cover bg-stone-900 border border-outline-variant/10" data-alt="aerial view of a luxury white marquee tent set up on a green manicured lawn for a garden party" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCA8Be0GdQbudrMVjq3XlbttcU0G6I8t9jpKxTyKvzxcCgiwM0TQYgzWWD-CY1Ci28uTAAWnR3HkcAZB9WsWROqt9U7Vq647vjsBjtPEGmCaRtDWzF7eTEus869_QjCZGiyM8DwDpsOr2Ji-2uzBRTfvEcD2KkKN1EZanXa4850xt-Fpat0_Y146MhTkRD-TV5vpN3bPY33CPgkH5TMU2Yit7EXYkixh7EIsc0zPRR3uryz6Dmbca9iDRr-3jWZZS1ixEXd-jjE2Gtu"/>
+<div>
+<p class="font-semibold text-on-surface">Majestic Marquee</p>
+<p class="text-xs text-stone-500">20x40m All-Weather</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-mono text-stone-400">STR-MAR-400</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-surface-container-high text-stone-300 rounded-full text-[10px] font-medium uppercase tracking-wider">Tents</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="text-on-surface font-medium">0</span>
+<span class="text-xs text-stone-500">/ 4</span>
+</div>
+<div class="w-24 h-1 bg-stone-800 rounded-full mt-2 overflow-hidden">
+<div class="bg-secondary-fixed-dim h-full" style="width: 100%;"></div>
+</div>
+</td>
+<td class="px-6 py-5 font-semibold text-on-surface">$1,200.00</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-stone-500">
+<span class="w-2 h-2 rounded-full bg-stone-500"></span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Hired Out</span>
+</div>
+</td>
+<td class="px-8 py-5 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-stone-700/40 rounded-lg text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+<button class="p-2 hover:bg-stone-700/40 rounded-lg text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+<button class="p-2 hover:bg-stone-700/40 rounded-lg text-stone-400 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 3 -->
+<tr class="group hover:bg-stone-800/20 transition-colors">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<img class="w-14 h-14 rounded-lg object-cover bg-stone-900 border border-outline-variant/10" data-alt="close-up of brass cutlery and crystal glassware arranged elegantly on a velvet tablecloth with candle light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB86SmqcVaIIkyrfO4HesSPYGcitoB_beFYk2oVQY7qTaWCVtnx645HgUHVdHtPIhwJwgXBcw9zBsBxGaI3-kJPTCDjfZV72WotmY8Koc4Ho5uKGcugboP3UcvNa6O8pmsOhEcL6Ok4TPjN5oVNvXESux-pBPDcuEG9_mNrkWr0e-35L5oa9ZxidvpvKpXriisyHHbw91vtHwPcrDBPwrWmdEqlESyNFV22og7gbsCp5vsv--IE0TR8o-cQWccEl9us1sZoTXgSEMeG"/>
+<div>
+<p class="font-semibold text-on-surface">Brass Cutlery Set</p>
+<p class="text-xs text-stone-500">24pc Artisan Series</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-mono text-stone-400">CAT-BRA-012</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-surface-container-high text-stone-300 rounded-full text-[10px] font-medium uppercase tracking-wider">Catering</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="text-on-surface font-medium">380</span>
+<span class="text-xs text-stone-500">/ 450</span>
+</div>
+<div class="w-24 h-1 bg-stone-800 rounded-full mt-2 overflow-hidden">
+<div class="bg-primary h-full" style="width: 84%;"></div>
+</div>
+</td>
+<td class="px-6 py-5 font-semibold text-on-surface">$12.50</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-error">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Maintenance</span>
+</div>
+</td>
+<td class="px-8 py-5 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-stone-700/40 rounded-lg text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+<button class="p-2 hover:bg-stone-700/40 rounded-lg text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+<button class="p-2 hover:bg-stone-700/40 rounded-lg text-stone-400 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 4 -->
+<tr class="group hover:bg-stone-800/20 transition-colors">
+<td class="px-8 py-5">
+<div class="flex items-center gap-4">
+<img class="w-14 h-14 rounded-lg object-cover bg-stone-900 border border-outline-variant/10" data-alt="vintage Edison bulbs hanging from rustic wooden beams in a dim evening event hall" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTZfBTydBLvTb1T2VEkX_Hh8_q5IKO-VvwEHR_b81HOa2u3y1V-sS7C9sMp2ird2wdqtr_Z7l0OnvTO0SNBz7cY3I58jdX3BdjDyAk1BmORb4AF3pfc_-fMbkaU-II8eZT6kU1ew_c4hm3QS_myxbUFogBxJ77diW2LLRUkBYbokZzS57kbHMWPAzjtPG2Pyz8S3GAaCz-HLxoTemvd1cMZn6DcehZRI7v3yoNFFrVC9hM0igepkPyQXXKJ6r9cjRkf8GmRNZ6aWaA"/>
+<div>
+<p class="font-semibold text-on-surface">Edison Glow String</p>
+<p class="text-xs text-stone-500">Warm LED / 15m Length</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-sm font-mono text-stone-400">DEC-LGT-005</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 bg-surface-container-high text-stone-300 rounded-full text-[10px] font-medium uppercase tracking-wider">Decor</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="text-on-surface font-medium">120</span>
+<span class="text-xs text-stone-500">/ 120</span>
+</div>
+<div class="w-24 h-1 bg-stone-800 rounded-full mt-2 overflow-hidden">
+<div class="bg-primary h-full" style="width: 100%;"></div>
+</div>
+</td>
+<td class="px-6 py-5 font-semibold text-on-surface">$28.00</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-[#b1ccc9]">
+<span class="w-2 h-2 rounded-full bg-[#b1ccc9]"></span>
+<span class="text-[10px] font-bold uppercase tracking-wider">In Stock</span>
+</div>
+</td>
+<td class="px-8 py-5 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-stone-700/40 rounded-lg text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+<button class="p-2 hover:bg-stone-700/40 rounded-lg text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+<button class="p-2 hover:bg-stone-700/40 rounded-lg text-stone-400 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="px-8 py-6 flex justify-between items-center border-t border-stone-800/20 bg-stone-900/40">
+<p class="text-sm text-stone-500">Showing <span class="text-on-surface font-medium">1 to 4</span> of <span class="text-on-surface font-medium">248</span> items</p>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-surface-container-low text-stone-400 rounded-lg hover:bg-surface-container-high transition-colors text-sm font-medium disabled:opacity-50" disabled="">Previous</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-lg shadow-lg shadow-primary/10 text-sm font-bold">1</button>
+<button class="px-4 py-2 bg-surface-container-low text-stone-400 rounded-lg hover:bg-surface-container-high transition-colors text-sm font-medium">2</button>
+<button class="px-4 py-2 bg-surface-container-low text-stone-400 rounded-lg hover:bg-surface-container-high transition-colors text-sm font-medium">3</button>
+<button class="px-4 py-2 bg-surface-container-low text-stone-400 rounded-lg hover:bg-surface-container-high transition-colors text-sm font-medium">Next</button>
+</div>
+</div>
+</div>
+<!-- Recently Added Asymmetric Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-12">
+<div class="lg:col-span-2 glass-card rounded-xl p-8 relative overflow-hidden">
+<div class="relative z-10 flex flex-col h-full justify-between">
+<div>
+<h3 class="text-2xl font-headline font-bold mb-2">Inventory Analytics</h3>
+<p class="text-stone-400 max-w-md">Your inventory utilization is up 12% this month. Tents and Seating are currently at peak demand.</p>
+</div>
+<div class="mt-8 flex gap-4">
+<button class="bg-surface-container-highest px-6 py-3 rounded-xl text-sm font-semibold border border-outline-variant/20 hover:bg-surface-variant transition-colors">View Utilization Report</button>
+<button class="text-primary font-bold text-sm flex items-center gap-2 px-4">Download PDF <span class="material-symbols-outlined">download</span></button>
+</div>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -right-16 -bottom-16 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+</div>
+<div class="glass-card rounded-xl p-8 flex flex-col justify-center items-center text-center space-y-4 border-dashed border-2 border-stone-700/30">
+<div class="w-16 h-16 rounded-full bg-stone-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-stone-500 text-3xl">inventory</span>
+</div>
+<div>
+<h4 class="font-bold text-lg">Stock Alert</h4>
+<p class="text-sm text-stone-500 px-4">3 categories are reaching low stock thresholds for upcoming weekend events.</p>
+</div>
+<button class="text-on-primary-container text-xs font-bold uppercase tracking-widest hover:underline">Review Alerts</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

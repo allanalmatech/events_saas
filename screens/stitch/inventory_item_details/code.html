@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-bright": "#3a3938",
+            "secondary-container": "#4c4542",
+            "background": "#141312",
+            "surface-container-lowest": "#0f0e0d",
+            "on-secondary-fixed-variant": "#4c4542",
+            "on-secondary-container": "#bdb3af",
+            "on-tertiary-fixed-variant": "#334b49",
+            "on-tertiary-container": "#a0bab7",
+            "primary-fixed": "#ffdbd0",
+            "surface-dim": "#141312",
+            "surface-container-low": "#1c1b1a",
+            "surface-container-highest": "#363433",
+            "on-background": "#e6e2df",
+            "outline-variant": "#504441",
+            "surface-tint": "#e7bdb1",
+            "surface-container": "#201f1e",
+            "surface": "#141312",
+            "on-surface": "#e6e2df",
+            "on-secondary": "#352f2d",
+            "error": "#ffb4ab",
+            "primary": "#e7bdb1",
+            "on-tertiary": "#1d3433",
+            "inverse-surface": "#e6e2df",
+            "secondary-fixed": "#ece0dc",
+            "on-error-container": "#ffdad6",
+            "on-surface-variant": "#d4c3be",
+            "on-primary-fixed-variant": "#5d4037",
+            "on-primary": "#442a22",
+            "on-primary-fixed": "#2c160e",
+            "tertiary": "#b1ccc9",
+            "error-container": "#93000a",
+            "secondary-fixed-dim": "#cfc4c0",
+            "on-secondary-fixed": "#201a18",
+            "tertiary-fixed": "#cde8e5",
+            "tertiary-container": "#334b49",
+            "on-primary-container": "#d4ada1",
+            "secondary": "#cfc4c0",
+            "tertiary-fixed-dim": "#b1ccc9",
+            "outline": "#9c8d89",
+            "surface-variant": "#363433",
+            "on-error": "#690005",
+            "inverse-on-surface": "#31302f",
+            "primary-container": "#5d4037",
+            "on-tertiary-fixed": "#061f1e",
+            "inverse-primary": "#77574d",
+            "primary-fixed-dim": "#e7bdb1",
+            "surface-container-high": "#2b2a29"
+          },
+          fontFamily: {
+            "headline": ["Plus Jakarta Sans"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          },
+          borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-card {
+      background: rgba(54, 52, 51, 0.6);
+      backdrop-filter: blur(16px);
+      border: 0.5px solid rgba(80, 68, 65, 0.2);
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #E7BDB1 0%, #D4ADA1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .bg-gradient-primary {
+      background: linear-gradient(135deg, #E7BDB1 0%, #D4ADA1 100%);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary/30">
+<!-- Shared Component: SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-72 z-40 bg-[#1C1B1A] flex flex-col p-6 gap-y-4 shadow-2xl shadow-black/40">
+<div class="flex items-center gap-3 mb-8 px-2">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary">event_seat</span>
+</div>
+<div>
+<h1 class="text-xl font-bold text-[#E7BDB1] font-headline">EventPro</h1>
+<p class="text-xs text-stone-500 font-label">Premium Management</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-[#201F1E] rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-[#363433] text-[#E7BDB1] rounded-xl font-semibold" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-medium">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-[#201F1E] rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">rebase_edit</span>
+<span class="font-medium">Services</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-[#201F1E] rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-medium">Clients</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-[#201F1E] rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-medium">Invoicing</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-2 pt-6 border-t border-outline-variant/20">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-medium">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-medium">Log Out</span>
+</a>
+</div>
+</aside>
+<main class="ml-72 min-h-screen">
+<!-- Shared Component: TopNavBar -->
+<header class="fixed top-0 left-72 right-0 z-50 bg-[#141312]/80 backdrop-blur-xl border-b border-[#504441]/20 h-20 flex justify-between items-center px-8">
+<div class="flex items-center gap-2">
+<span class="text-stone-500 font-label">Inventory</span>
+<span class="material-symbols-outlined text-xs text-stone-600">chevron_right</span>
+<span class="text-[#E7BDB1] font-medium font-headline">Nordic Lounge Chair</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-stone-400 hover:bg-stone-800/40 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-stone-400 hover:bg-stone-800/40 transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/20"></div>
+<img alt="User Profile Avatar" class="w-10 h-10 rounded-full border border-primary/20 object-cover" data-alt="portrait of a professional creative director in a minimalist studio with soft warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgqLjxTlYUs5zWyg6cQJtGRRny5Ad7TZ2nLbwOtaauDe8vSzv3ZJLhXZVnalpyJAsJg7uVxXdl5LEbeyHsumuQzJRMCoFGaeq9uvkh36uNsldcElBlFTzDjQtAA_UXqz1BVLhv3haCxF-rfHRpP6jnRMkIlaOsQRKS83jrbtoziKuqXc8iFU3zvmICdQ2arf8dS9hjnUoG_QUdpel3rB-pxvH9xZyKnZNJ283Hzoj0ymPSue_dwwBxNpmX8R2TcaQyfvxVv_TTwdxF"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<div class="pt-28 px-12 pb-16 max-w-7xl mx-auto">
+<!-- Editorial Grid: Image Gallery & Key Info -->
+<div class="grid grid-cols-12 gap-8 mb-16">
+<!-- Main Image - Asymmetric bleed -->
+<div class="col-span-12 lg:col-span-7 relative group">
+<div class="aspect-[4/3] rounded-xl overflow-hidden glass-card">
+<img alt="Nordic Lounge Chair Main" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="minimalist nordic lounge chair with light oak wood frame and cream fabric upholstery in a sunlit architectural space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbTl3ASvxmO913YSPbml2V0Ce547kguTorR3W6VWtcpa1WY9Y7_Lq_H-ZwwSfxsGx7aNCcVYDYL2gmaXrzV4TxgUePocejMkH_Oi7kCCLh3QJB_c5EVvHnqmzULV6JRAzNtfwYgRGdEAgqvXvF4LXvAsDO-hverUqvnZjcjelvelZN_wUORkYLGvEvhHlXP7v_G9NO3mpTVtGm8WCg0eSV0Z8zfASN91q1xu5YvVrUBViH-7M9aC-5rpOArJKLSRFvSFKFHYUfyims"/>
+</div>
+<!-- Image Thumbnails -->
+<div class="absolute -bottom-6 left-12 right-12 flex gap-4">
+<div class="w-24 h-24 rounded-lg overflow-hidden border-2 border-primary shadow-xl">
+<img alt="Detail 1" class="w-full h-full object-cover" data-alt="close-up of the wood grain and joinery of a nordic chair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCb2bVOj8u-gO5ujF_Fc8LvVrivJqrHQgrPhugzHoPIp9phnjKZHzfyhfTRQ8v9QAWN6wkDJxQ6OBapwSaJMtSSqQPaMc0C_7ElYU8eavm1XGoac1pHU6rIa2Qlq3T5CH4N8hn9BF9lvFKZJ1wdUXaRofCT2iNlC5Vo0B-FISdvmVF5OBLI2kp1cIc1Eo0LDCOgTNzfn3iTJgHGTNtKu8uNeKVTp7qK9ugz_gEQeN9pyiq2xSvrcpCM07VhfU6dlDa-OV_8EulfRNXi"/>
+</div>
+<div class="w-24 h-24 rounded-lg overflow-hidden border-2 border-transparent hover:border-primary/50 glass-card">
+<img alt="Detail 2" class="w-full h-full object-cover opacity-60 hover:opacity-100" data-alt="front view of a modern chair in a minimalist living room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVl8Bk2cNw9crSlA5j0ikCpOfqFQuh-RIWJuQh5-M3YWA6vin-iW1Zpd8R76AQ19sS4ix6hnuIgTlOmPcWOzY5nNMcqq-YIaVBKVx-ajvehRGIa3JUk9kiCicgCZC7g-xsjQoN_t6vs95PUmphsh4CMfmO3ouMg2raq4Nt4-Isx5Pzvv_-yrQoUkCQ-FbtGl2dT12IIoixjJXshR0LxoHa06MVs-eyL-MFGrCOk7BcMCjxRVDHqNBz1qq8VVtEdMJgQYcFbRYr35rv"/>
+</div>
+<div class="w-24 h-24 rounded-lg overflow-hidden border-2 border-transparent hover:border-primary/50 glass-card">
+<img alt="Detail 3" class="w-full h-full object-cover opacity-60 hover:opacity-100" data-alt="side profile of a designer chair showing sleek lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjDInrDUVWAgqjUhFXY2Jzv_ggyRIWjE_1URPHTPLcRumdiK1WSDGoisHGy85evBObmUXBIB0QqzQU0qJOcBNcQ9XTJKroNNsHezWB-Z4z8q7zZYarKUc0tNxLyJW5nd0oOixplus_1aIGnJ9y-wN6wlKlQp60mElUulXSFkmC8ARjLtjq8V_2kmkcOnVOEk5Cu-b2U8Sj8_PJPeAPhw38MB7XUcpgHo6rzXrAuGe9W5LGXUCPwoUHmXD19QwjXlPcQ94mp4IcjWN8"/>
+</div>
+</div>
+</div>
+<!-- Product Header & Action -->
+<div class="col-span-12 lg:col-span-5 flex flex-col justify-center">
+<div class="mb-2">
+<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-[0.7rem] font-bold tracking-widest uppercase">ID: ASSET-48291</span>
+</div>
+<h2 class="text-4xl lg:text-5xl font-extrabold font-headline mb-4 tracking-tighter leading-tight">Nordic Lounge<br/><span class="text-gradient">Chair Signature</span></h2>
+<p class="text-stone-400 text-lg leading-relaxed mb-8 max-w-md">Designed by Artek, this piece combines structural strength with poetic lightness. A staple for high-end corporate events and galas.</p>
+<div class="grid grid-cols-2 gap-4 mb-8">
+<div class="p-6 rounded-xl glass-card">
+<p class="text-[0.7rem] font-label text-stone-500 uppercase mb-1">Daily Rate</p>
+<p class="text-2xl font-bold font-headline">$45.00</p>
+</div>
+<div class="p-6 rounded-xl glass-card">
+<p class="text-[0.7rem] font-label text-stone-500 uppercase mb-1">Weekly Rate</p>
+<p class="text-2xl font-bold font-headline">$210.00</p>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="flex-1 bg-gradient-primary text-on-primary h-14 rounded-xl font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">add_circle</span>
+              Add to Event
+            </button>
+<button class="w-14 h-14 flex items-center justify-center rounded-xl glass-card text-stone-300 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bento Grid Details Section -->
+<div class="grid grid-cols-12 gap-8 items-start">
+<!-- Specifications (Bento Large) -->
+<div class="col-span-12 lg:col-span-4 p-8 rounded-xl bg-surface-container-low">
+<div class="flex items-center gap-2 mb-8">
+<span class="material-symbols-outlined text-primary">straighten</span>
+<h3 class="font-headline font-bold text-xl">Specifications</h3>
+</div>
+<ul class="space-y-6">
+<li class="flex justify-between items-end border-b border-outline-variant/10 pb-4">
+<span class="text-stone-500 font-label">Material</span>
+<span class="font-medium">Solid Oak / Wool</span>
+</li>
+<li class="flex justify-between items-end border-b border-outline-variant/10 pb-4">
+<span class="text-stone-500 font-label">Dimensions</span>
+<span class="font-medium">74w x 80d x 72h cm</span>
+</li>
+<li class="flex justify-between items-end border-b border-outline-variant/10 pb-4">
+<span class="text-stone-500 font-label">Weight</span>
+<span class="font-medium">12.5 kg</span>
+</li>
+<li class="flex justify-between items-end border-b border-outline-variant/10 pb-4">
+<span class="text-stone-500 font-label">Max Load</span>
+<span class="font-medium">150 kg</span>
+</li>
+<li class="flex justify-between items-end">
+<span class="text-stone-500 font-label">Color Palette</span>
+<div class="flex gap-2">
+<span class="w-4 h-4 rounded-full bg-[#E5DACE]"></span>
+<span class="w-4 h-4 rounded-full bg-[#4A3728]"></span>
+</div>
+</li>
+</ul>
+</div>
+<!-- Inventory Heatmap / Stock (Bento Wide) -->
+<div class="col-span-12 lg:col-span-8 space-y-8">
+<div class="p-8 rounded-xl bg-surface-container-low">
+<div class="flex justify-between items-center mb-8">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">warehouse</span>
+<h3 class="font-headline font-bold text-xl">Stock Availability</h3>
+</div>
+<div class="flex items-center gap-2 px-4 py-1.5 bg-green-500/10 text-green-400 rounded-full">
+<div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+<span class="text-xs font-bold font-label">TOTAL: 142 Units</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="p-5 rounded-xl bg-surface-container-high/50 border border-outline-variant/10">
+<p class="text-stone-500 font-label mb-3">London North</p>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-bold">84</span>
+<span class="text-xs text-green-500/80 mb-1">In Stock</span>
+</div>
+<div class="w-full bg-stone-800 h-1.5 rounded-full mt-4 overflow-hidden">
+<div class="bg-primary h-full w-[80%] rounded-full"></div>
+</div>
+</div>
+<div class="p-5 rounded-xl bg-surface-container-high/50 border border-outline-variant/10">
+<p class="text-stone-500 font-label mb-3">Manchester Central</p>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-bold">58</span>
+<span class="text-xs text-green-500/80 mb-1">In Stock</span>
+</div>
+<div class="w-full bg-stone-800 h-1.5 rounded-full mt-4 overflow-hidden">
+<div class="bg-primary h-full w-[65%] rounded-full"></div>
+</div>
+</div>
+<div class="p-5 rounded-xl bg-surface-container-high/50 border border-outline-variant/10 opacity-50">
+<p class="text-stone-500 font-label mb-3">Bristol Hub</p>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-bold">0</span>
+<span class="text-xs text-error mb-1">Out of Stock</span>
+</div>
+<div class="w-full bg-stone-800 h-1.5 rounded-full mt-4 overflow-hidden">
+<div class="bg-error h-full w-0 rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Hire History Timeline (Bento Wide) -->
+<div class="p-8 rounded-xl bg-surface-container-low">
+<div class="flex items-center gap-2 mb-8">
+<span class="material-symbols-outlined text-primary">history</span>
+<h3 class="font-headline font-bold text-xl">Asset Utilization</h3>
+</div>
+<div class="space-y-6">
+<div class="flex gap-6 relative">
+<!-- Timeline Vertical Bar -->
+<div class="absolute left-3 top-8 bottom-[-24px] w-[1px] bg-outline-variant/30"></div>
+<div class="w-6 h-6 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+<div class="flex-1 glass-card p-5 rounded-xl flex items-center justify-between">
+<div>
+<h4 class="font-bold text-on-surface">Vogue Winter Gala</h4>
+<p class="text-sm text-stone-400">Reserved: Dec 12 - Dec 18, 2023</p>
+</div>
+<div class="text-right">
+<p class="text-xs font-label text-stone-500 mb-1">Client</p>
+<p class="font-medium text-primary">Condé Nast</p>
+</div>
+</div>
+</div>
+<div class="flex gap-6 relative">
+<div class="absolute left-3 top-8 bottom-[-24px] w-[1px] bg-outline-variant/30"></div>
+<div class="w-6 h-6 rounded-full bg-stone-700 border-2 border-stone-600 flex items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-stone-500"></div>
+</div>
+<div class="flex-1 bg-surface-container p-5 rounded-xl flex items-center justify-between opacity-80">
+<div>
+<h4 class="font-bold text-on-surface">TechSummit 2023</h4>
+<p class="text-sm text-stone-400">Completed: Oct 05 - Oct 08, 2023</p>
+</div>
+<div class="text-right">
+<p class="text-xs font-label text-stone-500 mb-1">Client</p>
+<p class="font-medium text-on-surface">Alpha Stream</p>
+</div>
+</div>
+</div>
+<div class="flex gap-6">
+<div class="w-6 h-6 rounded-full bg-stone-700 border-2 border-stone-600 flex items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-stone-500"></div>
+</div>
+<div class="flex-1 bg-surface-container p-5 rounded-xl flex items-center justify-between opacity-80">
+<div>
+<h4 class="font-bold text-on-surface">Private Wedding - Cotswolds</h4>
+<p class="text-sm text-stone-400">Completed: Aug 12 - Aug 15, 2023</p>
+</div>
+<div class="text-right">
+<p class="text-xs font-label text-stone-500 mb-1">Client</p>
+<p class="font-medium text-on-surface">Luxury Events Ltd</p>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 py-4 text-sm font-semibold text-stone-400 hover:text-primary transition-colors flex items-center justify-center gap-2">
+              View All History
+              <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button - Only visible on specific scroll or state -->
+<button class="fixed bottom-10 right-10 w-16 h-16 rounded-full bg-gradient-primary text-on-primary shadow-2xl flex items-center justify-center active:scale-90 transition-transform z-50">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">edit</span>
+</button>
+</body></html>

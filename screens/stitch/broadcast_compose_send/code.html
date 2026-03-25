@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Terra OS | Broadcast System</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed": "#ece0dc",
+              "on-secondary-fixed-variant": "#4c4542",
+              "inverse-surface": "#e6e2df",
+              "error-container": "#93000a",
+              "surface-dim": "#141312",
+              "on-surface-variant": "#d4c3be",
+              "surface-container-high": "#2b2a29",
+              "surface-container-lowest": "#0f0e0d",
+              "surface-container": "#201f1e",
+              "background": "#141312",
+              "primary": "#e7bdb1",
+              "on-tertiary-fixed": "#061f1e",
+              "on-error": "#690005",
+              "on-primary-container": "#d4ada1",
+              "secondary": "#cfc4c0",
+              "inverse-primary": "#77574d",
+              "primary-fixed": "#ffdbd0",
+              "outline": "#9c8d89",
+              "surface": "#141312",
+              "secondary-fixed-dim": "#cfc4c0",
+              "surface-container-low": "#1c1b1a",
+              "inverse-on-surface": "#31302f",
+              "tertiary": "#b1ccc9",
+              "on-primary-fixed": "#2c160e",
+              "primary-fixed-dim": "#e7bdb1",
+              "on-tertiary-container": "#a0bab7",
+              "on-tertiary-fixed-variant": "#334b49",
+              "error": "#ffb4ab",
+              "tertiary-fixed-dim": "#b1ccc9",
+              "surface-bright": "#3a3938",
+              "surface-tint": "#e7bdb1",
+              "on-error-container": "#ffdad6",
+              "tertiary-container": "#334b49",
+              "on-secondary": "#352f2d",
+              "on-primary": "#442a22",
+              "tertiary-fixed": "#cde8e5",
+              "secondary-container": "#4c4542",
+              "on-secondary-fixed": "#201a18",
+              "surface-variant": "#363433",
+              "on-secondary-container": "#bdb3af",
+              "surface-container-highest": "#363433",
+              "on-background": "#e6e2df",
+              "outline-variant": "#504441",
+              "on-tertiary": "#1d3433",
+              "on-primary-fixed-variant": "#5d4037",
+              "primary-container": "#5d4037",
+              "on-surface": "#e6e2df"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #141312; }
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            background: rgba(54, 52, 51, 0.6);
+            border: 0.5px solid rgba(80, 68, 65, 0.2);
+        }
+        .editorial-header { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 border-b border-stone-800/20 bg-stone-950/60 backdrop-blur-xl flex justify-between items-center px-8 h-16 w-full">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-orange-200 font-['Plus_Jakarta_Sans']">Terra Analytics</span>
+<nav class="hidden md:flex gap-6 items-center font-['Plus_Jakarta_Sans'] font-medium text-sm tracking-tight">
+<a class="text-stone-400 hover:text-stone-200 transition-all duration-300" href="#">Dashboard</a>
+<a class="text-stone-400 hover:text-stone-200 transition-all duration-300" href="#">Analytics</a>
+<a class="text-stone-400 hover:text-stone-200 transition-all duration-300" href="#">Team</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-stone-400 hover:bg-stone-800/40 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-stone-400 hover:bg-stone-800/40 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="professional corporate headshot of a creative director in soft warm indoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD38w09ZZurawT-YrmxPQkNfU5W3xi0V4NwGNSQGTaZrj9F-1nEuRWVPUSN4KfWTTXzf5yr6c7js_aUiE6M-wKK0GtF_JEJwwhcdajx0b33p33WP72jEOXhNZ8w4pXHXhy3iM7XPCDifrVWs4rhfBslcSW0CHjZFY3GFAQhGqdtvFfHb0Ag3N5c-CcGZ5BPSAWDfQFGjEXGCzk9g3KUYr2yK2MHYSeOAyZjK0so8i0Zq8hD1pNfilVfALMRTZkiaLofSWRUOkjLxyea"/>
+</div>
+</div>
+</header>
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-6 h-screen w-64 border-r border-stone-800/20 rounded-r-[24px] bg-stone-900/40 backdrop-blur-2xl z-40 pt-20">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="hub">hub</span>
+</div>
+<div>
+<p class="font-['Plus_Jakarta_Sans'] font-bold text-stone-100 text-sm">Terra OS</p>
+<p class="text-[10px] text-stone-500 uppercase tracking-widest">Premium Enterprise</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 font-['Inter'] text-sm font-medium">
+<div class="space-y-1">
+<div class="text-stone-500 hover:text-stone-300 px-4 py-3 mx-2 hover:translate-x-1 transition-transform duration-200 cursor-pointer flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span>Messages</span>
+</div>
+<!-- Active Tab: Broadcasts -->
+<div class="bg-stone-800/60 text-orange-200 rounded-xl mx-2 shadow-inner px-4 py-3 flex items-center gap-3 active:scale-98 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="podcasts">podcasts</span>
+<span>Broadcasts</span>
+</div>
+<div class="text-stone-500 hover:text-stone-300 px-4 py-3 mx-2 hover:translate-x-1 transition-transform duration-200 cursor-pointer flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<span>Reports</span>
+</div>
+<div class="text-stone-500 hover:text-stone-300 px-4 py-3 mx-2 hover:translate-x-1 transition-transform duration-200 cursor-pointer flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span>Optimization</span>
+</div>
+<div class="text-stone-500 hover:text-stone-300 px-4 py-3 mx-2 hover:translate-x-1 transition-transform duration-200 cursor-pointer flex items-center gap-3">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Archive</span>
+</div>
+</div>
+</nav>
+<div class="px-4 py-6 mt-auto border-t border-stone-800/20 space-y-2">
+<div class="text-stone-500 hover:text-stone-300 px-4 py-2 flex items-center gap-3 text-sm font-medium transition-all">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</div>
+<div class="text-stone-500 hover:text-stone-300 px-4 py-2 flex items-center gap-3 text-sm font-medium transition-all">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 h-screen flex overflow-hidden">
+<!-- Composition Area -->
+<section class="flex-1 p-10 overflow-y-auto">
+<div class="max-w-4xl mx-auto space-y-12">
+<!-- Page Header -->
+<header class="flex flex-col gap-2">
+<h1 class="text-4xl font-extrabold editorial-header tracking-tight text-on-surface">Compose Broadcast</h1>
+<p class="text-on-surface-variant max-w-lg">Send instant announcements to your entire tenant network or specific attendee cohorts with premium formatting.</p>
+</header>
+<!-- Composer Card -->
+<div class="glass-panel rounded-xl p-8 shadow-2xl space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Recipient Selection -->
+<div class="space-y-3">
+<label class="font-label text-xs font-semibold uppercase tracking-widest text-primary">Recipients</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border border-outline/20 rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all appearance-none cursor-pointer">
+<option>All Tenants</option>
+<option>Premium Exhibitors</option>
+<option>Event Staff Only</option>
+<option>Waitlist Attendees</option>
+<option>Custom Group...</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-stone-500" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Subject Line -->
+<div class="space-y-3">
+<label class="font-label text-xs font-semibold uppercase tracking-widest text-primary">Subject Line</label>
+<input class="w-full bg-surface-container-lowest border border-outline/20 rounded-xl px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all placeholder:text-stone-600" placeholder="Enter headline for the broadcast..." type="text"/>
+</div>
+</div>
+<!-- Rich Text Editor Placeholder -->
+<div class="space-y-3">
+<label class="font-label text-xs font-semibold uppercase tracking-widest text-primary">Announcement Body</label>
+<div class="bg-surface-container-lowest border border-outline/20 rounded-xl overflow-hidden">
+<!-- Toolbar -->
+<div class="flex items-center gap-2 p-3 border-b border-outline/10 bg-surface-container">
+<button class="p-1.5 hover:bg-surface-container-high rounded text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="format_bold">format_bold</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container-high rounded text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="format_italic">format_italic</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container-high rounded text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="format_list_bulleted">format_list_bulleted</span>
+</button>
+<div class="w-px h-4 bg-outline/20 mx-1"></div>
+<button class="p-1.5 hover:bg-surface-container-high rounded text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="link">link</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container-high rounded text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="image">image</span>
+</button>
+</div>
+<!-- Editor Canvas -->
+<textarea class="w-full bg-transparent border-none focus:ring-0 p-6 text-on-surface placeholder:text-stone-700 resize-none" placeholder="Draft your premium announcement here..." rows="10"></textarea>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="flex items-center justify-between pt-4 border-t border-outline/10">
+<div class="flex items-center gap-4 text-stone-500">
+<span class="flex items-center gap-1.5 text-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span>
+                                Schedule for later
+                            </span>
+<span class="flex items-center gap-1.5 text-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="drafts">drafts</span>
+                                Auto-saved 2m ago
+                            </span>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-6 py-2.5 rounded-full text-sm font-medium text-stone-400 hover:text-stone-200 transition-all">Preview</button>
+<button class="bg-gradient-to-br from-primary to-on-primary-container text-on-primary px-8 py-2.5 rounded-full font-bold text-sm shadow-lg shadow-primary/10 hover:opacity-90 transition-all active:scale-95 flex items-center gap-2">
+<span>Broadcast Now</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bento Quick Stats (Asymmetric layout) -->
+<div class="grid grid-cols-12 gap-6 pb-12">
+<div class="col-span-12 md:col-span-7 glass-panel rounded-xl p-6 flex flex-col justify-between min-h-[160px]">
+<div>
+<h3 class="font-label text-[10px] font-bold uppercase tracking-[0.2em] text-primary">System Reach</h3>
+<p class="text-3xl font-extrabold editorial-header mt-2">12,482</p>
+<p class="text-sm text-stone-500 mt-1">Total Active Verified Tenants</p>
+</div>
+<div class="flex items-center gap-4 mt-4">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-stone-800"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-stone-700"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-stone-600"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface flex items-center justify-center bg-stone-900 text-[10px] text-stone-400">+12k</div>
+</div>
+<span class="text-xs text-stone-400">98% Global Health Score</span>
+</div>
+</div>
+<div class="col-span-12 md:col-span-5 bg-surface-container-low rounded-xl p-6 relative overflow-hidden flex items-center group">
+<div class="z-10">
+<h3 class="font-label text-[10px] font-bold uppercase tracking-[0.2em] text-tertiary">Optimization Tip</h3>
+<p class="text-sm text-on-surface mt-2 font-medium">Schedule broadcasts between 9AM—11AM for 42% higher engagement.</p>
+</div>
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-[120px] text-white/5 rotate-12 group-hover:rotate-0 transition-transform duration-700" data-icon="tips_and_updates">tips_and_updates</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Sidebar: Sent History -->
+<aside class="w-[380px] h-full bg-surface-container-low border-l border-stone-800/20 p-8 flex flex-col">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline text-xl font-bold">History</h2>
+<button class="text-stone-500 hover:text-primary">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+<div class="flex-1 space-y-4 overflow-y-auto pr-2 custom-scrollbar">
+<!-- Sent Item 1 -->
+<div class="group bg-surface-container rounded-2xl p-5 hover:bg-surface-variant transition-all cursor-pointer border border-transparent hover:border-outline-variant/10">
+<div class="flex justify-between items-start mb-3">
+<span class="px-2.5 py-1 rounded-full bg-green-500/10 text-green-400 text-[10px] font-bold tracking-wider uppercase">Sent</span>
+<span class="text-[10px] text-stone-500 font-label">Oct 12, 09:15 AM</span>
+</div>
+<h4 class="font-bold text-sm text-on-surface line-clamp-1 mb-1">Q4 Event Strategy Kickoff</h4>
+<p class="text-xs text-stone-500 line-clamp-2">All Tenants • Welcome to the new dashboard interface...</p>
+<div class="mt-4 pt-4 border-t border-outline/5 flex justify-between items-center">
+<div class="flex gap-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-stone-400" data-icon="visibility">visibility</span>
+<span class="text-[11px] font-medium">8.4k</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-stone-400" data-icon="mouse">mouse</span>
+<span class="text-[11px] font-medium">1.2k</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[16px] text-stone-600 group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Sent Item 2 -->
+<div class="group bg-surface-container rounded-2xl p-5 hover:bg-surface-variant transition-all cursor-pointer border border-transparent hover:border-outline-variant/10">
+<div class="flex justify-between items-start mb-3">
+<span class="px-2.5 py-1 rounded-full bg-green-500/10 text-green-400 text-[10px] font-bold tracking-wider uppercase">Sent</span>
+<span class="text-[10px] text-stone-500 font-label">Oct 10, 02:45 PM</span>
+</div>
+<h4 class="font-bold text-sm text-on-surface line-clamp-1 mb-1">Urgent: Server Maintenance Notice</h4>
+<p class="text-xs text-stone-500 line-clamp-2">Global Cohort • Scheduled downtime for database optimization...</p>
+<div class="mt-4 pt-4 border-t border-outline/5 flex justify-between items-center">
+<div class="flex gap-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-stone-400" data-icon="visibility">visibility</span>
+<span class="text-[11px] font-medium">12.1k</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-stone-400" data-icon="mouse">mouse</span>
+<span class="text-[11px] font-medium">456</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[16px] text-stone-600 group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Sent Item 3 -->
+<div class="group bg-surface-container rounded-2xl p-5 hover:bg-surface-variant transition-all cursor-pointer border border-transparent hover:border-outline-variant/10">
+<div class="flex justify-between items-start mb-3">
+<span class="px-2.5 py-1 rounded-full bg-orange-400/10 text-orange-300 text-[10px] font-bold tracking-wider uppercase">Processing</span>
+<span class="text-[10px] text-stone-500 font-label">Oct 08, 11:30 AM</span>
+</div>
+<h4 class="font-bold text-sm text-on-surface line-clamp-1 mb-1">New Feature Alert: AI Scheduling</h4>
+<p class="text-xs text-stone-500 line-clamp-2">Premium Users • Unlock new efficiencies with our latest tools...</p>
+<div class="mt-4 pt-4 border-t border-outline/5 flex justify-between items-center">
+<div class="flex gap-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-stone-400" data-icon="visibility">visibility</span>
+<span class="text-[11px] font-medium">--</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-stone-400" data-icon="mouse">mouse</span>
+<span class="text-[11px] font-medium">--</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[16px] text-stone-600 group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Sent Item 4 -->
+<div class="group bg-surface-container rounded-2xl p-5 hover:bg-surface-variant transition-all cursor-pointer border border-transparent hover:border-outline-variant/10">
+<div class="flex justify-between items-start mb-3">
+<span class="px-2.5 py-1 rounded-full bg-green-500/10 text-green-400 text-[10px] font-bold tracking-wider uppercase">Sent</span>
+<span class="text-[10px] text-stone-500 font-label">Oct 05, 05:00 PM</span>
+</div>
+<h4 class="font-bold text-sm text-on-surface line-clamp-1 mb-1">Monthly Analytics Recap</h4>
+<p class="text-xs text-stone-500 line-clamp-2">Administrative Group • Your month-over-month performance summary...</p>
+<div class="mt-4 pt-4 border-t border-outline/5 flex justify-between items-center">
+<div class="flex gap-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-stone-400" data-icon="visibility">visibility</span>
+<span class="text-[11px] font-medium">2.1k</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-stone-400" data-icon="mouse">mouse</span>
+<span class="text-[11px] font-medium">890</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[16px] text-stone-600 group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+<div class="mt-8">
+<button class="w-full bg-surface-container-highest/50 border border-outline-variant/10 py-3 rounded-xl text-xs font-bold uppercase tracking-widest text-on-surface-variant hover:bg-surface-container-highest transition-all">
+                    View Full Archive
+                </button>
+</div>
+</aside>
+</main>
+<!-- Floating Action Button Context (FAB Suppression on Broadcast Screen Logic: Suppress unless adding item) -->
+<!-- The prompt requires composing a new broadcast, so a FAB for "Add Draft" could be relevant, but the UI already focuses on composition. We'll omit to prioritize focused Journey -->
+</body></html>

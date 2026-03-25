@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(54, 52, 51, 0.6);
+            backdrop-filter: blur(16px);
+            border: 0.5px solid rgba(80, 68, 65, 0.2);
+        }
+        .shimmer-border {
+            border: 0.5px solid rgba(156, 141, 137, 0.15);
+        }
+        body {
+            background-color: #141312;
+            color: #e6e2df;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "error": "#ffb4ab",
+                        "tertiary": "#b1ccc9",
+                        "on-tertiary-fixed": "#061f1e",
+                        "surface-container-highest": "#363433",
+                        "secondary-fixed": "#ece0dc",
+                        "surface-bright": "#3a3938",
+                        "on-surface-variant": "#d4c3be",
+                        "on-surface": "#e6e2df",
+                        "inverse-surface": "#e6e2df",
+                        "secondary-container": "#4c4542",
+                        "primary": "#e7bdb1",
+                        "secondary": "#cfc4c0",
+                        "primary-fixed": "#ffdbd0",
+                        "on-primary-fixed": "#2c160e",
+                        "surface-tint": "#e7bdb1",
+                        "tertiary-fixed-dim": "#b1ccc9",
+                        "on-primary": "#442a22",
+                        "surface-dim": "#141312",
+                        "surface-container-lowest": "#0f0e0d",
+                        "tertiary-fixed": "#cde8e5",
+                        "inverse-on-surface": "#31302f",
+                        "outline-variant": "#504441",
+                        "surface": "#141312",
+                        "primary-fixed-dim": "#e7bdb1",
+                        "on-tertiary-fixed-variant": "#334b49",
+                        "tertiary-container": "#334b49",
+                        "error-container": "#93000a",
+                        "surface-variant": "#363433",
+                        "surface-container-high": "#2b2a29",
+                        "inverse-primary": "#77574d",
+                        "on-primary-fixed-variant": "#5d4037",
+                        "primary-container": "#5d4037",
+                        "on-secondary-fixed": "#201a18",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-container": "#bdb3af",
+                        "secondary-fixed-dim": "#cfc4c0",
+                        "surface-container-low": "#1c1b1a",
+                        "outline": "#9c8d89",
+                        "on-tertiary": "#1d3433",
+                        "on-background": "#e6e2df",
+                        "on-tertiary-container": "#a0bab7",
+                        "on-secondary": "#352f2d",
+                        "on-primary-container": "#d4ada1",
+                        "on-secondary-fixed-variant": "#4c4542",
+                        "background": "#141312",
+                        "surface-container": "#201f1e",
+                        "on-error": "#690005"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-body selection:bg-primary selection:text-on-primary">
+<div class="flex min-h-screen bg-surface overflow-hidden">
+<!-- Side Navigation Shell -->
+<aside class="hidden md:flex flex-col h-screen w-64 border-r border-stone-700/10 bg-stone-950/40 backdrop-blur-2xl py-6 px-4 gap-y-2">
+<div class="mb-10 px-2 flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">landscape</span>
+</div>
+<div>
+<h2 class="font-headline font-bold text-orange-200 leading-none">Terra Premium</h2>
+<p class="text-[10px] text-stone-500 font-medium uppercase tracking-widest mt-1">Enterprise Tier</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-inter text-sm font-semibold">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-inter text-sm font-semibold">Team</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-inter text-sm font-semibold">Billing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-stone-800/60 text-orange-200 rounded-xl shadow-inner transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-inter text-sm font-semibold">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-inter text-sm font-semibold">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">archive</span>
+<span class="font-inter text-sm font-semibold">Archive</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-stone-800/30 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-inter text-sm font-semibold">Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-inter text-sm font-semibold">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto relative h-screen">
+<!-- Header Section -->
+<header class="fixed top-0 right-0 left-0 md:left-64 z-40 bg-stone-900/60 backdrop-blur-xl border-b border-stone-700/20 shadow-2xl shadow-stone-950/50">
+<div class="flex justify-between items-center w-full px-8 py-4">
+<h1 class="font-headline text-2xl font-bold tracking-tighter text-orange-200">Settings</h1>
+<div class="flex items-center gap-4">
+<button class="p-2 text-stone-400 hover:text-stone-200 transition-all active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-stone-400 hover:text-stone-200 transition-all active:scale-95">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-10 w-10 rounded-full border border-outline-variant/30 overflow-hidden ml-2">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Close up portrait of a professional male designer in a soft-lit creative studio environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATXOGaGcX_QhiN_z89ToKt8XCTGVX9pL6WGqM2xJKIEytooGIeB8XpQ2V5KSbE57pO2uPdVVVtp4pmDpS6UF3XCL2SR_gm0e2ivH1rskaDC92Er099dYN4acVpaFmxcELPeEwIzNfZre8IQVZBj8kGtbOEiy-JVxMxcnyXZMuAcD8z3O5iW9lumXLpg16Xf2XPmwOLw6yx_ZlOR2ZMR9T3V0JsHeAEtgfWcdz98uy6b42lXy1flt7TCR-K-W0gKeTRIs7FY_UN5iJl"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Settings Content -->
+<div class="max-w-6xl mx-auto px-8 pt-32 pb-24">
+<!-- Tabbed Navigation -->
+<div class="flex gap-8 mb-12 border-b border-outline-variant/10 overflow-x-auto whitespace-nowrap scrollbar-hide">
+<button class="pb-4 text-orange-200 border-b-2 border-orange-200 font-headline font-semibold text-sm transition-all">General</button>
+<button class="pb-4 text-stone-500 hover:text-stone-300 font-headline font-semibold text-sm transition-all">Branding</button>
+<button class="pb-4 text-stone-500 hover:text-stone-300 font-headline font-semibold text-sm transition-all">Preferences</button>
+<button class="pb-4 text-stone-500 hover:text-stone-300 font-headline font-semibold text-sm transition-all">Security</button>
+<button class="pb-4 text-stone-500 hover:text-stone-300 font-headline font-semibold text-sm transition-all">API Keys</button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Form Side -->
+<div class="lg:col-span-7 space-y-16">
+<!-- Branding Section -->
+<section>
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="font-headline text-2xl font-bold text-on-surface">Identity &amp; Branding</h3>
+<p class="text-on-surface-variant text-sm mt-1">Configure your visual presence across the platform.</p>
+</div>
+</div>
+<div class="space-y-8">
+<!-- Logo Upload -->
+<div class="glass-panel p-8 rounded-xl shimmer-border flex flex-col md:flex-row items-center gap-8">
+<div class="w-24 h-24 rounded-2xl bg-surface-container-low flex items-center justify-center border border-outline-variant/20 group relative overflow-hidden">
+<img alt="Logo Preview" class="w-16 h-16 object-contain" data-alt="Modern abstract geometric logo with clean lines and orange accent color on a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeP16Jz4QtEBy7zFBbRYh5clptkwFSJ8VxFgRFlYg5683nLp3z7uX2mWzZNnw1VkIPui8RmAouTYI8maqj61xwypXwEJAkrT4n_RMkevhXkLEUcOQCYpIPlLKcZUxFXw12VnSiOr2mODzFvyElpCJGwI3yMXMWRxqnQHBtwZo8c4PJk55ZqYNadj7sjOmLzUuurwQapTMqmsYSJfWXfbE9sQgj0jKHnSyhYux9_WL5l4eZe45DkhD-A3LzBH35qIWMZlhvfTGGWY1w"/>
+<div class="absolute inset-0 bg-stone-900/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">add_a_photo</span>
+</div>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h4 class="font-headline font-bold text-on-surface mb-1">Brand Logo</h4>
+<p class="text-xs text-on-surface-variant mb-4">SVG, PNG or JPG (min. 400x400px)</p>
+<button class="bg-surface-variant text-on-surface px-6 py-2 rounded-full text-xs font-bold hover:bg-stone-700 transition-colors">Replace Logo</button>
+</div>
+</div>
+<!-- Color & Font Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="glass-panel p-6 rounded-xl shimmer-border">
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-4">Brand Palette</label>
+<div class="flex items-center gap-4">
+<div class="group relative">
+<div class="w-12 h-12 rounded-full bg-primary shadow-lg cursor-pointer ring-2 ring-offset-4 ring-offset-surface ring-primary"></div>
+<p class="text-[10px] text-center mt-2 font-bold text-primary">Primary</p>
+</div>
+<div class="group relative">
+<div class="w-12 h-12 rounded-full bg-secondary-container shadow-lg cursor-pointer hover:ring-2 hover:ring-offset-4 hover:ring-offset-surface hover:ring-secondary-container transition-all"></div>
+<p class="text-[10px] text-center mt-2 font-bold text-secondary-container">Secondary</p>
+</div>
+<button class="w-12 h-12 rounded-full border border-dashed border-outline-variant flex items-center justify-center text-stone-500 hover:text-stone-300">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-xl shimmer-border">
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-4">Typography</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border-0 rounded-xl px-4 py-3 text-sm font-headline font-bold text-on-surface focus:ring-1 focus:ring-primary/30 appearance-none">
+<option>Plus Jakarta Sans</option>
+<option>Inter</option>
+<option>Montserrat</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-stone-500">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Business Settings -->
+<section>
+<h3 class="font-headline text-2xl font-bold text-on-surface mb-8">Business Details</h3>
+<div class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-widest px-1">Legal Name</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-xl px-4 py-3 text-sm text-on-surface focus:border-primary/50 focus:ring-0 transition-all" type="text" value="Terra Glass Solutions"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-widest px-1">Registration ID</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-xl px-4 py-3 text-sm text-on-surface focus:border-primary/50 focus:ring-0 transition-all" placeholder="TX-8829-211" type="text"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-widest px-1">Headquarters Address</label>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-xl px-4 py-3 text-sm text-on-surface focus:border-primary/50 focus:ring-0 transition-all" rows="3">721 Innovation Drive, Suite 400
+Austin, Texas 78701
+United States</textarea>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-widest px-1">Primary Email</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-xl px-4 py-3 text-sm text-on-surface focus:border-primary/50 focus:ring-0 transition-all" type="email" value="ops@terraglass.io"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-on-surface-variant uppercase tracking-widest px-1">Contact Phone</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-xl px-4 py-3 text-sm text-on-surface focus:border-primary/50 focus:ring-0 transition-all" type="tel" value="+1 (512) 882-9011"/>
+</div>
+</div>
+</div>
+</section>
+<!-- System Preferences -->
+<section>
+<h3 class="font-headline text-2xl font-bold text-on-surface mb-8">System Preferences</h3>
+<div class="glass-panel rounded-xl shimmer-border divide-y divide-outline-variant/10">
+<div class="p-6 flex items-center justify-between">
+<div>
+<p class="font-headline font-bold text-on-surface">Regional Timezone</p>
+<p class="text-xs text-on-surface-variant mt-1">Automate report timing based on location.</p>
+</div>
+<div class="relative">
+<select class="bg-surface-variant border-0 rounded-full px-6 py-2 text-xs font-bold text-on-surface focus:ring-0 appearance-none pr-10">
+<option>(GMT-06:00) Central Time</option>
+<option>(GMT-05:00) Eastern Time</option>
+<option>(GMT+00:00) UTC</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-stone-500 scale-75">expand_more</span>
+</div>
+</div>
+<div class="p-6 flex items-center justify-between">
+<div>
+<p class="font-headline font-bold text-on-surface">Base Currency</p>
+<p class="text-xs text-on-surface-variant mt-1">Default currency for analytics and billing.</p>
+</div>
+<div class="relative">
+<select class="bg-surface-variant border-0 rounded-full px-6 py-2 text-xs font-bold text-on-surface focus:ring-0 appearance-none pr-10">
+<option>USD ($)</option>
+<option>EUR (€)</option>
+<option>GBP (£)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-stone-500 scale-75">expand_more</span>
+</div>
+</div>
+<div class="p-6 flex items-center justify-between">
+<div>
+<p class="font-headline font-bold text-on-surface">Instant Notifications</p>
+<p class="text-xs text-on-surface-variant mt-1">Get real-time alerts for system events.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-stone-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+</div>
+<!-- Sidebar Info / Quick Actions -->
+<div class="lg:col-span-5 space-y-8">
+<!-- Preview Card -->
+<div class="glass-panel p-8 rounded-xl shimmer-border relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl -mr-16 -mt-16 rounded-full"></div>
+<h4 class="font-headline font-bold text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">visibility</span>
+                                Profile Preview
+                            </h4>
+<div class="bg-surface-container-low rounded-2xl p-6 border border-outline-variant/10 shadow-xl">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-14 h-14 rounded-full bg-stone-800 flex items-center justify-center border-2 border-primary/20 p-1">
+<img alt="Preview" class="w-full h-full object-contain rounded-full" data-alt="Modern minimalist logo mark for a technology company using earthy brown tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzOXorFdC9qPH5CFCeshFaJrhut-H7LzX7nm7jWdSbJmcU0v0nqpErP8FJ8iI2vU1JJcQ5wipMiKjqx69UbXjAGIYZez2gFG4Om3ALmY-vu-LWpkerBXOB643H2Lx9SWWyzhivAWkEF_9ontyyYCHfwLWh38ye2BmvnEY1hnXQYHsnep9VvR-fJitaKSmQts06aiRawVSfCPk4v48jKp6URpiH2HpttxpMWkVn93ZTcRBzVEbScBh__RcNQkUly0tLn099U_n_WRax"/>
+</div>
+<div>
+<p class="font-headline font-bold text-on-surface">Terra Glass Solutions</p>
+<p class="text-xs text-primary font-medium">Enterprise Organization</p>
+</div>
+</div>
+<div class="space-y-3">
+<div class="h-2 w-full bg-surface-variant rounded-full opacity-30"></div>
+<div class="h-2 w-4/5 bg-surface-variant rounded-full opacity-30"></div>
+<div class="h-2 w-3/5 bg-surface-variant rounded-full opacity-30"></div>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/10 flex justify-between">
+<div class="text-center">
+<p class="text-[10px] text-on-surface-variant uppercase font-bold">Members</p>
+<p class="text-sm font-headline font-bold text-on-surface">128</p>
+</div>
+<div class="text-center">
+<p class="text-[10px] text-on-surface-variant uppercase font-bold">Projects</p>
+<p class="text-sm font-headline font-bold text-on-surface">42</p>
+</div>
+<div class="text-center">
+<p class="text-[10px] text-on-surface-variant uppercase font-bold">Uptime</p>
+<p class="text-sm font-headline font-bold text-primary">99.9%</p>
+</div>
+</div>
+</div>
+<p class="text-[10px] text-on-surface-variant italic mt-6 text-center">This is how your brand appears to partners and team members.</p>
+</div>
+<!-- Organization Health -->
+<div class="glass-panel p-8 rounded-xl shimmer-border">
+<h4 class="font-headline font-bold text-on-surface mb-6">Security Checkup</h4>
+<div class="space-y-6">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-green-400 mt-1">check_circle</span>
+<div>
+<p class="text-sm font-bold text-on-surface">Two-Factor Authentication</p>
+<p class="text-xs text-on-surface-variant">Enabled for all administrative accounts.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-orange-400 mt-1">info</span>
+<div>
+<p class="text-sm font-bold text-on-surface">API Usage</p>
+<p class="text-xs text-on-surface-variant">Production key hasn't been rotated in 4 months.</p>
+<button class="text-[10px] font-bold text-primary uppercase mt-2 hover:underline">Rotate Keys</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="flex flex-col gap-4">
+<button class="w-full bg-gradient-to-br from-primary to-on-primary-container text-on-primary font-headline font-bold py-4 rounded-full shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+                                Save All Changes
+                            </button>
+<button class="w-full bg-surface-container text-on-surface-variant font-headline font-bold py-4 rounded-full border border-outline-variant/10 hover:bg-surface-container-high transition-colors">
+                                Reset to Default
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Bottom NavBar Shell -->
+<div class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] glass-panel rounded-full h-16 z-50 flex items-center justify-around px-6 border border-outline-variant/20 shadow-2xl">
+<button class="flex flex-col items-center justify-center text-stone-500">
+<span class="material-symbols-outlined">dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-stone-500">
+<span class="material-symbols-outlined">group</span>
+</button>
+<div class="w-12 h-12 -mt-12 bg-primary rounded-full flex items-center justify-center shadow-lg shadow-primary/30 text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+</div>
+<button class="flex flex-col items-center justify-center text-orange-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+</button>
+<button class="flex flex-col items-center justify-center text-stone-500">
+<span class="material-symbols-outlined">inventory_2</span>
+</button>
+</div>
+</body></html>

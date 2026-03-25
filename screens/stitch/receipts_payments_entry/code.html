@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EventGlass Pro | Receipts &amp; Payments</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#2b2a29",
+              "surface": "#141312",
+              "secondary-fixed": "#ece0dc",
+              "surface-container-lowest": "#0f0e0d",
+              "on-primary-fixed": "#2c160e",
+              "on-primary-fixed-variant": "#5d4037",
+              "surface-container-low": "#1c1b1a",
+              "inverse-primary": "#77574d",
+              "surface-container-highest": "#363433",
+              "tertiary-fixed": "#cde8e5",
+              "primary-fixed-dim": "#e7bdb1",
+              "surface-tint": "#e7bdb1",
+              "inverse-on-surface": "#31302f",
+              "tertiary-fixed-dim": "#b1ccc9",
+              "outline": "#9c8d89",
+              "on-primary-container": "#d4ada1",
+              "tertiary": "#b1ccc9",
+              "on-tertiary": "#1d3433",
+              "primary": "#e7bdb1",
+              "surface-bright": "#3a3938",
+              "inverse-surface": "#e6e2df",
+              "on-tertiary-fixed-variant": "#334b49",
+              "on-tertiary-fixed": "#061f1e",
+              "surface-container": "#201f1e",
+              "on-surface-variant": "#d4c3be",
+              "on-secondary": "#352f2d",
+              "on-secondary-fixed-variant": "#4c4542",
+              "on-secondary-fixed": "#201a18",
+              "background": "#141312",
+              "outline-variant": "#504441",
+              "on-background": "#e6e2df",
+              "secondary-fixed-dim": "#cfc4c0",
+              "primary-container": "#5d4037",
+              "on-surface": "#e6e2df",
+              "surface-variant": "#363433",
+              "on-error": "#690005",
+              "primary-fixed": "#ffdbd0",
+              "secondary": "#cfc4c0",
+              "on-tertiary-container": "#a0bab7",
+              "on-secondary-container": "#bdb3af",
+              "secondary-container": "#4c4542",
+              "error-container": "#93000a",
+              "error": "#ffb4ab",
+              "surface-dim": "#141312",
+              "on-error-container": "#ffdad6",
+              "tertiary-container": "#334b49",
+              "on-primary": "#442a22"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      body { font-family: 'Inter', sans-serif; background-color: #141312; color: #e6e2df; }
+      h1, h2, h3, .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+      .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+      .glass-card {
+        background: rgba(54, 52, 51, 0.6);
+        backdrop-filter: blur(20px);
+        border: 0.5px solid rgba(80, 68, 65, 0.2);
+      }
+      .ghost-border { border: 0.5px solid rgba(80, 68, 65, 0.15); }
+    </style>
+</head>
+<body class="min-h-screen flex bg-surface">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col h-screen sticky left-0 top-0 p-6 space-y-4 h-screen w-64 border-r border-stone-800/20 rounded-r-[24px] bg-stone-900/40 backdrop-blur-2xl z-40">
+<div class="flex items-center space-x-3 mb-8 px-4">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-on-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">layers</span>
+</div>
+<div>
+<h2 class="text-xl font-bold text-orange-200 leading-tight">EventGlass Pro</h2>
+<p class="text-[10px] uppercase tracking-widest text-stone-500 font-bold">Premium Management</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center space-x-3 text-stone-400 hover:text-stone-200 px-4 py-3 hover:bg-stone-800/30 transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center space-x-3 text-stone-400 hover:text-stone-200 px-4 py-3 hover:bg-stone-800/30 transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined">event_seat</span>
+<span class="font-medium">Equipment Hire</span>
+</a>
+<a class="flex items-center space-x-3 text-stone-400 hover:text-stone-200 px-4 py-3 hover:bg-stone-800/30 transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined">group_add</span>
+<span class="font-medium">Worker Teams</span>
+</a>
+<a class="flex items-center space-x-3 text-stone-400 hover:text-stone-200 px-4 py-3 hover:bg-stone-800/30 transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined">assignment_return</span>
+<span class="font-medium">Returns Log</span>
+</a>
+<a class="flex items-center space-x-3 bg-stone-800/60 text-orange-200 font-medium rounded-xl px-4 py-3 active:scale-[0.98] duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-medium">Payments</span>
+</a>
+<a class="flex items-center space-x-3 text-stone-400 hover:text-stone-200 px-4 py-3 hover:bg-stone-800/30 transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+</nav>
+<button class="w-full py-4 px-4 bg-gradient-to-br from-primary to-on-primary-container text-on-primary font-bold rounded-xl shadow-lg hover:opacity-90 transition-opacity flex items-center justify-center space-x-2">
+<span class="material-symbols-outlined">add_circle</span>
+<span>New Booking</span>
+</button>
+</aside>
+<main class="flex-1 flex flex-col min-w-0 bg-surface">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-8 py-4 z-50 fixed top-0 w-full border-b border-stone-800/20 bg-stone-950/60 backdrop-blur-xl md:static">
+<div class="flex items-center space-x-8">
+<span class="text-2xl font-bold tracking-tight text-orange-200 lg:hidden">EventGlass Pro</span>
+<nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+<a class="text-stone-400 hover:text-stone-200 transition-colors" href="#">Inventory</a>
+<a class="text-stone-400 hover:text-stone-200 transition-colors" href="#">Schedule</a>
+<a class="text-stone-400 hover:text-stone-200 transition-colors" href="#">Returns</a>
+<a class="text-orange-200 border-b-2 border-orange-200 pb-1 transition-colors" href="#">Finances</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-500 text-sm">search</span>
+<input class="bg-surface-container-lowest border-0.5 border-outline/20 rounded-full py-2 pl-10 pr-4 text-xs w-64 focus:ring-1 focus:ring-primary/20 transition-all outline-none" placeholder="Search transactions..." type="text"/>
+</div>
+<button class="p-2 text-stone-400 hover:bg-stone-800/40 rounded-full transition-all duration-300">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-stone-800 border border-stone-700">
+<img alt="User" data-alt="professional profile portrait of a man in a dark studio setting with warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAov6_TnU_AIWNTBNWr9SQ_EyTjIpOyhaNz5hCv4zpddXgE1yAeEFDqLtjQ4j8238qwHXgl1dXXf-rR5dY6ogaUGvXAN85vd-QfBzf1YlmqxU4ej8K5VxCqGMovcTwzX_F9n7_7XxWHbKpIGNB-DiihbFLEBdTjQEmZF46npYATRe6oAXuL6isC5nVUGSN7yJ49BPo8wIHdqKf4hKZL6KGg8tiL9FDMWqmdyW6UQffqWWFFeHRjmEEn9wt4MLFvQYI1InzwCgfQMKmB"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-8 mt-16 md:mt-0 max-w-7xl mx-auto w-full">
+<!-- Hero Header Section -->
+<div class="mb-12">
+<h1 class="text-4xl md:text-5xl font-extrabold text-on-surface tracking-tight mb-2">Finances &amp; Receipts</h1>
+<p class="text-stone-400 max-w-2xl">Manage transactions, track partial payments, and generate high-end receipts for your event bookings.</p>
+</div>
+<!-- Dashboard Bento Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Balance Overview Card (Left/Top) -->
+<div class="lg:col-span-4 flex flex-col gap-8">
+<div class="glass-card p-8 rounded-xl relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-32 h-32 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all"></div>
+<div class="relative z-10">
+<span class="text-[10px] uppercase tracking-[0.2em] font-bold text-primary mb-4 block">Active Account Balance</span>
+<div class="flex items-baseline space-x-2 mb-6">
+<span class="text-4xl font-extrabold text-on-surface">$24,580</span>
+<span class="text-stone-500 font-medium">USD</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center text-sm">
+<span class="text-stone-400">Paid Amount</span>
+<span class="text-on-surface font-semibold">$18,200</span>
+</div>
+<div class="w-full bg-stone-800 h-2 rounded-full overflow-hidden">
+<div class="bg-gradient-to-r from-primary to-on-primary-container h-full w-[74%] rounded-full"></div>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-stone-400">Outstanding</span>
+<span class="text-orange-200 font-semibold">$6,380</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Booking Selector Context -->
+<div class="bg-surface-container-low p-6 rounded-xl ghost-border">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline font-bold text-lg">Active Booking</h3>
+<button class="text-primary text-xs font-bold hover:underline">Change</button>
+</div>
+<div class="flex items-center space-x-4 mb-6">
+<div class="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Booking" data-alt="high-end luxury wedding reception in a glass house with warm string lights and floral arrangements" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8zqsdcGLfZXLRuVbnWpOIvhGSJySb_nRwTu5czX6e5ru7xWqpTpgT4VG_NowVgHEeijMjw7Qz-XrysakDhtergLAjzVjuuyautx3eQSVkGeTBNMXZMDyi8ECSMYYLtLNpJLHkaHYcrwdPx6MX7HBECEDs9-kVc_vj41-tgZV-HyR-fUGu0cmnHoT-aLuOtEwhqyLlY75XwHmnamwhgSjgiCkjCijsh1RLmEEW1FALuiU1llPib3DMDvt-UEu6eJI-MXEYgUEF-5Tv"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Luxury Gala - Avery &amp; Co.</p>
+<p class="text-xs text-stone-500">ID: BK-88291 • Oct 12, 2024</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-surface-container p-3 rounded-lg text-center">
+<p class="text-[10px] uppercase text-stone-500 font-bold mb-1">Status</p>
+<span class="text-xs font-bold text-amber-200 bg-amber-200/10 px-2 py-0.5 rounded">Partial</span>
+</div>
+<div class="bg-surface-container p-3 rounded-lg text-center">
+<p class="text-[10px] uppercase text-stone-500 font-bold mb-1">Items</p>
+<span class="text-xs font-bold text-on-surface">14 Units</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Payment Entry Form (Middle) -->
+<div class="lg:col-span-5">
+<div class="bg-surface-container-low p-8 rounded-xl h-full border-t border-stone-800/10">
+<div class="flex items-center space-x-2 mb-8">
+<span class="material-symbols-outlined text-primary">add_card</span>
+<h2 class="text-2xl font-bold font-headline">Record Transaction</h2>
+</div>
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="text-xs font-bold text-stone-400 uppercase tracking-wider">Transaction Amount</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-stone-500 font-bold">$</span>
+<input class="w-full bg-surface-container-lowest border-outline/20 rounded-xl py-4 pl-8 focus:ring-1 focus:ring-primary/20 transition-all outline-none text-xl font-bold" placeholder="0.00" type="number"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-xs font-bold text-stone-400 uppercase tracking-wider">Method</label>
+<select class="w-full bg-surface-container-lowest border-outline/20 rounded-xl py-3 focus:ring-1 focus:ring-primary/20 outline-none text-sm appearance-none">
+<option>Bank Transfer</option>
+<option>Credit Card</option>
+<option>Cash</option>
+<option>Digital Wallet</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-stone-400 uppercase tracking-wider">Date</label>
+<input class="w-full bg-surface-container-lowest border-outline/20 rounded-xl py-3 focus:ring-1 focus:ring-primary/20 outline-none text-sm" type="date"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold text-stone-400 uppercase tracking-wider">Notes (Optional)</label>
+<textarea class="w-full bg-surface-container-lowest border-outline/20 rounded-xl py-3 px-4 focus:ring-1 focus:ring-primary/20 outline-none text-sm" placeholder="Reference numbers or specific instructions..." rows="3"></textarea>
+</div>
+<div class="flex items-center space-x-3 p-4 bg-primary/5 rounded-xl border border-primary/10">
+<input checked="" class="rounded bg-stone-800 border-stone-700 text-primary focus:ring-primary/20" id="generate_receipt" type="checkbox"/>
+<label class="text-xs text-stone-300" for="generate_receipt">Generate high-end PDF receipt automatically</label>
+</div>
+<button class="w-full py-4 bg-gradient-to-r from-primary to-on-primary-container text-on-primary font-bold rounded-xl shadow-[0_8px_16px_rgba(231,189,177,0.1)] hover:scale-[1.01] transition-all" type="submit">
+                                Post Transaction
+                            </button>
+</form>
+</div>
+</div>
+<!-- Partial Payments Tracker (Right) -->
+<div class="lg:col-span-3">
+<div class="flex flex-col h-full space-y-6">
+<div class="bg-surface-container p-6 rounded-xl flex-1">
+<h3 class="font-headline font-bold text-sm uppercase tracking-widest text-stone-500 mb-6">Payment History</h3>
+<div class="space-y-6">
+<div class="flex items-start space-x-3">
+<div class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5"></div>
+<div class="flex-1">
+<p class="text-sm font-bold text-on-surface">Deposit Received</p>
+<p class="text-xs text-stone-500">Sept 15 • Bank Transfer</p>
+</div>
+<span class="text-sm font-bold text-on-surface">$5,000</span>
+</div>
+<div class="flex items-start space-x-3">
+<div class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5"></div>
+<div class="flex-1">
+<p class="text-sm font-bold text-on-surface">Installment #1</p>
+<p class="text-xs text-stone-500">Oct 01 • Credit Card</p>
+</div>
+<span class="text-sm font-bold text-on-surface">$8,200</span>
+</div>
+<div class="flex items-start space-x-3">
+<div class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 opacity-40"></div>
+<div class="flex-1">
+<p class="text-sm font-bold text-stone-500">Final Balance</p>
+<p class="text-xs text-stone-600">Pending Schedule</p>
+</div>
+<span class="text-sm font-bold text-stone-600">$6,380</span>
+</div>
+</div>
+</div>
+<div class="glass-card p-6 rounded-xl border-dashed border-primary/20">
+<p class="text-xs font-medium text-stone-400 mb-4 italic leading-relaxed">"Client has requested a split payment for the remaining balance across two corporate cards."</p>
+<div class="flex items-center space-x-2">
+<div class="w-6 h-6 rounded-full bg-stone-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">edit_note</span>
+</div>
+<span class="text-[10px] font-bold text-stone-500 uppercase">Internal Note by Admin</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Receipt Preview Section -->
+<div class="mt-16 mb-24">
+<div class="flex items-end justify-between mb-8">
+<div>
+<span class="text-primary font-bold text-sm mb-1 block">Live Designer</span>
+<h2 class="text-3xl font-bold font-headline">Receipt Preview</h2>
+</div>
+<div class="flex space-x-2">
+<button class="px-4 py-2 bg-surface-container rounded-lg text-xs font-bold flex items-center space-x-2 hover:bg-stone-800 transition-colors">
+<span class="material-symbols-outlined text-sm">print</span>
+<span>Print</span>
+</button>
+<button class="px-4 py-2 bg-surface-container rounded-lg text-xs font-bold flex items-center space-x-2 hover:bg-stone-800 transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+<span>Download PDF</span>
+</button>
+</div>
+</div>
+<div class="bg-white text-stone-900 rounded-xl overflow-hidden shadow-2xl flex flex-col md:flex-row min-h-[600px]">
+<!-- Receipt Visual Side -->
+<div class="md:w-1/3 bg-stone-950 p-10 flex flex-col justify-between relative overflow-hidden">
+<div class="absolute inset-0 opacity-10">
+<img class="w-full h-full object-cover" data-alt="minimalist abstract geometric background with soft flowing shapes in dark muted tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChsKrkADrTCFlJOTcXJoMLbNpeQjIhH9TN-_pWp5dWFa0UoF2mfbIp1df8_eeKTLAoXpCL8mr27Q6Bjw-wbM4rV8buK5xPR8ry5AtvYRu_d7_1lii_pGvD0Yc2ZpF9SuYWcYokczHKZRWSbUGrKJOzZ4yWK24uGNkqu6NTweTfRxau-a9o8mE_kRz4eRQxnjIH57QwPgjgZFxGJ7v8LlWrqITiSQ0ji_CH4xX5CFXU9Q-3SvfQ-O1TAD21Da8Z0cEXWR6Lqt8-TxS0"/>
+</div>
+<div class="relative z-10">
+<div class="w-16 h-16 bg-gradient-to-br from-primary to-on-primary-container rounded-2xl flex items-center justify-center text-on-primary text-2xl mb-8">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">layers</span>
+</div>
+<h3 class="text-2xl font-bold text-white mb-2 leading-tight">Receipt<br/>#RCP-2024-092</h3>
+<p class="text-stone-500 text-sm">Issued Oct 12, 2024</p>
+</div>
+<div class="relative z-10 border-t border-stone-800 pt-8">
+<p class="text-[10px] uppercase tracking-widest text-primary font-bold mb-4">Merchant Information</p>
+<p class="text-xs text-stone-400 leading-relaxed">
+                                EventGlass Pro Global Ltd.<br/>
+                                128 Innovation Drive<br/>
+                                London, UK EC1V 2NX<br/>
+                                VAT: GB 882 1922 10
+                            </p>
+</div>
+</div>
+<!-- Receipt Details Side -->
+<div class="md:w-2/3 bg-stone-50 p-10 md:p-16 flex flex-col">
+<div class="flex justify-between items-start mb-16">
+<div>
+<p class="text-[10px] uppercase font-bold text-stone-400 mb-2">Billed To</p>
+<p class="text-sm font-bold text-stone-900">Avery &amp; Co. Events</p>
+<p class="text-xs text-stone-500">finance@averyco.com</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] uppercase font-bold text-stone-400 mb-2">Payment Type</p>
+<p class="text-sm font-bold text-stone-900">Credit Card (Visa •••• 4242)</p>
+</div>
+</div>
+<div class="flex-1">
+<table class="w-full text-sm">
+<thead class="border-b-2 border-stone-200">
+<tr>
+<th class="text-left py-4 font-bold text-stone-400 text-xs uppercase">Description</th>
+<th class="text-right py-4 font-bold text-stone-400 text-xs uppercase">Qty</th>
+<th class="text-right py-4 font-bold text-stone-400 text-xs uppercase">Price</th>
+<th class="text-right py-4 font-bold text-stone-400 text-xs uppercase">Total</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-stone-100">
+<tr>
+<td class="py-6">
+<p class="font-bold text-stone-900">Partial Payment - Luxury Gala</p>
+<p class="text-[10px] text-stone-500">Booking Ref: BK-88291</p>
+</td>
+<td class="text-right py-6">1</td>
+<td class="text-right py-6">$8,200.00</td>
+<td class="text-right py-6 font-bold">$8,200.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="border-t-2 border-stone-200 pt-8 mt-8">
+<div class="flex justify-end space-y-3">
+<div class="w-64 space-y-3">
+<div class="flex justify-between text-sm">
+<span class="text-stone-500">Subtotal</span>
+<span class="text-stone-900 font-medium">$8,200.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-stone-500">Tax (0%)</span>
+<span class="text-stone-900 font-medium">$0.00</span>
+</div>
+<div class="flex justify-between items-center pt-3 border-t border-stone-100">
+<span class="text-xs font-bold uppercase text-stone-400 tracking-tighter">Amount Paid</span>
+<span class="text-2xl font-extrabold text-stone-900">$8,200.00</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-16 text-center">
+<p class="text-[10px] text-stone-400 font-medium">Thank you for choosing EventGlass Pro. This document serves as proof of payment.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] glass-card rounded-full flex items-center justify-around p-3 z-50 ghost-border">
+<a class="p-2 text-stone-400" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+</a>
+<a class="p-2 text-stone-400" href="#">
+<span class="material-symbols-outlined">event_seat</span>
+</a>
+<a class="p-3 bg-primary text-on-primary rounded-full shadow-lg" href="#">
+<span class="material-symbols-outlined">add</span>
+</a>
+<a class="p-2 text-orange-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+</a>
+<a class="p-2 text-stone-400" href="#">
+<span class="material-symbols-outlined">settings</span>
+</a>
+</nav>
+</body></html>

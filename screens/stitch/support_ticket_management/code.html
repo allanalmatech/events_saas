@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#1c1b1a",
+              "surface-variant": "#363433",
+              "primary-fixed": "#ffdbd0",
+              "outline": "#9c8d89",
+              "inverse-on-surface": "#31302f",
+              "inverse-surface": "#e6e2df",
+              "error-container": "#93000a",
+              "on-primary-fixed-variant": "#5d4037",
+              "outline-variant": "#504441",
+              "on-primary-fixed": "#2c160e",
+              "on-tertiary-fixed": "#061f1e",
+              "on-secondary-fixed": "#201a18",
+              "on-error-container": "#ffdad6",
+              "secondary-fixed": "#ece0dc",
+              "tertiary-fixed-dim": "#b1ccc9",
+              "primary-container": "#5d4037",
+              "on-tertiary-container": "#a0bab7",
+              "surface-bright": "#3a3938",
+              "on-surface": "#e6e2df",
+              "on-secondary-container": "#bdb3af",
+              "on-secondary": "#352f2d",
+              "error": "#ffb4ab",
+              "on-tertiary-fixed-variant": "#334b49",
+              "on-tertiary": "#1d3433",
+              "on-error": "#690005",
+              "on-background": "#e6e2df",
+              "surface": "#141312",
+              "on-secondary-fixed-variant": "#4c4542",
+              "tertiary-container": "#334b49",
+              "on-primary": "#442a22",
+              "surface-container": "#201f1e",
+              "tertiary": "#b1ccc9",
+              "secondary-container": "#4c4542",
+              "secondary": "#cfc4c0",
+              "surface-container-lowest": "#0f0e0d",
+              "on-surface-variant": "#d4c3be",
+              "tertiary-fixed": "#cde8e5",
+              "surface-dim": "#141312",
+              "inverse-primary": "#77574d",
+              "primary-fixed-dim": "#e7bdb1",
+              "surface-container-high": "#2b2a29",
+              "surface-tint": "#e7bdb1",
+              "surface-container-highest": "#363433",
+              "secondary-fixed-dim": "#cfc4c0",
+              "primary": "#e7bdb1",
+              "on-primary-container": "#d4ada1",
+              "background": "#141312"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(54, 52, 51, 0.6);
+            backdrop-filter: blur(20px);
+            border: 0.5px solid rgba(80, 68, 65, 0.2);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #e7bdb1 0%, #d4ada1 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30">
+<!-- Side Navigation Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-stone-800/30 bg-stone-950 dark:bg-stone-950 flex flex-col py-6 space-y-2 z-50">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl primary-gradient flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">domain</span>
+</div>
+<div>
+<h2 class="font-bold text-lg text-orange-200 font-headline leading-tight">Premier Events</h2>
+<p class="text-[10px] text-stone-500 uppercase tracking-widest font-bold">Enterprise Tier</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="text-stone-500 hover:text-stone-300 px-4 py-3 flex items-center gap-3 transition-all duration-300 hover:bg-stone-900 rounded-xl group" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="font-medium text-sm font-headline">Dashboard</span>
+</a>
+<a class="text-stone-500 hover:text-stone-300 px-4 py-3 flex items-center gap-3 transition-all duration-300 hover:bg-stone-900 rounded-xl group" href="#">
+<span class="material-symbols-outlined text-xl">layers</span>
+<span class="font-medium text-sm font-headline">Inventory</span>
+</a>
+<a class="text-stone-500 hover:text-stone-300 px-4 py-3 flex items-center gap-3 transition-all duration-300 hover:bg-stone-900 rounded-xl group" href="#">
+<span class="material-symbols-outlined text-xl">calendar_today</span>
+<span class="font-medium text-sm font-headline">Bookings</span>
+</a>
+<a class="text-stone-500 hover:text-stone-300 px-4 py-3 flex items-center gap-3 transition-all duration-300 hover:bg-stone-900 rounded-xl group" href="#">
+<span class="material-symbols-outlined text-xl">group</span>
+<span class="font-medium text-sm font-headline">Clients</span>
+</a>
+<a class="bg-stone-800/50 text-orange-200 rounded-xl px-4 py-3 border-l-4 border-orange-300 flex items-center gap-3 group" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">confirmation_number</span>
+<span class="font-medium text-sm font-headline">Tickets</span>
+</a>
+<a class="text-stone-500 hover:text-stone-300 px-4 py-3 flex items-center gap-3 transition-all duration-300 hover:bg-stone-900 rounded-xl group" href="#">
+<span class="material-symbols-outlined text-xl">analytics</span>
+<span class="font-medium text-sm font-headline">Analytics</span>
+</a>
+</nav>
+<div class="mt-auto px-4 space-y-1">
+<button class="w-full mb-6 py-3 px-4 rounded-xl primary-gradient text-on-primary font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm">add</span>
+                New Booking
+            </button>
+<a class="text-stone-500 hover:text-stone-300 px-4 py-3 flex items-center gap-3 transition-all duration-300 hover:bg-stone-900 rounded-xl" href="#">
+<span class="material-symbols-outlined text-xl">help</span>
+<span class="font-medium text-sm font-headline">Help Center</span>
+</a>
+<a class="text-stone-500 hover:text-stone-300 px-4 py-3 flex items-center gap-3 transition-all duration-300 hover:bg-stone-900 rounded-xl" href="#">
+<span class="material-symbols-outlined text-xl text-error/70">logout</span>
+<span class="font-medium text-sm font-headline">Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- Top Navigation -->
+<header class="sticky top-0 w-full z-40 bg-stone-900/60 backdrop-blur-xl border-b border-stone-700/20 flex justify-between items-center h-16 px-8 shadow-sm">
+<div class="flex items-center gap-6">
+<h1 class="text-xl font-bold text-orange-200 tracking-tighter font-headline">Support: Ticket Management</h1>
+<div class="hidden md:flex items-center bg-stone-800/40 rounded-full px-4 py-1.5 gap-2 border border-stone-700/30">
+<span class="material-symbols-outlined text-stone-400 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-xs text-stone-200 w-48 font-body" placeholder="Search requests..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-stone-400 hover:bg-stone-800/40 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-stone-400 hover:bg-stone-800/40 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-stone-700/30 mx-2"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right">
+<p class="text-xs font-bold text-stone-200">Alex Sterling</p>
+<p class="text-[10px] text-stone-500 uppercase font-bold tracking-tighter">Director</p>
+</div>
+<img alt="User profile avatar" class="w-10 h-10 rounded-full border-2 border-primary/20 object-cover" data-alt="Close-up portrait of a professional man with a friendly expression in a modern office environment with warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAT0SYNBafzMX-VLvp64-8rvja2NJbfqE4Si3zrX0HyrAfPNkEpaRdEOjXQ1POzYhzY58jNpQnnl1XR_Kl7uhgft1SXWU2GsBU7DcyXXHlH7mmY6FqdbYF6G2WhGG92qwTcXWK3ZX_5VaiKuwHbCkpJkYoXT711-T0KpCca_YhF5D1AF1DS9mUKjQzfqb20f_nBpef3lBhur8WdgpWNfKfbqIzCR9tkG7IAtTTnuZ1EtcwcFPF8-ow8ltYjfMYvNrsoOL5hAORZG23I"/>
+</div>
+</div>
+</header>
+<div class="p-8 space-y-10 max-w-[1400px] mx-auto">
+<!-- Metrics Section - Asymmetric Bento Grid -->
+<section class="grid grid-cols-12 gap-6">
+<div class="col-span-12 lg:col-span-4 glass-panel p-8 rounded-xl flex flex-col justify-between group overflow-hidden relative">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+<div>
+<span class="text-[10px] font-bold text-stone-500 uppercase tracking-widest block mb-1">Total Active</span>
+<h3 class="text-4xl font-headline font-extrabold text-primary">142</h3>
+</div>
+<div class="mt-8 flex items-end justify-between">
+<p class="text-sm text-stone-400 leading-snug max-w-[140px]">Global volume across all properties</p>
+<div class="h-10 w-24 bg-surface-container-low rounded-lg flex items-center justify-center">
+<span class="text-xs font-bold text-emerald-400">+12%</span>
+<span class="material-symbols-outlined text-emerald-400 text-sm ml-1">trending_up</span>
+</div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-5 grid grid-cols-2 gap-6">
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
+<div class="w-10 h-10 rounded-lg bg-orange-400/10 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-orange-400">priority_high</span>
+</div>
+<h4 class="text-2xl font-headline font-bold text-on-surface">18</h4>
+<p class="text-xs text-stone-500 font-medium">Urgent Priority</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
+<div class="w-10 h-10 rounded-lg bg-blue-400/10 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-blue-400">avg_time</span>
+</div>
+<h4 class="text-2xl font-headline font-bold text-on-surface">4.2h</h4>
+<p class="text-xs text-stone-500 font-medium">Avg Resolution</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
+<div class="w-10 h-10 rounded-lg bg-emerald-400/10 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-emerald-400">check_circle</span>
+</div>
+<h4 class="text-2xl font-headline font-bold text-on-surface">94%</h4>
+<p class="text-xs text-stone-500 font-medium">Satisfaction Rate</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-primary">chat</span>
+</div>
+<h4 class="text-2xl font-headline font-bold text-on-surface">24</h4>
+<p class="text-xs text-stone-500 font-medium">Open Threads</p>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-3 glass-panel p-8 rounded-xl flex flex-col justify-center items-center text-center space-y-4">
+<div class="relative w-24 h-24">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-stone-800" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="60" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center text-xl font-bold font-headline">76%</div>
+</div>
+<div>
+<h4 class="font-bold text-stone-200">Efficiency Goal</h4>
+<p class="text-xs text-stone-500">Q3 target: 85% automation</p>
+</div>
+</div>
+</section>
+<!-- Main Table Section -->
+<section class="space-y-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<h2 class="text-2xl font-headline font-bold">Active Requests</h2>
+<div class="flex bg-surface-container rounded-full p-1 border border-outline-variant/10">
+<button class="px-4 py-1 rounded-full text-xs font-bold bg-surface-variant text-primary shadow-sm">All</button>
+<button class="px-4 py-1 rounded-full text-xs font-bold text-stone-500 hover:text-stone-300 transition-colors">Open</button>
+<button class="px-4 py-1 rounded-full text-xs font-bold text-stone-500 hover:text-stone-300 transition-colors">Resolved</button>
+</div>
+</div>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full glass-panel text-sm font-bold hover:bg-stone-800 transition-colors">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+                        Filter View
+                    </button>
+</div>
+<div class="bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/10">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high/50">
+<th class="px-6 py-4 text-[10px] font-bold text-stone-500 uppercase tracking-widest">Tenant / ID</th>
+<th class="px-6 py-4 text-[10px] font-bold text-stone-500 uppercase tracking-widest">Issue Subject</th>
+<th class="px-6 py-4 text-[10px] font-bold text-stone-500 uppercase tracking-widest">Location</th>
+<th class="px-6 py-4 text-[10px] font-bold text-stone-500 uppercase tracking-widest">Status</th>
+<th class="px-6 py-4 text-[10px] font-bold text-stone-500 uppercase tracking-widest">Created</th>
+<th class="px-6 py-4 text-[10px] font-bold text-stone-500 uppercase tracking-widest text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<!-- Ticket 1 -->
+<tr class="hover:bg-surface-container/50 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-stone-800 flex items-center justify-center font-bold text-primary-fixed-dim text-xs">MA</div>
+<div>
+<p class="text-sm font-bold text-stone-200">Marcus Aris</p>
+<p class="text-[10px] text-stone-500">TK-88219</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-medium text-stone-300">HVAC Failure - South Wing</p>
+<p class="text-[11px] text-stone-500 truncate max-w-[200px]">System reporting error code E-12 on main console...</p>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs text-stone-400 font-medium">Studio A420</span>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-tight bg-red-400/10 text-red-400 border border-red-400/20">
+<span class="w-1 h-1 rounded-full bg-red-400 mr-2 animate-pulse"></span> Urgent
+                                        </span>
+</td>
+<td class="px-6 py-5 text-sm text-stone-500">2h ago</td>
+<td class="px-6 py-5 text-right">
+<button class="text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Ticket 2 -->
+<tr class="hover:bg-surface-container/50 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img alt="Tenant" class="w-9 h-9 rounded-lg object-cover" data-alt="Close-up of a smiling young woman with dark hair in a professional setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtE0gR7eE2eo4IoIIgw0eYhcAp6lzyVT0CyklU8w-yUJhDgaUY3egmIGEcZAPS02icANh9_oSX2VwlHPTek7gLD_pOz8nEPZ7gEn6zxEqBdMfL2unyRDgg_hjRGNfha8As7EkaAHRe2Rwz6RBBjGaDEDESZvoIkc6Rl6TLvhuVO5Ew4y_dEdbcgEH1N_KnWga-7Bw65p2QS7Dma_LUpxFRY7NLObxNFp6hS2rk4MjwIPsKRdbh2h7BMbjOmrBU_BNjqbQs38Y9yq8S"/>
+<div>
+<p class="text-sm font-bold text-stone-200">Elena Vance</p>
+<p class="text-[10px] text-stone-500">TK-88342</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-medium text-stone-300">Access Badge Renewal</p>
+<p class="text-[11px] text-stone-500 truncate max-w-[200px]">Needs priority pass for sub-contractor parking</p>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs text-stone-400 font-medium">Main Lobby</span>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-tight bg-orange-400/10 text-orange-400 border border-orange-400/20">
+<span class="w-1 h-1 rounded-full bg-orange-400 mr-2"></span> Open
+                                        </span>
+</td>
+<td class="px-6 py-5 text-sm text-stone-500">5h ago</td>
+<td class="px-6 py-5 text-right">
+<button class="text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Ticket 3 -->
+<tr class="hover:bg-surface-container/50 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-stone-800 flex items-center justify-center font-bold text-stone-500 text-xs">JR</div>
+<div>
+<p class="text-sm font-bold text-stone-200">Julian Reed</p>
+<p class="text-[10px] text-stone-500">TK-88102</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-medium text-stone-300">Catering Setup Refined</p>
+<p class="text-[11px] text-stone-500 truncate max-w-[200px]">Adjusted count for VIP lounge dinner tomorrow</p>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs text-stone-400 font-medium">Level 2 Event Space</span>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-tight bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">
+<span class="w-1 h-1 rounded-full bg-emerald-400 mr-2"></span> Resolved
+                                        </span>
+</td>
+<td class="px-6 py-5 text-sm text-stone-500">Yesterday</td>
+<td class="px-6 py-5 text-right">
+<button class="text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Ticket 4 -->
+<tr class="hover:bg-surface-container/50 transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<img alt="Tenant" class="w-9 h-9 rounded-lg object-cover" data-alt="Headshot of a modern professional man with glasses against a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyVp2IoPkTrOlCSkNkUnvrqYMExhIY-0qNn9hboyorqH26itt_5fEIsAtdkm4BfrXqHvYHRygt6oV9_k9t-sx3IZNhzeWRdac_bh691SWzpWrCFtsvqLWflZEo3rKR_d66QYmsxCDqlJpA9uRfZfYuvINjAKNQbTPZ1ZOUwSkw_FyQeKHtzzTe4JaKb4rWYV4txZRA-hs8U7YfDMUlO0ZHiKWH_TeTgEHLO3qcyKeXhFK5zHtiXEXygF8vc0jey0dg-a2FC_f8WKQH"/>
+<div>
+<p class="text-sm font-bold text-stone-200">Liam Thorne</p>
+<p class="text-[10px] text-stone-500">TK-87993</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<p class="text-sm font-medium text-stone-300">Electrical Socket Repair</p>
+<p class="text-[11px] text-stone-500 truncate max-w-[200px]">Floor outlet near desk 12 is loose and sparking</p>
+</td>
+<td class="px-6 py-5">
+<span class="text-xs text-stone-400 font-medium">Co-working Hub</span>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-tight bg-red-400/10 text-red-400 border border-red-400/20">
+<span class="w-1 h-1 rounded-full bg-red-400 mr-2 animate-pulse"></span> Urgent
+                                        </span>
+</td>
+<td class="px-6 py-5 text-sm text-stone-500">1d ago</td>
+<td class="px-6 py-5 text-right">
+<button class="text-stone-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-4 bg-stone-900/30 flex items-center justify-between border-t border-outline-variant/10">
+<p class="text-xs text-stone-500">Showing 4 of 142 total tickets</p>
+<div class="flex gap-2">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center bg-surface-container border border-outline-variant/10 text-stone-400">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center bg-primary text-on-primary font-bold text-xs">1</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center bg-surface-container border border-outline-variant/10 text-stone-400 hover:text-stone-200">2</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center bg-surface-container border border-outline-variant/10 text-stone-400">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Slide-over Modal Backdrop (Hidden state representation) -->
+<div class="fixed inset-0 bg-surface/80 backdrop-blur-md z-[60] flex justify-end invisible opacity-0 pointer-events-none transition-all duration-500">
+<!-- New Ticket Slide-over -->
+<div class="w-full max-w-lg bg-surface-container-low h-full shadow-2xl border-l border-outline-variant/20 p-10 transform translate-x-full transition-transform duration-500">
+<div class="flex items-center justify-between mb-10">
+<h3 class="text-2xl font-headline font-bold">New Ticket</h3>
+<button class="w-10 h-10 rounded-full hover:bg-surface-variant flex items-center justify-center text-stone-500">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="space-y-8">
+<div class="space-y-2">
+<label class="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Tenant ID</label>
+<input class="w-full bg-surface-container-lowest border-outline/20 rounded-xl focus:ring-primary focus:border-primary text-sm p-4" placeholder="e.g. TK-00000" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Priority Level</label>
+<div class="grid grid-cols-3 gap-3">
+<button class="py-3 rounded-xl border border-stone-800 text-xs font-bold text-stone-500 hover:border-primary/50 transition-colors" type="button">Normal</button>
+<button class="py-3 rounded-xl border border-orange-400/30 text-xs font-bold text-orange-400 bg-orange-400/5" type="button">High</button>
+<button class="py-3 rounded-xl border border-red-400/30 text-xs font-bold text-red-400 bg-red-400/5" type="button">Urgent</button>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Issue Subject</label>
+<input class="w-full bg-surface-container-lowest border-outline/20 rounded-xl focus:ring-primary focus:border-primary text-sm p-4" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Full Description</label>
+<textarea class="w-full bg-surface-container-lowest border-outline/20 rounded-xl focus:ring-primary focus:border-primary text-sm p-4 resize-none" rows="5"></textarea>
+</div>
+<button class="w-full primary-gradient text-on-primary font-bold py-4 rounded-xl shadow-lg shadow-primary/10 hover:shadow-primary/20 transition-all active:scale-[0.98]" type="submit">
+                    Create Request
+                </button>
+</form>
+</div>
+</div>
+<!-- Contextual FAB (Only for this main view) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 rounded-full primary-gradient text-on-primary shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+</body></html>

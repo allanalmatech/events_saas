@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Terra Event - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#141312",
+                        "on-primary-container": "#d4ada1",
+                        "primary": "#e7bdb1",
+                        "secondary-fixed-dim": "#cfc4c0",
+                        "surface-container-highest": "#363433",
+                        "surface-tint": "#e7bdb1",
+                        "surface-container-high": "#2b2a29",
+                        "primary-fixed-dim": "#e7bdb1",
+                        "inverse-primary": "#77574d",
+                        "surface-dim": "#141312",
+                        "tertiary-fixed": "#cde8e5",
+                        "on-surface-variant": "#d4c3be",
+                        "surface-container-lowest": "#0f0e0d",
+                        "tertiary": "#b1ccc9",
+                        "secondary": "#cfc4c0",
+                        "secondary-container": "#4c4542",
+                        "surface-container": "#201f1e",
+                        "on-primary": "#442a22",
+                        "tertiary-container": "#334b49",
+                        "on-secondary-fixed-variant": "#4c4542",
+                        "surface": "#141312",
+                        "on-background": "#e6e2df",
+                        "on-error": "#690005",
+                        "on-tertiary": "#1d3433",
+                        "on-tertiary-fixed-variant": "#334b49",
+                        "on-secondary": "#352f2d",
+                        "error": "#ffb4ab",
+                        "on-secondary-container": "#bdb3af",
+                        "surface-bright": "#3a3938",
+                        "on-surface": "#e6e2df",
+                        "primary-container": "#5d4037",
+                        "on-tertiary-container": "#a0bab7",
+                        "tertiary-fixed-dim": "#b1ccc9",
+                        "secondary-fixed": "#ece0dc",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#201a18",
+                        "on-tertiary-fixed": "#061f1e",
+                        "on-primary-fixed": "#2c160e",
+                        "outline-variant": "#504441",
+                        "on-primary-fixed-variant": "#5d4037",
+                        "error-container": "#93000a",
+                        "inverse-surface": "#e6e2df",
+                        "outline": "#9c8d89",
+                        "inverse-on-surface": "#31302f",
+                        "primary-fixed": "#ffdbd0",
+                        "surface-variant": "#363433",
+                        "surface-container-low": "#1c1b1a"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(54, 52, 51, 0.4);
+            backdrop-filter: blur(24px);
+            border: 0.5px solid rgba(156, 141, 137, 0.15);
+        }
+        .bg-organic-mesh {
+            background-color: #141312;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(231, 189, 177, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(93, 64, 55, 0.2) 0px, transparent 50%),
+                radial-gradient(at 50% 0%, rgba(20, 19, 18, 1) 0px, transparent 50%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen flex items-center justify-center p-6 bg-organic-mesh relative overflow-hidden">
+<!-- Background Decorative Elements -->
+<div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px]"></div>
+<div class="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] rounded-full bg-primary-container/10 blur-[150px]"></div>
+<!-- Login Container -->
+<main class="w-full max-w-[480px] z-10">
+<div class="glass-card rounded-xl p-10 md:p-12 shadow-2xl shadow-black/40">
+<!-- Logo Section -->
+<header class="text-center mb-12">
+<div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-container mb-6 shadow-xl shadow-primary-container/20">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">layers</span>
+</div>
+<h1 class="font-headline text-3xl font-extrabold text-on-background tracking-tight mb-2">Terra Event</h1>
+<p class="text-on-surface-variant font-medium text-sm">Premium Management for Events &amp; Rentals</p>
+</header>
+<!-- Login Form -->
+<form class="space-y-6">
+<!-- Role Selection (Subtle Editorial Detail) -->
+<div class="flex gap-2 p-1.5 bg-surface-container-lowest/50 rounded-full border border-outline-variant/10 mb-8">
+<button class="flex-1 py-2 px-3 rounded-full text-xs font-label font-semibold bg-primary text-on-primary shadow-sm transition-all" type="button">DIRECTOR</button>
+<button class="flex-1 py-2 px-3 rounded-full text-xs font-label font-semibold text-on-surface-variant hover:text-on-surface transition-all" type="button">TENANT</button>
+<button class="flex-1 py-2 px-3 rounded-full text-xs font-label font-semibold text-on-surface-variant hover:text-on-surface transition-all" type="button">STAFF</button>
+</div>
+<div class="space-y-4">
+<!-- Email Input -->
+<div class="group">
+<label class="block text-xs font-label font-bold text-on-surface-variant uppercase tracking-widest mb-2 ml-1">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">mail</span>
+<input class="w-full bg-surface-container-lowest/50 border border-outline-variant/20 rounded-xl py-4 pl-12 pr-4 text-on-surface placeholder:text-outline/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/50 transition-all" placeholder="name@terra-event.com" type="email"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="group">
+<div class="flex justify-between items-center mb-2 ml-1">
+<label class="block text-xs font-label font-bold text-on-surface-variant uppercase tracking-widest">Password</label>
+<a class="text-xs font-medium text-primary hover:text-on-primary-container transition-colors" href="#">Forgot password?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">lock</span>
+<input class="w-full bg-surface-container-lowest/50 border border-outline-variant/20 rounded-xl py-4 pl-12 pr-12 text-on-surface placeholder:text-outline/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/50 transition-all" placeholder="••••••••" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Remember Me -->
+<div class="flex items-center space-x-3 ml-1">
+<input class="w-5 h-5 rounded border-outline-variant/20 bg-surface-container-lowest text-primary-container focus:ring-primary/30 focus:ring-offset-background" id="remember" type="checkbox"/>
+<label class="text-sm text-on-surface-variant select-none" for="remember">Remember this device</label>
+</div>
+<!-- Sign In Action -->
+<button class="w-full bg-gradient-to-br from-primary to-on-primary-container text-on-primary font-headline font-bold py-4 rounded-xl shadow-lg shadow-primary-container/20 hover:shadow-primary-container/40 active:scale-[0.98] transition-all duration-200 mt-4" type="submit">
+                    Sign In
+                </button>
+</form>
+<!-- Footer Links -->
+<footer class="mt-10 text-center">
+<p class="text-on-surface-variant text-sm">
+                    Don't have an account? 
+                    <a class="text-primary font-bold hover:underline underline-offset-4 ml-1" href="#">Request Access</a>
+</p>
+</footer>
+</div>
+<!-- System Status or Secondary Info -->
+<div class="mt-8 flex justify-between items-center px-4">
+<div class="flex items-center space-x-2">
+<div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+<span class="text-[10px] font-label font-bold text-on-surface-variant uppercase tracking-tighter">System Operational</span>
+</div>
+<div class="flex space-x-6">
+<a class="text-[10px] font-label font-bold text-on-surface-variant uppercase tracking-tighter hover:text-primary transition-colors" href="#">Support</a>
+<a class="text-[10px] font-label font-bold text-on-surface-variant uppercase tracking-tighter hover:text-primary transition-colors" href="#">Privacy</a>
+</div>
+</div>
+</main>
+<!-- Decorative Image Layer (Organic) -->
+<div class="fixed inset-0 -z-10 pointer-events-none opacity-40">
+<img alt="" class="w-full h-full object-cover" data-alt="soft focused macro shot of ripples in warm brown sand with cinematic lighting and deep shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4THhDBcIQLQsw7xIGKGZMwrq6owsodflis2YQUSvOAqQsoHkOhBMQujmARuuVQ8zUCodqEyyjvS7HjV__QbsR1URZCfMiavAvklclMZUXlGyRAOswCWS2UM2c46hN9Z-vqydprMSs_o9H3X3c9XoBc-_hoFMGzKTVnrlOrPDrzSs7hWlBr0BMyGWETYlKmJoZ7gxzL_nRsNBmHueB5l9sHTz2aX04XOO8YStbIKc-pyGYTGptX_6NXfTMc4i4Mn9n2O4hjvNxqkdr"/>
+<div class="absolute inset-0 bg-background/80"></div>
+</div>
+</body></html>

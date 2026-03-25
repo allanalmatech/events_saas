@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EventPro Elite - Create Invoice</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-bright": "#3a3938",
+            "secondary-container": "#4c4542",
+            "background": "#141312",
+            "surface-container-lowest": "#0f0e0d",
+            "on-secondary-fixed-variant": "#4c4542",
+            "on-secondary-container": "#bdb3af",
+            "on-tertiary-fixed-variant": "#334b49",
+            "on-tertiary-container": "#a0bab7",
+            "primary-fixed": "#ffdbd0",
+            "surface-dim": "#141312",
+            "surface-container-low": "#1c1b1a",
+            "surface-container-highest": "#363433",
+            "on-background": "#e6e2df",
+            "outline-variant": "#504441",
+            "surface-tint": "#e7bdb1",
+            "surface-container": "#201f1e",
+            "surface": "#141312",
+            "on-surface": "#e6e2df",
+            "on-secondary": "#352f2d",
+            "error": "#ffb4ab",
+            "primary": "#e7bdb1",
+            "on-tertiary": "#1d3433",
+            "inverse-surface": "#e6e2df",
+            "secondary-fixed": "#ece0dc",
+            "on-error-container": "#ffdad6",
+            "on-surface-variant": "#d4c3be",
+            "on-primary-fixed-variant": "#5d4037",
+            "on-primary": "#442a22",
+            "on-primary-fixed": "#2c160e",
+            "tertiary": "#b1ccc9",
+            "error-container": "#93000a",
+            "secondary-fixed-dim": "#cfc4c0",
+            "on-secondary-fixed": "#201a18",
+            "tertiary-fixed": "#cde8e5",
+            "tertiary-container": "#334b49",
+            "on-primary-container": "#d4ada1",
+            "secondary": "#cfc4c0",
+            "tertiary-fixed-dim": "#b1ccc9",
+            "outline": "#9c8d89",
+            "surface-variant": "#363433",
+            "on-error": "#690005",
+            "inverse-on-surface": "#31302f",
+            "primary-container": "#5d4037",
+            "on-tertiary-fixed": "#061f1e",
+            "inverse-primary": "#77574d",
+            "primary-fixed-dim": "#e7bdb1",
+            "surface-container-high": "#2b2a29"
+          },
+          fontFamily: {
+            "headline": ["Plus Jakarta Sans"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          },
+          borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    body { font-family: 'Inter', sans-serif; background-color: #141312; color: #e6e2df; }
+    .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .glass-card { background: rgba(54, 52, 51, 0.4); backdrop-filter: blur(12px); border: 0.5px solid rgba(80, 68, 65, 0.2); }
+    .pdf-preview { background-color: #ffffff; color: #1c1b1a; border-radius: 0.5rem; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #141312; }
+    ::-webkit-scrollbar-thumb { background: #504441; border-radius: 10px; }
+  </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary/30 min-h-screen">
+<!-- TopNavBar Navigation Shell -->
+<nav class="fixed top-0 w-full z-50 bg-[#141312]/80 backdrop-blur-xl border-b border-[#504441]/20 flex justify-between items-center px-8 h-20 w-full shadow-sm">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tighter text-[#E7BDB1] font-headline">EventPro Elite</span>
+<div class="hidden md:flex items-center gap-6 font-plus-jakarta text-sm font-medium tracking-tight">
+<a class="text-stone-400 hover:text-stone-200 transition-colors" href="#">Dashboard</a>
+<a class="text-stone-400 hover:text-stone-200 transition-colors" href="#">Inventory</a>
+<a class="text-stone-400 hover:text-stone-200 transition-colors" href="#">Services</a>
+<a class="text-[#E7BDB1] border-b-2 border-[#E7BDB1] pb-1" href="#">Invoices</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-stone-400 hover:bg-stone-800/40 p-2 rounded-full transition-all duration-300">notifications</button>
+<button class="material-symbols-outlined text-stone-400 hover:bg-stone-800/40 p-2 rounded-full transition-all duration-300">settings</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-[#504441]/40">
+<img alt="User Profile Avatar" data-alt="Close up professional headshot of a refined man in a dark suit with soft studio lighting and dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAlM5dqYB9lBZxnOhZVf7NrRLnW2bCJnYtSUk6v7b3t5murYZEGVP19HamaTMDoNu-5csmV-nuvzApVYT3ezxW9voPlq0bVmwdVXMwcmkrBqmLbVBJc_LEAhXxcuYVix_ScqX_vbqCp1td_KA384y74zDSrB3e6dj2B_PTfpYKfcE07GlcPeC7FlZwJtPTuLlI5HjK6akg6iB0bi3KCAMtr7IGLNT7s4-_WZyXdIuO-jTyufC6JiVtgy46ciKk532BSqLgaSrIj087"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar Navigation Shell -->
+<aside class="fixed left-0 top-0 h-screen w-72 z-40 bg-[#1C1B1A] flex flex-col p-6 gap-y-4 shadow-2xl shadow-black/40 hidden lg:flex pt-24">
+<div class="mb-8 px-2">
+<h2 class="text-xl font-bold text-[#E7BDB1] font-headline">EventPro</h2>
+<p class="text-stone-500 text-xs tracking-widest uppercase">Premium Management</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-[#201F1E] rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-plus-jakarta text-[0.9rem]">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-[#201F1E] rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-plus-jakarta text-[0.9rem]">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-[#201F1E] rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">rebase_edit</span>
+<span class="font-plus-jakarta text-[0.9rem]">Services</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-[#201F1E] rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-plus-jakarta text-[0.9rem]">Clients</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-[#363433] text-[#E7BDB1] rounded-xl font-semibold transition-all duration-200" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-plus-jakarta text-[0.9rem]">Invoicing</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1 pt-6 border-t border-[#504441]/20">
+<button class="w-full bg-gradient-to-br from-[#E7BDB1] to-[#D4ADA1] text-[#442a22] font-bold py-3 rounded-xl mb-4 hover:scale-[1.02] transition-transform">
+        Create Event
+      </button>
+<a class="flex items-center gap-3 px-4 py-2 text-stone-500 hover:text-stone-300" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="text-sm">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-stone-500 hover:text-stone-300" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-sm">Log Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-72 pt-28 pb-12 px-8">
+<div class="max-w-7xl mx-auto">
+<header class="mb-10 flex justify-between items-end">
+<div>
+<h1 class="text-4xl font-extrabold font-headline tracking-tight text-on-background">New Invoice</h1>
+<p class="text-on-surface-variant mt-2 font-body">Draft ID: INV-2024-0812</p>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2.5 rounded-full glass-card text-on-surface font-medium hover:bg-surface-variant/60 transition-colors">Save Draft</button>
+<button class="px-8 py-2.5 rounded-full bg-gradient-to-r from-primary to-on-primary-container text-on-primary font-bold shadow-lg shadow-primary/10 hover:scale-105 transition-transform">Finalize &amp; Send</button>
+</div>
+</header>
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
+<!-- Editor View (Left) -->
+<div class="xl:col-span-7 space-y-8">
+<!-- Client Selection Card -->
+<section class="bg-surface-container-low rounded-xl p-8 border border-outline-variant/10">
+<h3 class="text-lg font-headline font-semibold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">person_search</span>
+              Client Information
+            </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-label uppercase tracking-widest text-outline">Select Client</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border-0 rounded-lg px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer">
+<option>Aurora Media Group</option>
+<option>Silversmith Financial</option>
+<option>Ethereal Events Co.</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-label uppercase tracking-widest text-outline">Project Reference</label>
+<input class="w-full bg-surface-container-lowest border-0 rounded-lg px-4 py-3 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all" type="text" value="Gala Dinner 2024"/>
+</div>
+</div>
+<div class="mt-6 p-4 rounded-lg bg-surface-container/50 border border-outline-variant/10 flex items-start gap-4">
+<div class="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Organization Logo" data-alt="Minimalist corporate logo of a geometric shape in soft beige and white on a dark textured background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACv65_UgazhVmKCHp_8PPCP32iL-sr30qOlzvXPEej1H5n1eC8DB0UeNF02a6yna8HpSFINXeDQvgvte11goF8SLDRtSyBwaNkvq4vZd6WLi2L8imeluvsCeRU9512Lb7t9vVQ_Y_cMU5GW72mluVCmMrj0151gFH5rsnVYi5O7lq6OgcSRblAALgxkBrS4IL7BOn31V1NvYV-pADLxPk07CzmuqMCuh6COpfPHW1T5imgkR1PHm3v6ZrV0VPrdXeotRZsFfGV7qTC"/>
+</div>
+<div>
+<p class="font-medium text-on-surface">Aurora Media Group</p>
+<p class="text-xs text-outline leading-relaxed mt-1">4522 Sunset Blvd, Los Angeles, CA 90027<br/>contact@aurora.media | +1 (323) 555-0192</p>
+</div>
+</div>
+</section>
+<!-- Line Items Section -->
+<section class="bg-surface-container-low rounded-xl p-8 border border-outline-variant/10">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-headline font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">list_alt</span>
+                Line Items
+              </h3>
+<div class="flex gap-2">
+<button class="text-xs font-label bg-surface-container-highest px-3 py-1.5 rounded-lg flex items-center gap-1 hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-sm">add</span> Add Product
+                </button>
+<button class="text-xs font-label bg-surface-container-highest px-3 py-1.5 rounded-lg flex items-center gap-1 hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-sm">add</span> Add Service
+                </button>
+</div>
+</div>
+<!-- Items List -->
+<div class="space-y-4">
+<!-- Item 1: Product -->
+<div class="p-5 bg-surface-container rounded-xl border border-outline-variant/10 group">
+<div class="grid grid-cols-12 gap-4 items-center">
+<div class="col-span-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">inventory_2</span>
+<div>
+<input class="bg-transparent border-0 p-0 text-sm font-semibold focus:ring-0 w-full" type="text" value="Vintage Oak Banquet Tables"/>
+<input class="bg-transparent border-0 p-0 text-xs text-outline focus:ring-0 w-full" type="text" value="Hired product - 48 hour rental"/>
+</div>
+</div>
+</div>
+<div class="col-span-2">
+<input class="w-full bg-surface-container-lowest border-0 rounded px-2 py-1.5 text-right text-sm" type="number" value="12"/>
+</div>
+<div class="col-span-2">
+<input class="w-full bg-surface-container-lowest border-0 rounded px-2 py-1.5 text-right text-sm" type="text" value="$85.00"/>
+</div>
+<div class="col-span-2 flex items-center justify-end gap-3">
+<span class="text-sm font-semibold">$1,020.00</span>
+<button class="material-symbols-outlined text-outline hover:text-error transition-colors text-lg">delete</button>
+</div>
+</div>
+</div>
+<!-- Item 2: Service -->
+<div class="p-5 bg-surface-container rounded-xl border border-outline-variant/10 group">
+<div class="grid grid-cols-12 gap-4 items-center">
+<div class="col-span-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">rebase_edit</span>
+<div>
+<input class="bg-transparent border-0 p-0 text-sm font-semibold focus:ring-0 w-full" type="text" value="Event Lighting Setup &amp; Calibration"/>
+<input class="bg-transparent border-0 p-0 text-xs text-outline focus:ring-0 w-full" type="text" value="Premium labor service - Professional crew"/>
+</div>
+</div>
+</div>
+<div class="col-span-2">
+<input class="w-full bg-surface-container-lowest border-0 rounded px-2 py-1.5 text-right text-sm" type="number" value="1"/>
+</div>
+<div class="col-span-2">
+<input class="w-full bg-surface-container-lowest border-0 rounded px-2 py-1.5 text-right text-sm" type="text" value="$450.00"/>
+</div>
+<div class="col-span-2 flex items-center justify-end gap-3">
+<span class="text-sm font-semibold">$450.00</span>
+<button class="material-symbols-outlined text-outline hover:text-error transition-colors text-lg">delete</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Totals -->
+<div class="mt-10 pt-10 border-t border-outline-variant/10 flex justify-end">
+<div class="w-64 space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-sm text-outline">Subtotal</span>
+<span class="text-sm font-medium">$1,470.00</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="text-sm text-outline">Discount</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-surface-container-highest text-primary">5%</span>
+</div>
+<span class="text-sm font-medium">-$73.50</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm text-outline">Tax (GST 10%)</span>
+<span class="text-sm font-medium">$139.65</span>
+</div>
+<div class="pt-4 border-t border-outline-variant/20 flex justify-between items-center">
+<span class="text-lg font-headline font-bold text-primary">Total Amount</span>
+<span class="text-lg font-headline font-bold">$1,536.15</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Notes section -->
+<section class="bg-surface-container-low rounded-xl p-8 border border-outline-variant/10">
+<h3 class="text-lg font-headline font-semibold mb-4">Terms &amp; Notes</h3>
+<textarea class="w-full bg-surface-container-lowest border-0 rounded-xl px-4 py-3 text-sm text-on-surface h-24 focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Add custom terms or payment instructions...">Payment is due within 14 days of invoice issue date. Thank you for choosing EventPro Elite for your premium event needs.</textarea>
+</section>
+</div>
+<!-- Preview Pane (Right) -->
+<div class="xl:col-span-5 relative">
+<div class="sticky top-28">
+<div class="flex justify-between items-center mb-4 px-2">
+<span class="text-xs font-label uppercase tracking-widest text-outline">Live PDF Preview</span>
+<button class="text-primary text-xs flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-sm">open_in_new</span> Fullscreen Preview
+              </button>
+</div>
+<div class="pdf-preview shadow-2xl overflow-hidden aspect-[1/1.414] p-10 flex flex-col font-body">
+<div class="flex justify-between items-start mb-12">
+<div>
+<h4 class="text-2xl font-black font-headline tracking-tighter mb-1">EVENTPRO</h4>
+<p class="text-[10px] text-stone-500 uppercase tracking-tighter">Elite Management Services</p>
+</div>
+<div class="text-right">
+<h5 class="text-xl font-bold mb-1">INVOICE</h5>
+<p class="text-xs text-stone-500">INV-2024-0812</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-8 mb-12 text-[11px]">
+<div>
+<p class="text-stone-400 uppercase font-bold mb-2 text-[9px]">Bill From</p>
+<p class="font-bold">EventPro Elite HQ</p>
+<p class="text-stone-600">722 Luxury Lane, Suite 100<br/>New York, NY 10012<br/>billing@eventproelite.com</p>
+</div>
+<div>
+<p class="text-stone-400 uppercase font-bold mb-2 text-[9px]">Bill To</p>
+<p class="font-bold">Aurora Media Group</p>
+<p class="text-stone-600">4522 Sunset Blvd<br/>Los Angeles, CA 90027<br/>contact@aurora.media</p>
+</div>
+</div>
+<table class="w-full text-[11px] mb-auto">
+<thead>
+<tr class="border-b-2 border-stone-100">
+<th class="text-left py-3 font-bold uppercase text-[9px]">Description</th>
+<th class="text-right py-3 font-bold uppercase text-[9px]">Qty</th>
+<th class="text-right py-3 font-bold uppercase text-[9px]">Price</th>
+<th class="text-right py-3 font-bold uppercase text-[9px]">Total</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-stone-50">
+<tr>
+<td class="py-4">
+<p class="font-bold">Vintage Oak Banquet Tables</p>
+<p class="text-stone-500 italic">Rental: 48 hours</p>
+</td>
+<td class="text-right py-4">12</td>
+<td class="text-right py-4">$85.00</td>
+<td class="text-right py-4 font-bold">$1,020.00</td>
+</tr>
+<tr>
+<td class="py-4">
+<p class="font-bold">Event Lighting Setup &amp; Calibration</p>
+<p class="text-stone-500 italic">Professional Installation Service</p>
+</td>
+<td class="text-right py-4">1</td>
+<td class="text-right py-4">$450.00</td>
+<td class="text-right py-4 font-bold">$450.00</td>
+</tr>
+</tbody>
+</table>
+<div class="mt-8 pt-6 border-t border-stone-100 flex justify-end">
+<div class="w-48 space-y-2 text-right">
+<div class="flex justify-between text-[11px]">
+<span class="text-stone-500">Subtotal</span>
+<span>$1,470.00</span>
+</div>
+<div class="flex justify-between text-[11px]">
+<span class="text-stone-500">Discount (5%)</span>
+<span>-$73.50</span>
+</div>
+<div class="flex justify-between text-[11px]">
+<span class="text-stone-500">Tax (10%)</span>
+<span>$139.65</span>
+</div>
+<div class="flex justify-between text-base font-bold pt-4">
+<span>Grand Total</span>
+<span class="text-[#442a22]">$1,536.15</span>
+</div>
+</div>
+</div>
+<div class="mt-12 text-[9px] text-stone-400 border-t border-stone-50 pt-4 flex justify-between">
+<p>Terms: Net 14. Thank you for your business.</p>
+<p>Page 1 of 1</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Floating Action (SUPPRESSED based on task, but adding a "Draft Auto-save" status for UX) -->
+<div class="fixed bottom-8 right-8 flex flex-col items-end gap-3 pointer-events-none">
+<div class="bg-surface-container-highest/90 backdrop-blur-md px-4 py-2 rounded-full border border-outline-variant/20 shadow-xl flex items-center gap-2 pointer-events-auto">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-[10px] font-label uppercase tracking-widest text-on-surface">Auto-saving...</span>
+</div>
+</div>
+</body></html>

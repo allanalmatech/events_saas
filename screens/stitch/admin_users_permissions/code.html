@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TerraEvent | User &amp; RBAC Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline-variant": "#504441",
+              "on-tertiary": "#1d3433",
+              "on-primary-fixed-variant": "#5d4037",
+              "primary-container": "#5d4037",
+              "on-surface": "#e6e2df",
+              "secondary-container": "#4c4542",
+              "on-secondary-fixed": "#201a18",
+              "on-secondary-container": "#bdb3af",
+              "surface-variant": "#363433",
+              "surface-container-highest": "#363433",
+              "on-background": "#e6e2df",
+              "on-secondary": "#352f2d",
+              "tertiary-container": "#334b49",
+              "on-primary": "#442a22",
+              "tertiary-fixed": "#cde8e5",
+              "primary-fixed-dim": "#e7bdb1",
+              "on-primary-fixed": "#2c160e",
+              "on-tertiary-container": "#a0bab7",
+              "tertiary-fixed-dim": "#b1ccc9",
+              "surface-bright": "#3a3938",
+              "on-tertiary-fixed-variant": "#334b49",
+              "error": "#ffb4ab",
+              "surface-tint": "#e7bdb1",
+              "on-error-container": "#ffdad6",
+              "surface-container-low": "#1c1b1a",
+              "tertiary": "#b1ccc9",
+              "inverse-on-surface": "#31302f",
+              "on-primary-container": "#d4ada1",
+              "on-tertiary-fixed": "#061f1e",
+              "on-error": "#690005",
+              "primary-fixed": "#ffdbd0",
+              "outline": "#9c8d89",
+              "secondary": "#cfc4c0",
+              "inverse-primary": "#77574d",
+              "surface": "#141312",
+              "secondary-fixed-dim": "#cfc4c0",
+              "surface-container-lowest": "#0f0e0d",
+              "surface-container-high": "#2b2a29",
+              "primary": "#e7bdb1",
+              "surface-container": "#201f1e",
+              "background": "#141312",
+              "secondary-fixed": "#ece0dc",
+              "on-secondary-fixed-variant": "#4c4542",
+              "inverse-surface": "#e6e2df",
+              "error-container": "#93000a",
+              "surface-dim": "#141312",
+              "on-surface-variant": "#d4c3be"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-panel {
+            background: rgba(54, 52, 51, 0.6);
+            backdrop-filter: blur(20px);
+            border: 0.5px solid rgba(80, 68, 65, 0.2);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-primary-gradient {
+            background: linear-gradient(135deg, #e7bdb1 0%, #d4ada1 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-fixed-dim selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full border-b border-stone-800/20 bg-stone-950/60 backdrop-blur-xl flex justify-between items-center px-8 h-20 w-full z-50 shadow-[0_8px_32px_rgba(0,0,0,0.12)]">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tight text-orange-200">TerraEvent</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-stone-400 hover:text-stone-200 transition-colors font-medium" href="#">Dashboard</a>
+<a class="text-stone-400 hover:text-stone-200 transition-colors font-medium" href="#">Bookings</a>
+<a class="text-stone-400 hover:text-stone-200 transition-colors font-medium" href="#">Inventory</a>
+<a class="text-orange-200 border-b-2 border-orange-200 pb-1 font-medium" href="#">Staff</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-stone-400 hover:bg-stone-800/40 rounded-xl transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-stone-400 hover:bg-stone-800/40 rounded-xl transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-10 w-10 rounded-full border border-outline-variant/20 overflow-hidden">
+<img alt="User profile" class="h-full w-full object-cover" data-alt="portrait of a professional male administrator in a modern office setting with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANIeSqdzhHIX7OOsmq7PUMW48QiWGBVFyF8VhpN18tCxGbacnWyP6c4r6QVaThofXgBTYRtrmTOVDtdch5kb29_Ru3eisL0agb4aM1a7Wf8vnNe6orGqyyUgIizs1I00nwokdK3KAXwigAPDAAlmkKp20senkP8Y7akccAFjPB8L87vTVYRJycBY0NY1G8ESW8IOaO-sJlT_735mDXPUT6IB4rdelhQjn2DYFW9-sX5aAYhspbaG9K7qW9WmN8IhWH8q-jZcFaphnp"/>
+</div>
+</div>
+</nav>
+<div class="flex pt-20">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col p-4 space-y-4 h-screen w-64 border-r border-stone-800/20 rounded-r-[24px] bg-stone-900/40 backdrop-blur-2xl sticky top-20">
+<div class="px-4 py-6">
+<div class="flex items-center gap-3 mb-1">
+<span class="text-lg font-black text-orange-200">Terra Hire</span>
+</div>
+<p class="text-xs text-stone-500 uppercase tracking-widest">Premium Management</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-stone-800/30 rounded-xl transition-all ease-in-out duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">event</span>
+<span class="font-headline font-semibold text-sm">Events</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-stone-800/60 text-orange-200 rounded-xl shadow-inner transition-all ease-in-out duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-headline font-semibold text-sm">Staff</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-stone-800/30 rounded-xl transition-all ease-in-out duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-headline font-semibold text-sm">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-stone-800/30 rounded-xl transition-all ease-in-out duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">engineering</span>
+<span class="font-headline font-semibold text-sm">Labor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-stone-800/30 rounded-xl transition-all ease-in-out duration-300 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-headline font-semibold text-sm">Reports</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 space-y-2 border-t border-stone-800/20">
+<button class="w-full flex items-center justify-center gap-2 py-3 bg-primary-gradient text-on-primary rounded-xl font-bold text-sm shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+                    New Booking
+                </button>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-sm">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 p-8 lg:p-12 space-y-12">
+<!-- Header Section -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-2">
+<h1 class="text-4xl lg:text-5xl font-extrabold text-on-surface tracking-tight leading-none">Access Control</h1>
+<p class="text-on-surface-variant max-w-xl text-lg">Manage your team's identities and operational permissions within the TerraEvent ecosystem.</p>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-3 glass-panel rounded-xl text-primary font-semibold text-sm hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined">filter_list</span>
+                        Filters
+                    </button>
+<button class="px-8 py-3 bg-primary-gradient text-on-primary rounded-full font-bold text-sm shadow-xl active:scale-95 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">person_add</span>
+                        Add User
+                    </button>
+</div>
+</section>
+<!-- User List Table (Surface Hierarchy) -->
+<section class="bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/10">
+<div class="px-8 py-6 border-b border-outline-variant/10 flex justify-between items-center">
+<h2 class="text-xl font-bold font-headline">Team Directory</h2>
+<div class="flex items-center gap-2 bg-surface-container-lowest px-4 py-2 rounded-lg border border-outline-variant/20 focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-outline text-lg">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-64 text-on-surface placeholder:text-outline" placeholder="Search by name or email..." type="text"/>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container/50">
+<tr>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-outline">User</th>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-outline">Assigned Roles</th>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-outline">Status</th>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-outline">Last Active</th>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-outline text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-high transition-colors group">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<img alt="Marcus Chen" class="h-12 w-12 rounded-full object-cover border-2 border-primary/20" data-alt="headshot of a man with a professional expression, warm lighting, blurred corporate background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNlnE5UEe7HHLwhav8H7c5zfL4u1bMqZ3dzhsEkUFIv1TL4tH4KUtXR-5SStnPDBrCoQUoiT0APXQi1xe9HpHxbPtfnn1JMYX5rrP5hhTy2MzwiFdv-WY_Y4ZEQoo4W14pjjGgKAk5tQlRxRMIfBSof8G9nxWCO5QEe-0oATfLJ6yHT62EsYl4KBNceFyl1nde42PPlCttxnXNnPeSUC4JTMv0WosTYw8Ds6PAUNDZhU0xxOgJ7WmwCUVrRokA27GT225XFK15E_JG"/>
+<div>
+<p class="font-bold text-on-surface">Marcus Chen</p>
+<p class="text-sm text-outline">m.chen@terraevent.io</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full bg-primary-container text-on-primary-container text-[10px] font-bold uppercase tracking-wider">Admin</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-2 text-green-400">
+<span class="h-2 w-2 rounded-full bg-green-400 shadow-[0_0_8px_#4ade80]"></span>
+<span class="text-sm font-medium">Active</span>
+</div>
+</td>
+<td class="px-8 py-6 text-sm text-outline">2 mins ago</td>
+<td class="px-8 py-6 text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<img alt="Sarah Jenkins" class="h-12 w-12 rounded-full object-cover border-2 border-primary/20" data-alt="portrait of a woman smiling, bright studio lighting, soft neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHhQBgLlql6niTsVs9jdRpio9-jrqlWQGJrfs8p4wEGNQJXkyH4vxqzTXLCus-eaQOffF9ITb33iEs2t35HEGXBf4lkTrBEeN_bXdZlBQsBFgprWRM9lyw6JS8fu4meHri_xdmXM0UepsZjZTDr9K1WWW2_-4hp5kvhJuR1LAaiKbFes-867w6fr8Ie2pvWRWLlIz2Xlv44WfuLygVKQzBwMJqleFlthd6NCGflsfc63Cyx8Vt5Fof4jggY70huMxKfIfY_1K93_NK"/>
+<div>
+<p class="font-bold text-on-surface">Sarah Jenkins</p>
+<p class="text-sm text-outline">s.jenkins@terraevent.io</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant text-[10px] font-bold uppercase tracking-wider">Staff</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant text-[10px] font-bold uppercase tracking-wider">Billing</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-2 text-green-400">
+<span class="h-2 w-2 rounded-full bg-green-400 shadow-[0_0_8px_#4ade80]"></span>
+<span class="text-sm font-medium">Active</span>
+</div>
+</td>
+<td class="px-8 py-6 text-sm text-outline">Yesterday</td>
+<td class="px-8 py-6 text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<img alt="Alex Rivera" class="h-12 w-12 rounded-full object-cover border-2 border-primary/20" data-alt="close up headshot of a person wearing glasses, soft indoor lighting, minimalist aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUBa3TzR-zxK5axW8TeCAZ9FPmOAKwZm6GK8YhZo1XeGgfMuw-dBo9kPBrmMMpzBSANrj1A5esuMiRxhxGgDOyp-ddc0-bgEuGigd3bmXeq0EHVkzd09XUa5G34qZhr5sSMUeIhRBnN-rACwdGXBFc9_vshlxgd1qUo9oSHVNTNrUeKxfzmBVzljDaaPbuBDV7arljrWDBE8D8yO7yzYYj1TxSyPc84arFdnEczYS3UxQ1-lExNFvpy6OcfKL3caJ2Tsy46B4ouIWe"/>
+<div>
+<p class="font-bold text-on-surface">Alex Rivera</p>
+<p class="text-sm text-outline">a.rivera@terraevent.io</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant text-[10px] font-bold uppercase tracking-wider">Delivery</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-2 text-stone-600">
+<span class="h-2 w-2 rounded-full bg-stone-600"></span>
+<span class="text-sm font-medium">Inactive</span>
+</div>
+</td>
+<td class="px-8 py-6 text-sm text-outline">4 days ago</td>
+<td class="px-8 py-6 text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Roles & Permissions Matrix (Bento-style Grid) -->
+<section class="space-y-8">
+<div class="flex justify-between items-center">
+<h2 class="text-2xl font-bold font-headline">Roles &amp; Permission Matrix</h2>
+<button class="text-primary font-bold text-sm hover:underline underline-offset-4">Create New Role</button>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-4 gap-8">
+<!-- Permission Categories Sidebar -->
+<div class="xl:col-span-1 glass-panel p-6 rounded-xl space-y-6">
+<h3 class="text-xs font-bold text-outline uppercase tracking-widest border-b border-outline-variant/10 pb-4">Modules</h3>
+<div class="space-y-2">
+<button class="w-full text-left px-4 py-3 rounded-lg bg-primary/10 text-primary font-bold text-sm flex items-center justify-between">
+                                Events Management
+                                <span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+<button class="w-full text-left px-4 py-3 rounded-lg text-outline hover:bg-surface-container-high transition-colors font-medium text-sm">
+                                Inventory Control
+                            </button>
+<button class="w-full text-left px-4 py-3 rounded-lg text-outline hover:bg-surface-container-high transition-colors font-medium text-sm">
+                                Labor &amp; Staffing
+                            </button>
+<button class="w-full text-left px-4 py-3 rounded-lg text-outline hover:bg-surface-container-high transition-colors font-medium text-sm">
+                                Financial Reports
+                            </button>
+</div>
+</div>
+<!-- Permission Matrix Table -->
+<div class="xl:col-span-3 bg-surface-container-low border border-outline-variant/10 rounded-xl overflow-hidden shadow-2xl">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container">
+<th class="p-6 text-left text-xs font-bold text-outline uppercase tracking-widest border-b border-outline-variant/10">Permission Entity</th>
+<th class="p-6 text-center text-xs font-bold text-outline uppercase tracking-widest border-b border-outline-variant/10">Admin</th>
+<th class="p-6 text-center text-xs font-bold text-outline uppercase tracking-widest border-b border-outline-variant/10">Staff</th>
+<th class="p-6 text-center text-xs font-bold text-outline uppercase tracking-widest border-b border-outline-variant/10">Delivery</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="p-6">
+<p class="font-bold text-on-surface">View Bookings</p>
+<p class="text-xs text-outline">Read access to event calendar and details</p>
+</td>
+<td class="p-6 text-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="p-6 text-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="p-6 text-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="p-6">
+<p class="font-bold text-on-surface">Edit Event Details</p>
+<p class="text-xs text-outline">Modify dates, locations, and client info</p>
+</td>
+<td class="p-6 text-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="p-6 text-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="p-6 text-center">
+<span class="material-symbols-outlined text-stone-700">radio_button_unchecked</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="p-6">
+<p class="font-bold text-on-surface">Process Payments</p>
+<p class="text-xs text-outline">Finalize invoices and record transactions</p>
+</td>
+<td class="p-6 text-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="p-6 text-center">
+<span class="material-symbols-outlined text-stone-700">radio_button_unchecked</span>
+</td>
+<td class="p-6 text-center">
+<span class="material-symbols-outlined text-stone-700">radio_button_unchecked</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="p-6">
+<p class="font-bold text-on-surface">Manage Inventory</p>
+<p class="text-xs text-outline">Add, remove, or modify stock assets</p>
+</td>
+<td class="p-6 text-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</td>
+<td class="p-6 text-center">
+<span class="material-symbols-outlined text-stone-700">radio_button_unchecked</span>
+</td>
+<td class="p-6 text-center">
+<span class="material-symbols-outlined text-stone-700">radio_button_unchecked</span>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-6 bg-surface-container-low flex justify-end gap-4 border-t border-outline-variant/10">
+<button class="px-6 py-2 text-outline font-semibold text-sm hover:text-on-surface transition-colors">Discard Changes</button>
+<button class="px-8 py-2 bg-primary text-on-primary rounded-lg font-bold text-sm hover:bg-primary-fixed-dim transition-all">Save Matrix</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] z-50 flex justify-around items-center h-16 bg-stone-900/70 backdrop-blur-lg rounded-full border border-stone-700/30 shadow-[0_32px_64px_rgba(0,0,0,0.2)]">
+<a class="flex flex-col items-center justify-center text-stone-500 p-3 hover:text-orange-100 transition-transform" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[8px] uppercase tracking-widest mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 p-3 hover:text-orange-100 transition-transform" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="text-[8px] uppercase tracking-widest mt-1">Calendar</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-orange-200/10 text-orange-200 rounded-full p-3 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">manage_accounts</span>
+<span class="text-[8px] uppercase tracking-widest mt-1">Users</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-500 p-3 hover:text-orange-100 transition-transform" href="#">
+<span class="material-symbols-outlined">menu</span>
+<span class="text-[8px] uppercase tracking-widest mt-1">Menu</span>
+</a>
+</nav>
+</body></html>

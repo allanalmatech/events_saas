@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Services Management | EventPro Elite</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-bright": "#3a3938",
+              "secondary-container": "#4c4542",
+              "background": "#141312",
+              "surface-container-lowest": "#0f0e0d",
+              "on-secondary-fixed-variant": "#4c4542",
+              "on-secondary-container": "#bdb3af",
+              "on-tertiary-fixed-variant": "#334b49",
+              "on-tertiary-container": "#a0bab7",
+              "primary-fixed": "#ffdbd0",
+              "surface-dim": "#141312",
+              "surface-container-low": "#1c1b1a",
+              "surface-container-highest": "#363433",
+              "on-background": "#e6e2df",
+              "outline-variant": "#504441",
+              "surface-tint": "#e7bdb1",
+              "surface-container": "#201f1e",
+              "surface": "#141312",
+              "on-surface": "#e6e2df",
+              "on-secondary": "#352f2d",
+              "error": "#ffb4ab",
+              "primary": "#e7bdb1",
+              "on-tertiary": "#1d3433",
+              "inverse-surface": "#e6e2df",
+              "secondary-fixed": "#ece0dc",
+              "on-error-container": "#ffdad6",
+              "on-surface-variant": "#d4c3be",
+              "on-primary-fixed-variant": "#5d4037",
+              "on-primary": "#442a22",
+              "on-primary-fixed": "#2c160e",
+              "tertiary": "#b1ccc9",
+              "error-container": "#93000a",
+              "secondary-fixed-dim": "#cfc4c0",
+              "on-secondary-fixed": "#201a18",
+              "tertiary-fixed": "#cde8e5",
+              "tertiary-container": "#334b49",
+              "on-primary-container": "#d4ada1",
+              "secondary": "#cfc4c0",
+              "tertiary-fixed-dim": "#b1ccc9",
+              "outline": "#9c8d89",
+              "surface-variant": "#363433",
+              "on-error": "#690005",
+              "inverse-on-surface": "#31302f",
+              "primary-container": "#5d4037",
+              "on-tertiary-fixed": "#061f1e",
+              "inverse-primary": "#77574d",
+              "primary-fixed-dim": "#e7bdb1",
+              "surface-container-high": "#2b2a29"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .glass-card {
+        background: rgba(54, 52, 51, 0.6);
+        backdrop-filter: blur(16px);
+        border: 0.5px solid rgba(80, 68, 65, 0.2);
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        background-color: #141312;
+        color: #e6e2df;
+        font-family: 'Inter', sans-serif;
+      }
+      .font-plus-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-background min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#141312]/80 backdrop-blur-xl border-b border-[#504441]/20 shadow-sm flex justify-between items-center px-8 h-20 w-full">
+<div class="flex items-center gap-12">
+<span class="text-2xl font-bold tracking-tighter text-[#E7BDB1] font-plus-jakarta">EventPro Elite</span>
+<div class="hidden md:flex gap-8 items-center font-plus-jakarta text-sm font-medium tracking-tight">
+<a class="text-stone-400 hover:text-stone-200 transition-colors" href="#">Dashboard</a>
+<a class="text-stone-400 hover:text-stone-200 transition-colors" href="#">Inventory</a>
+<a class="text-[#E7BDB1] border-b-2 border-[#E7BDB1] pb-1" href="#">Services</a>
+<a class="text-stone-400 hover:text-stone-200 transition-colors" href="#">Invoices</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="text-stone-400 hover:text-[#E7BDB1] transition-all active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-stone-400 hover:text-[#E7BDB1] transition-all active:scale-95">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="h-10 w-10 rounded-full overflow-hidden border border-[#504441]/40">
+<img alt="User Profile Avatar" class="h-full w-full object-cover" data-alt="close-up portrait of a professional male event manager with warm lighting and a confident smile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp2ytzm-ffC53MGGjzxYwMDGr_HRrWt_JpPPecWbGN2frJRqvzWjP8sAQX_q1OWEHgElNq6zpiIyMjqFhS7BfWtEHD0TqpSULe87JzPuwpprTN5Z0ej9U-X89SjPUF2G6peE5NLNZb4dHko3hDd-WdS340IzmROtl_eSPZJ9lqdYPWut4TKOPxsGw8F1I5SVXnnvi_jhhBi8f_7eIKyBI2ID3ZtEFcb3gzu565VP64vtlqqUi5BxoLBlO3TYZgsgllsGbOrVr-kPWO"/>
+</div>
+</div>
+</nav>
+<div class="flex pt-20">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-72 z-40 bg-[#1C1B1A] shadow-2xl shadow-black/40 flex flex-col p-6 gap-y-4 pt-24 hidden lg:flex">
+<div class="flex items-center gap-3 px-2 mb-8">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">diamond</span>
+</div>
+<div>
+<h3 class="font-bold text-[#E7BDB1] text-xl font-plus-jakarta leading-tight">EventPro</h3>
+<p class="text-stone-500 text-xs font-label">Premium Management</p>
+</div>
+</div>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-[#201F1E] rounded-xl transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[1.2rem]">dashboard</span>
+<span class="font-plus-jakarta text-[0.9rem] leading-relaxed">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-[#201F1E] rounded-xl transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[1.2rem]">inventory_2</span>
+<span class="font-plus-jakarta text-[0.9rem] leading-relaxed">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-[#363433] text-[#E7BDB1] rounded-xl font-semibold transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[1.2rem]">rebase_edit</span>
+<span class="font-plus-jakarta text-[0.9rem] leading-relaxed">Services</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-[#201F1E] rounded-xl transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[1.2rem]">group</span>
+<span class="font-plus-jakarta text-[0.9rem] leading-relaxed">Clients</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-[#201F1E] rounded-xl transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[1.2rem]">receipt_long</span>
+<span class="font-plus-jakarta text-[0.9rem] leading-relaxed">Invoicing</span>
+</a>
+</div>
+<div class="mt-auto space-y-1">
+<button class="w-full bg-gradient-to-br from-[#E7BDB1] to-[#D4ADA1] text-[#442a22] font-bold py-3 rounded-xl mb-6 shadow-lg shadow-primary/10 active:scale-95 transition-transform font-plus-jakarta">
+                    Create Event
+                </button>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-[#201F1E] rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[1.2rem]">help_outline</span>
+<span class="font-plus-jakarta text-[0.9rem] leading-relaxed">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-500 hover:text-stone-300 hover:bg-[#201F1E] rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[1.2rem]">logout</span>
+<span class="font-plus-jakarta text-[0.9rem] leading-relaxed">Log Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 lg:ml-72 p-8 md:p-12">
+<header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="max-w-2xl">
+<h1 class="text-4xl md:text-5xl font-extrabold font-headline tracking-tight text-on-background mb-4">
+                        Service <span class="text-primary">Catalog</span>
+</h1>
+<p class="text-on-surface-variant text-lg leading-relaxed max-w-xl">
+                        Design and manage premium event offerings. Configure pricing tiers, staff allocations, and operational resources for flawless execution.
+                    </p>
+</div>
+<button class="flex items-center gap-2 bg-gradient-to-br from-primary to-on-primary-container text-on-primary px-8 py-4 rounded-xl font-bold shadow-xl shadow-primary/5 hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+<span>Add New Service</span>
+</button>
+</header>
+<!-- Services Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+<!-- Service Card 1 -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col group hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
+<div class="h-48 w-full relative overflow-hidden">
+<img alt="Gala Setup" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="elegant gala setup in a grand ballroom with warm hanging lights and sophisticated table arrangements" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnyxzuKUJuATaySV45O9vj9GV8EUHR8si0pF4pWCLLF-IZE4HAqu3ybBrj8837D1rb1iKDTjpDucNwSg5NVzx18j_sx4ixZOy3xhyq6vfqdiHnTrk8i7rpsCtsM3AcxesftIuSX7zDI3swK84dv5AorYaiNzm0ARwgxiB8DIxadk-V0KGSA2LUb2mQpAgxNxib7sgI8oi8ErEu1QwM20HrCdy_2wNtd6Y1_d_yPhBXW_0Hyvms8Dr6onM59fyUHQMCIQgdi__6qduZ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1C1B1A] via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-6">
+<span class="bg-primary/20 backdrop-blur-md text-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Luxury</span>
+</div>
+</div>
+<div class="p-8 flex flex-col flex-1">
+<h3 class="text-2xl font-bold font-headline mb-3">Gala Setup</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">Full-scale ballroom transformation including floral design, custom linens, and atmospheric lighting choreography.</p>
+<div class="mt-auto space-y-4">
+<div class="flex justify-between items-center py-3 border-b border-outline-variant/10">
+<span class="text-stone-500 text-xs font-label uppercase tracking-widest">Base Pricing</span>
+<span class="text-primary font-bold text-lg font-plus-jakarta">$4,500</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1.5 bg-surface-container-highest px-3 py-1.5 rounded-lg text-xs text-on-surface">
+<span class="material-symbols-outlined text-[14px]">groups</span>
+<span>8 Staff</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-highest px-3 py-1.5 rounded-lg text-xs text-on-surface">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+<span>12h Prep</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Service Card 2 -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col group hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
+<div class="h-48 w-full relative overflow-hidden">
+<img alt="AV Tech Support" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="professional audio visual tech support desk with multiple screens and sound board in a dark theater" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqb5EkaTndoE2sAi1GikZrAirNoSFVDiVyFteWYlmRi6UHsj2rNScxLBYFXFBSBHYPgbYs6ClNVcoK9vdU-JRlYFS7P2or--kHLlJvmLsRK6jCMQgTrP0MycCEucDTu9X8s7ZETaoLRTFhSFI1HNixFrUYPVaH6O1Ei13trfILeoa6QT8GTBO_T1ZrBf2A8dM-18Faf2h45PluknYmazGfGSgOCyC6vICkqAtaMAgYXNPyHyLEFPmvK7AnQSW-0RqJglNcPCFVZkMh"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1C1B1A] via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-6">
+<span class="bg-tertiary/20 backdrop-blur-md text-tertiary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Technical</span>
+</div>
+</div>
+<div class="p-8 flex flex-col flex-1">
+<h3 class="text-2xl font-bold font-headline mb-3">Audio Visual Support</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">Real-time technical direction, wireless microphone arrays, 4K projection systems, and hybrid event streaming.</p>
+<div class="mt-auto space-y-4">
+<div class="flex justify-between items-center py-3 border-b border-outline-variant/10">
+<span class="text-stone-500 text-xs font-label uppercase tracking-widest">Base Pricing</span>
+<span class="text-primary font-bold text-lg font-plus-jakarta">$2,200</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1.5 bg-surface-container-highest px-3 py-1.5 rounded-lg text-xs text-on-surface">
+<span class="material-symbols-outlined text-[14px]">groups</span>
+<span>3 Engineers</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-highest px-3 py-1.5 rounded-lg text-xs text-on-surface">
+<span class="material-symbols-outlined text-[14px]">settings_input_component</span>
+<span>Live Ops</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Service Card 3 -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col group hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
+<div class="h-48 w-full relative overflow-hidden">
+<img alt="Catering Management" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="professional catering team preparing gourmet appetizers in a sleek modern commercial kitchen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhIDIlY5fuPyWP9CMpjGkz0CzjI-D_9VEmjN1tgE_1bgHtFTEY5hAFGD0cVT5qRyouj4ws6fHdZGvUXwnxi1nFir5iGbRmUCyWGKooHJoMKoTfNZIB98SqxDorLHNVn7U-Uhu8CfWsrQQffW-YR7dLU4S_vNzbeDu74qOnWT-4xVkWQCyw9Ox4nsUfqStCZK2p0-6NmzbUJpcZmVZhzGwlBLvlkdWAke_y5W0yKdnJzuWYSxru-dQ2T1oQDtu2KnL7X3jzKD8lAzYR"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1C1B1A] via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-6">
+<span class="bg-secondary/20 backdrop-blur-md text-secondary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Hospitality</span>
+</div>
+</div>
+<div class="p-8 flex flex-col flex-1">
+<h3 class="text-2xl font-bold font-headline mb-3">Catering Management</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">Culinary direction, menu engineering, logistics for multi-course service, and full beverage program management.</p>
+<div class="mt-auto space-y-4">
+<div class="flex justify-between items-center py-3 border-b border-outline-variant/10">
+<span class="text-stone-500 text-xs font-label uppercase tracking-widest">Base Pricing</span>
+<span class="text-primary font-bold text-lg font-plus-jakarta">$3,800</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1.5 bg-surface-container-highest px-3 py-1.5 rounded-lg text-xs text-on-surface">
+<span class="material-symbols-outlined text-[14px]">groups</span>
+<span>12 Staff</span>
+</div>
+<div class="flex items-center gap-1.5 bg-surface-container-highest px-3 py-1.5 rounded-lg text-xs text-on-surface">
+<span class="material-symbols-outlined text-[14px]">restaurant</span>
+<span>Full Bar</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Service Card 4 (Asymmetric Large/Special) -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col md:flex-row md:col-span-2 group hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
+<div class="h-64 md:h-auto md:w-2/5 relative overflow-hidden">
+<img alt="Concierge Service" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" data-alt="vibrant outdoor festival scene with stages and crowd under a sunset sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjT7PnUTkcnw-_REOjPNoAGEsUXnvRZ-9IUg9tfpwVuHZOr3DGltHEv_DJB1Ch6la2xJmMXtBQxE3jZn-wcXw6o0Ab7fjgrppFjCB7Dy2jvVAm-fcpMK9V6AwSJVzbhhxhF6tULAp0KG46vEsRh9iPDlQ_POI5_c90PV3khHxlAcQ184l0ep_HhVtn4RKVXREH7U2HcQ3uGBUXLlxi_Wtk4Lnw9HvyOVmAh4UZ0speTs91GOGE2KM_QahfGAeAaLJsEB4y_r7D8ubC"/>
+<div class="absolute inset-0 bg-gradient-to-r from-background/60 to-transparent"></div>
+</div>
+<div class="p-8 md:p-12 flex flex-col flex-1 justify-center">
+<div class="mb-4">
+<span class="text-primary-fixed bg-primary-container px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">Signature Service</span>
+</div>
+<h3 class="text-3xl font-bold font-headline mb-4">Elite Concierge &amp; Logistics</h3>
+<p class="text-on-surface-variant text-base leading-relaxed mb-8 max-w-lg">End-to-end guest journey management, including VIP transportation, hotel block coordination, and dedicated on-site personal assistants for keynote speakers or executives.</p>
+<div class="grid grid-cols-2 gap-8 mb-8">
+<div>
+<span class="text-stone-500 text-xs font-label uppercase block mb-1">Base Price</span>
+<span class="text-primary font-bold text-2xl font-plus-jakarta">$6,200</span>
+</div>
+<div>
+<span class="text-stone-500 text-xs font-label uppercase block mb-1">Lead Staff</span>
+<span class="text-on-surface font-semibold text-lg">Senior Coordinator</span>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="bg-surface-container-high hover:bg-surface-container-highest px-6 py-3 rounded-lg text-sm font-semibold transition-colors">Edit Details</button>
+<button class="bg-transparent border border-outline-variant hover:border-primary px-6 py-3 rounded-lg text-sm font-semibold transition-all">View Performance</button>
+</div>
+</div>
+</div>
+<!-- Simple Card for Variety -->
+<div class="bg-surface-container-low rounded-xl p-8 border border-outline-variant/10 flex flex-col justify-between hover:bg-surface-container transition-colors duration-300">
+<div>
+<div class="w-12 h-12 rounded-xl bg-tertiary-container flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-tertiary">draw</span>
+</div>
+<h3 class="text-xl font-bold font-headline mb-2">Graphic Design &amp; Signage</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">Custom event branding, wayfinding signage, digital assets, and large-format print production management.</p>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/10 flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-stone-500 text-[10px] font-label uppercase">Starting at</span>
+<span class="text-primary font-bold">$950</span>
+</div>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-[#1C1B1A] bg-stone-700 flex items-center justify-center text-[10px] font-bold">JD</div>
+<div class="w-8 h-8 rounded-full border-2 border-[#1C1B1A] bg-stone-600 flex items-center justify-center text-[10px] font-bold">MK</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Responsive Mobile Dock (Hidden on MD/LG) -->
+<div class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] glass-card rounded-full h-16 z-50 flex items-center justify-around px-6">
+<button class="text-stone-400"><span class="material-symbols-outlined">dashboard</span></button>
+<button class="text-stone-400"><span class="material-symbols-outlined">inventory_2</span></button>
+<button class="text-[#E7BDB1]"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">rebase_edit</span></button>
+<button class="text-stone-400"><span class="material-symbols-outlined">group</span></button>
+<button class="text-stone-400"><span class="material-symbols-outlined">receipt_long</span></button>
+</div>
+</body></html>

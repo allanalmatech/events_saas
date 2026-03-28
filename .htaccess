@@ -1,0 +1,51 @@
+Options -Indexes -MultiViews
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block unsafe methods
+    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)$ [NC]
+    RewriteRule ^ - [F,L]
+
+    # Block common scrapers/crawlers and empty user agents
+    RewriteCond %{HTTP_USER_AGENT} ^$ [OR]
+    RewriteCond %{HTTP_USER_AGENT} (ahrefsbot|semrushbot|mj12bot|dotbot|petalbot|seznambot|sogou|yandex(bot)?|bingbot|baiduspider|facebookexternalhit|facebot|slurp|crawler|spider|scrapy|python-requests|curl|wget|httpclient|go-http-client) [NC]
+    RewriteRule ^ - [F,L]
+
+    # If already installed, do not allow setup page
+    RewriteCond %{REQUEST_URI} setup\.php$ [NC]
+    RewriteCond storage/install.lock -f
+    RewriteRule ^setup\.php$ ./ [R=302,L]
+
+    # If not installed, force setup (allow setup and static assets)
+    RewriteCond %{REQUEST_URI} !setup\.php$ [NC]
+    RewriteCond %{REQUEST_URI} !\.(?:css|js|png|jpe?g|gif|svg|webp|ico|woff2?|ttf|eot|map)$ [NC]
+    RewriteCond %{REQUEST_URI} !^\.well-known/ [NC]
+    RewriteCond storage/install.lock !-f
+    RewriteRule ^ setup.php [R=302,L]
+</IfModule>
+
+# Protect sensitive files
+<FilesMatch "^(\.env|config\.php|composer\.(json|lock)|phpunit\.xml|package(-lock)?\.json|README\.md)$">
+    Require all denied
+</FilesMatch>
+
+# Protect installer lock and platform metadata from direct access
+<Files "install.lock">
+    Require all denied
+</Files>
+
+<Files "platform_settings.json">
+    Require all denied
+</Files>
+
+<Files "director_profile_settings.json">
+    Require all denied
+</Files>

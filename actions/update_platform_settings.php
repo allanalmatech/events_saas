@@ -70,6 +70,8 @@ $loginHeading = post_str('login_heading', (string) ($existing['login_heading'] ?
 $loginSubheading = post_str('login_subheading', (string) ($existing['login_subheading'] ?? 'Access your account'));
 $loginCoverDescription = post_str('login_cover_description', (string) ($existing['login_cover_description'] ?? ''));
 $loginTheme = post_str('login_theme', (string) ($existing['login_theme'] ?? 'earth'));
+$loginAccountsEnabled = (int) post_str('login_accounts_enabled', !empty($existing['login_accounts_enabled']) ? '1' : '0') === 1;
+$loginAccountsPayload = post_str('login_accounts_payload', (string) ($existing['login_accounts_payload'] ?? ''));
 
 if ($saasName === '') {
     $saasName = APP_NAME;
@@ -114,6 +116,8 @@ try {
         'login_subheading' => $loginSubheading,
         'login_cover_description' => $loginCoverDescription,
         'login_theme' => $loginTheme,
+        'login_accounts_enabled' => $loginAccountsEnabled,
+        'login_accounts_payload' => $loginAccountsPayload,
         'system_logo_path' => $systemLogoPath,
         'login_cover_image_path' => $coverImagePath,
         'updated_at' => now_sql(),

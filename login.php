@@ -17,6 +17,33 @@ if ($loginHeading === '') {
 $loginSubheading = trim((string) ($platform['login_subheading'] ?? 'Access your account'));
 $coverDescription = trim((string) ($platform['login_cover_description'] ?? ''));
 $footerText = trim((string) ($platform['footer_text'] ?? ''));
+$showQuickAccounts = !empty($platform['login_accounts_enabled']);
+$quickAccountsPayload = (string) ($platform['login_accounts_payload'] ?? '');
+$quickAccounts = [];
+if ($showQuickAccounts && $quickAccountsPayload !== '') {
+    $lines = preg_split('/\r\n|\r|\n/', $quickAccountsPayload) ?: [];
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if ($line === '') {
+            continue;
+        }
+        $parts = array_map('trim', explode('|', $line));
+        if (count($parts) < 3) {
+            continue;
+        }
+        $label = $parts[0] !== '' ? $parts[0] : 'Account';
+        $email = $parts[1] ?? '';
+        $password = $parts[2] ?? '';
+        if ($email === '' || $password === '') {
+            continue;
+        }
+        $quickAccounts[] = [
+            'label' => $label,
+            'email' => $email,
+            'password' => $password,
+        ];
+    }
+}
 $saasName = platform_saas_name();
 $loginTheme = (string) ($platform['login_theme'] ?? 'earth');
 if (!in_array($loginTheme, ['earth', 'ocean', 'mono'], true)) {
@@ -67,6 +94,11 @@ include __DIR__ . '/templates/header.php';
     .login-panel-stack { width:100%; max-width:380px; display:flex; flex-direction:column; gap:10px; }
     .login-card { width:100%; border:1px solid <?php echo e($themeUi['fieldBorder']); ?>; border-radius:18px; background:<?php echo e($themeUi['cardBg']); ?>; padding:20px; color:<?php echo e($themeUi['cardText']); ?>; }
     .login-panel-footer { font-size:12px; color:<?php echo e($themeUi['cardMuted']); ?>; text-align:center; white-space:pre-wrap; }
+    .quick-accounts { margin-top:12px; border-top:1px dashed <?php echo e($themeUi['fieldBorder']); ?>; padding-top:10px; }
+    .quick-account-item { border:1px solid <?php echo e($themeUi['fieldBorder']); ?>; border-radius:10px; padding:8px; margin-bottom:8px; background:<?php echo e($themeUi['fieldBg']); ?>; }
+    .quick-account-head { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:4px; }
+    .quick-account-actions { display:flex; gap:6px; }
+    .quick-account-item .muted { font-size:12px; }
     .login-card .muted { color: <?php echo e($themeUi['cardMuted']); ?>; }
     .login-card .field label { color: <?php echo e($themeUi['cardMuted']); ?>; }
     .login-card .field input { background: <?php echo e($themeUi['fieldBg']); ?>; border:1px solid <?php echo e($themeUi['fieldBorder']); ?>; color:<?php echo e($themeUi['cardText']); ?>; }
@@ -146,10 +178,73 @@ include __DIR__ . '/templates/header.php';
                     <button class="btn btn-primary" type="submit">Sign In</button>
                     <a class="btn btn-ghost" href="<?php echo e(app_url('register.php')); ?>">Request Tenant Access</a>
                 </form>
+
+                <?php if ($quickAccounts): ?>
+                    <div class="quick-accounts">
+                        <div class="muted" style="margin-bottom:6px;"><strong>Quick Login Accounts</strong></div>
+                        <?php foreach ($quickAccounts as $idx => $acct): ?>
+                            <div class="quick-account-item">
+                                <div class="quick-account-head">
+                                    <strong><?php echo e($acct['label']); ?></strong>
+                                    <div class="quick-account-actions">
+                                        <button class="btn btn-ghost" type="button" data-quick-fill="<?php echo (int) $idx; ?>">Use</button>
+                                        <button class="btn btn-ghost" type="button" data-quick-copy="<?php echo (int) $idx; ?>">Copy</button>
+                                    </div>
+                                </div>
+                                <div class="muted"><?php echo e($acct['email']); ?></div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
             </div>
             <?php if ($footerText !== ''): ?><div class="login-panel-footer"><?php echo nl2br(e($footerText)); ?></div><?php endif; ?>
         </div>
     </section>
 </main>
+<?php if ($quickAccounts): ?>
+<script>
+    (function () {
+        var accounts = <?php echo json_encode($quickAccounts); ?> || [];
+        var emailInput = document.getElementById('email');
+        var passInput = document.getElementById('password');
+        if (!emailInput || !passInput || !accounts.length) {
+            return;
+        }
+
+        function fillAccount(index) {
+            var row = accounts[index];
+            if (!row) {
+                return;
+            }
+            emailInput.value = row.email || '';
+            passInput.value = row.password || '';
+            passInput.focus();
+        }
+
+        var fillButtons = document.querySelectorAll('[data-quick-fill]');
+        for (var i = 0; i < fillButtons.length; i++) {
+            fillButtons[i].addEventListener('click', function () {
+                var idx = parseInt(this.getAttribute('data-quick-fill') || '-1', 10);
+                fillAccount(idx);
+            });
+        }
+
+        var copyButtons = document.querySelectorAll('[data-quick-copy]');
+        for (var j = 0; j < copyButtons.length; j++) {
+            copyButtons[j].addEventListener('click', function () {
+                var idx = parseInt(this.getAttribute('data-quick-copy') || '-1', 10);
+                var row = accounts[idx];
+                if (!row) {
+                    return;
+                }
+                var payload = 'Email: ' + row.email + '\nPassword: ' + row.password;
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(payload);
+                }
+            });
+        }
+    })();
+</script>
+<?php endif; ?>
 <?php $hideAppFooter = true; ?>
 <?php include __DIR__ . '/templates/footer.php'; ?>

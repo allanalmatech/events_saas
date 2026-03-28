@@ -133,6 +133,8 @@ function platform_settings(): array
         'login_subheading' => 'Access your account',
         'login_theme' => 'earth',
         'login_cover_description' => '',
+        'login_accounts_enabled' => false,
+        'login_accounts_payload' => '',
         'system_logo_path' => '',
         'login_cover_image_path' => '',
     ];

@@ -187,18 +187,37 @@ if ($profileImagePath !== '') {
             var menus = document.querySelectorAll('.account-menu');
             for (var i = 0; i < menus.length; i++) {
                 (function (menu) {
-                    menu.addEventListener('mouseenter', function () {
+                    var closeTimer = null;
+
+                    function openMenu() {
+                        if (closeTimer) {
+                            window.clearTimeout(closeTimer);
+                            closeTimer = null;
+                        }
                         menu.open = true;
+                    }
+
+                    function closeMenuDelayed() {
+                        if (closeTimer) {
+                            window.clearTimeout(closeTimer);
+                        }
+                        closeTimer = window.setTimeout(function () {
+                            menu.open = false;
+                        }, 180);
+                    }
+
+                    menu.addEventListener('mouseenter', function () {
+                        openMenu();
                     });
                     menu.addEventListener('mouseleave', function () {
-                        menu.open = false;
+                        closeMenuDelayed();
                     });
                     menu.addEventListener('focusin', function () {
-                        menu.open = true;
+                        openMenu();
                     });
                     menu.addEventListener('focusout', function (event) {
                         if (!menu.contains(event.relatedTarget)) {
-                            menu.open = false;
+                            closeMenuDelayed();
                         }
                     });
                 })(menus[i]);

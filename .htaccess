@@ -21,15 +21,12 @@ Options -Indexes -MultiViews
 
     # If already installed, do not allow setup page
     RewriteCond %{REQUEST_URI} setup\.php$ [NC]
-    RewriteCond storage/install.lock -f
-    RewriteRule ^setup\.php$ ./ [R=302,L]
+    RewriteCond storage/install.lock -f [OR]
+    RewriteCond includes/config.php -f
+    RewriteRule ^setup\.php$ login.php [L]
 
-    # If not installed, force setup (allow setup and static assets)
-    RewriteCond %{REQUEST_URI} !setup\.php$ [NC]
-    RewriteCond %{REQUEST_URI} !\.(?:css|js|png|jpe?g|gif|svg|webp|ico|woff2?|ttf|eot|map)$ [NC]
-    RewriteCond %{REQUEST_URI} !^\.well-known/ [NC]
-    RewriteCond storage/install.lock !-f
-    RewriteRule ^ setup.php [R=302,L]
+    # Installation flow is handled in index.php/setup.php.
+    # Keep rewrite rules minimal here to avoid false setup redirects.
 </IfModule>
 
 # Protect sensitive files

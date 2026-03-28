@@ -1,5 +1,6 @@
 # Local environment configuration
 includes/config.php
+.htaccess
 
 # Uploaded/generated image assets
 storage/platform_assets/

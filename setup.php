@@ -268,6 +268,14 @@ function writeConfigFiles(string $includesDir, array $input): void
         "        throw new RuntimeException('Could not set database charset.');\n" .
         "    }\n\n" .
         "    return \$connection;\n" .
+        "}\n\n" .
+        "function db_try(): ?mysqli\n" .
+        "{\n" .
+        "    try {\n" .
+        "        return db();\n" .
+        "    } catch (Throwable \$exception) {\n" .
+        "        return null;\n" .
+        "    }\n" .
         "}\n";
 
     if (file_put_contents($configPath, $configContent) === false) {

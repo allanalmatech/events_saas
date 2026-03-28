@@ -1,0 +1,17 @@
+{
+    "saas_name": "Events Saas Pro",
+    "footer_text": "Developed By Alma Tech Labs Inc.",
+    "support_email": "support@eventssaas.com",
+    "support_phone": "0700868939",
+    "default_timezone": "Africa\/Nairobi",
+    "default_currency": "UGX",
+    "allow_auto_lock": true,
+    "login_heading": "Sign In",
+    "login_subheading": "Access your account",
+    "login_cover_description": "Manage your hiring business in just one click!",
+    "login_theme": "ocean",
+    "system_logo_path": "storage\/platform_assets\/system_logo_20260326193637_d238b079.png",
+    "login_cover_image_path": "storage\/platform_assets\/login_cover_20260326193637_db36046c.png",
+    "updated_at": "2026-03-26 19:41:54",
+    "updated_by": 1
+}

@@ -14,6 +14,24 @@
     --radius-md: 16px;
 }
 
+body.director-dark {
+    --bg: #0f1115;
+    --surface: #171b22;
+    --surface-soft: rgba(25, 29, 37, 0.86);
+    --surface-strong: rgba(37, 44, 55, 0.85);
+    --text: #e6edf5;
+    --muted: #b8c4d0;
+    --primary: #8ea2ff;
+    --primary-strong: #6276db;
+    --on-primary: #0f141a;
+    --danger: #ff8f84;
+    --success: #7ddca0;
+    --outline: rgba(154, 170, 188, 0.22);
+    --sidebar-bg: rgba(16, 20, 27, 0.92);
+    --sidebar-flyout-bg: rgba(16, 20, 27, 0.98);
+    --input-bg: rgba(18, 22, 29, 0.92);
+}
+
 * { box-sizing: border-box; }
 
 body {

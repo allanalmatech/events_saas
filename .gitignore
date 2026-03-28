@@ -1,0 +1,30 @@
+# Local environment configuration
+includes/config.php
+
+# Uploaded/generated image assets
+storage/platform_assets/
+storage/tenant_logos/
+storage/profile_images/
+
+# Local runtime metadata
+storage/platform_settings.json
+storage/director_profile_settings.json
+storage/install.lock
+
+# Dependency folders
+vendor/
+node_modules/
+
+# Build/cache/log noise
+*.log
+*.tmp
+*.cache
+.DS_Store
+Thumbs.db
+
+# IDE/editor settings
+.vscode/
+.idea/
+
+# Test/tooling cache
+.phpunit.result.cache

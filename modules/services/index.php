@@ -62,6 +62,63 @@ $contentRenderer = function (): void {
         .modal-card { width:100%; max-width:620px; max-height:90vh; overflow:auto; }
         .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
         .action-col { width:70px; }
+        .services-table-wrap { width:100%; overflow-x:auto; }
+
+        @media (max-width: 860px) {
+            .toolbar { align-items:stretch; }
+            .toolbar form.toolbar { width:100%; }
+            .toolbar .field { min-width:100%; }
+            .toolbar .btn { width:100%; }
+
+            .services-table thead { display:none; }
+            .services-table,
+            .services-table tbody,
+            .services-table tr,
+            .services-table td { display:block; width:100%; }
+
+            .services-table tr {
+                border:1px solid var(--outline);
+                border-radius:12px;
+                padding:10px;
+                margin-bottom:10px;
+                background:var(--surface-soft);
+            }
+
+            .services-table tr.no-services-row {
+                border:none;
+                padding:0;
+                margin:0;
+                background:transparent;
+            }
+
+            .services-table td {
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:10px;
+                border:none;
+                padding:8px 0;
+                text-align:right;
+            }
+
+            .services-table td::before {
+                content: attr(data-label);
+                font-size:12px;
+                color:var(--muted);
+                text-transform:uppercase;
+                letter-spacing:0.4px;
+                text-align:left;
+            }
+
+            .services-table tr.no-services-row td {
+                display:block;
+                text-align:left;
+            }
+
+            .services-table tr.no-services-row td::before {
+                content: '';
+            }
+        }
     </style>
 
     <section class="card">
@@ -75,22 +132,24 @@ $contentRenderer = function (): void {
             <button class="btn btn-primary" type="button" data-modal-open="add-service-modal">+ Service</button>
         </div>
 
-        <table class="table">
-            <thead><tr><th>Name</th><th>Type</th><th>Price</th><th>Status</th><th>Created</th><th class="action-col">Edit</th></tr></thead>
-            <tbody>
-            <?php foreach ($rows as $row): ?>
-                <tr>
-                    <td><?php echo e($row['service_name']); ?></td>
-                    <td><?php echo e($row['pricing_type']); ?></td>
-                    <td><?php echo number_format((float) $row['price'], 2); ?></td>
-                    <td><?php echo e($row['status']); ?></td>
-                    <td><?php echo e($row['created_at']); ?></td>
-                    <td><button class="btn btn-ghost" type="button" data-modal-open="edit-service-<?php echo (int) $row['id']; ?>" title="Edit service"><i class="fa-solid fa-pencil"></i></button></td>
-                </tr>
-            <?php endforeach; ?>
-            <?php if (!$rows): ?><tr><td colspan="6" class="muted">No services found.</td></tr><?php endif; ?>
-            </tbody>
-        </table>
+        <div class="services-table-wrap">
+            <table class="table services-table">
+                <thead><tr><th>Name</th><th>Type</th><th>Price</th><th>Status</th><th>Created</th><th class="action-col">Edit</th></tr></thead>
+                <tbody>
+                <?php foreach ($rows as $row): ?>
+                    <tr>
+                        <td data-label="Name"><?php echo e($row['service_name']); ?></td>
+                        <td data-label="Type"><?php echo e($row['pricing_type']); ?></td>
+                        <td data-label="Price"><?php echo number_format((float) $row['price'], 2); ?></td>
+                        <td data-label="Status"><?php echo e($row['status']); ?></td>
+                        <td data-label="Created"><?php echo e($row['created_at']); ?></td>
+                        <td data-label="Edit"><button class="btn btn-ghost" type="button" data-modal-open="edit-service-<?php echo (int) $row['id']; ?>" title="Edit service"><i class="fa-solid fa-pencil"></i></button></td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php if (!$rows): ?><tr class="no-services-row"><td colspan="6" class="muted">No services found.</td></tr><?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </section>
 
     <div class="modal-backdrop" id="add-service-modal">

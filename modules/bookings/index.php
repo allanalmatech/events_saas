@@ -93,6 +93,63 @@ $contentRenderer = function (): void {
         .modal-card { width:100%; max-width:700px; max-height:90vh; overflow:auto; }
         .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
         .action-col { width:70px; }
+        .bookings-table-wrap { width:100%; overflow-x:auto; }
+
+        @media (max-width: 860px) {
+            .toolbar { align-items:stretch; }
+            .toolbar form.toolbar { width:100%; }
+            .toolbar .field { min-width:100%; }
+            .toolbar .btn { width:100%; }
+
+            .bookings-table thead { display:none; }
+            .bookings-table,
+            .bookings-table tbody,
+            .bookings-table tr,
+            .bookings-table td { display:block; width:100%; }
+
+            .bookings-table tr {
+                border:1px solid var(--outline);
+                border-radius:12px;
+                padding:10px;
+                margin-bottom:10px;
+                background:var(--surface-soft);
+            }
+
+            .bookings-table tr.no-bookings-row {
+                border:none;
+                padding:0;
+                margin:0;
+                background:transparent;
+            }
+
+            .bookings-table td {
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:10px;
+                border:none;
+                padding:8px 0;
+                text-align:right;
+            }
+
+            .bookings-table td::before {
+                content: attr(data-label);
+                font-size:12px;
+                color:var(--muted);
+                text-transform:uppercase;
+                letter-spacing:0.4px;
+                text-align:left;
+            }
+
+            .bookings-table tr.no-bookings-row td {
+                display:block;
+                text-align:left;
+            }
+
+            .bookings-table tr.no-bookings-row td::before {
+                content: '';
+            }
+        }
     </style>
 
     <section class="card">
@@ -121,22 +178,24 @@ $contentRenderer = function (): void {
             <button class="btn btn-ghost" type="button" data-modal-open="add-outsourced-modal">+ Outsourced Item</button>
         </div>
 
-        <table class="table">
-            <thead><tr><th>Ref</th><th>Customer</th><th>Date</th><th>Location</th><th>Status</th><th class="action-col">Edit</th></tr></thead>
-            <tbody>
-            <?php foreach ($rows as $row): ?>
-                <tr>
-                    <td><?php echo e($row['booking_ref']); ?></td>
-                    <td><?php echo e($row['customer_name']); ?></td>
-                    <td><?php echo e($row['event_date']); ?></td>
-                    <td><?php echo e($row['event_location']); ?></td>
-                    <td><?php echo e($row['status']); ?></td>
-                    <td><button class="btn btn-ghost" type="button" data-modal-open="edit-booking-<?php echo (int) $row['id']; ?>" title="Edit booking"><i class="fa-solid fa-pencil"></i></button></td>
-                </tr>
-            <?php endforeach; ?>
-            <?php if (!$rows): ?><tr><td colspan="6" class="muted">No bookings found.</td></tr><?php endif; ?>
-            </tbody>
-        </table>
+        <div class="bookings-table-wrap">
+            <table class="table bookings-table">
+                <thead><tr><th>Ref</th><th>Customer</th><th>Date</th><th>Location</th><th>Status</th><th class="action-col">Edit</th></tr></thead>
+                <tbody>
+                <?php foreach ($rows as $row): ?>
+                    <tr>
+                        <td data-label="Ref"><?php echo e($row['booking_ref']); ?></td>
+                        <td data-label="Customer"><?php echo e($row['customer_name']); ?></td>
+                        <td data-label="Date"><?php echo e($row['event_date']); ?></td>
+                        <td data-label="Location"><?php echo e($row['event_location']); ?></td>
+                        <td data-label="Status"><?php echo e($row['status']); ?></td>
+                        <td data-label="Edit"><button class="btn btn-ghost" type="button" data-modal-open="edit-booking-<?php echo (int) $row['id']; ?>" title="Edit booking"><i class="fa-solid fa-pencil"></i></button></td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php if (!$rows): ?><tr class="no-bookings-row"><td colspan="6" class="muted">No bookings found.</td></tr><?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </section>
 
     <?php foreach ($rows as $row): ?>

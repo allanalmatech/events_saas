@@ -86,6 +86,75 @@ $contentRenderer = function (): void {
         .modal-backdrop.open { display:flex; }
         .modal-card { width:100%; max-width:680px; max-height:90vh; overflow:auto; }
         .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+        .items-table-wrap, .providers-table-wrap { width:100%; overflow-x:auto; }
+
+        @media (max-width: 860px) {
+            .toolbar { align-items:stretch; }
+            .toolbar form.toolbar { width:100%; }
+            .toolbar .field { min-width:100%; }
+            .toolbar .btn { width:100%; }
+
+            .items-table thead,
+            .providers-table thead { display:none; }
+
+            .items-table,
+            .items-table tbody,
+            .items-table tr,
+            .items-table td,
+            .providers-table,
+            .providers-table tbody,
+            .providers-table tr,
+            .providers-table td { display:block; width:100%; }
+
+            .items-table tr,
+            .providers-table tr {
+                border:1px solid var(--outline);
+                border-radius:12px;
+                padding:10px;
+                margin-bottom:10px;
+                background:var(--surface-soft);
+            }
+
+            .items-table tr.no-items-row,
+            .providers-table tr.no-providers-row {
+                border:none;
+                padding:0;
+                margin:0;
+                background:transparent;
+            }
+
+            .items-table td,
+            .providers-table td {
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:10px;
+                border:none;
+                padding:8px 0;
+                text-align:right;
+            }
+
+            .items-table td::before,
+            .providers-table td::before {
+                content: attr(data-label);
+                font-size:12px;
+                color:var(--muted);
+                text-transform:uppercase;
+                letter-spacing:0.4px;
+                text-align:left;
+            }
+
+            .items-table tr.no-items-row td,
+            .providers-table tr.no-providers-row td {
+                display:block;
+                text-align:left;
+            }
+
+            .items-table tr.no-items-row td::before,
+            .providers-table tr.no-providers-row td::before {
+                content: '';
+            }
+        }
     </style>
 
     <section class="card" style="margin-bottom:14px;">
@@ -98,25 +167,27 @@ $contentRenderer = function (): void {
             </form>
             <button class="btn btn-primary" type="button" data-modal-open="add-item-modal">+ Item</button>
         </div>
-        <table class="table">
-            <thead><tr><th>Item</th><th>SKU</th><th>Unit</th><th>Total</th><th>In Store</th><th>Hired</th><th>Owner</th><th>Status</th><th>Action</th></tr></thead>
-            <tbody>
-            <?php foreach ($rows as $row): ?>
-                <tr>
-                    <td><?php echo e($row['item_name']); ?></td>
-                    <td><?php echo e($row['sku']); ?></td>
-                    <td><?php echo e($row['unit_type']); ?></td>
-                    <td><?php echo (int) $row['quantity_total']; ?></td>
-                    <td><?php echo (int) $row['quantity_in_store']; ?></td>
-                    <td><?php echo (int) $row['quantity_hired_out']; ?></td>
-                    <td><?php echo e($row['owner_type']); ?></td>
-                    <td><?php echo e($row['status']); ?></td>
-                    <td><button class="btn btn-ghost" type="button" data-modal-open="edit-item-<?php echo (int) $row['id']; ?>">Edit</button></td>
-                </tr>
-            <?php endforeach; ?>
-            <?php if (!$rows): ?><tr><td colspan="9" class="muted">No items found for the selected filter.</td></tr><?php endif; ?>
-            </tbody>
-        </table>
+        <div class="items-table-wrap">
+            <table class="table items-table">
+                <thead><tr><th>Item</th><th>SKU</th><th>Unit</th><th>Total</th><th>In Store</th><th>Hired</th><th>Owner</th><th>Status</th><th>Action</th></tr></thead>
+                <tbody>
+                <?php foreach ($rows as $row): ?>
+                    <tr>
+                        <td data-label="Item"><?php echo e($row['item_name']); ?></td>
+                        <td data-label="SKU"><?php echo e($row['sku']); ?></td>
+                        <td data-label="Unit"><?php echo e($row['unit_type']); ?></td>
+                        <td data-label="Total"><?php echo (int) $row['quantity_total']; ?></td>
+                        <td data-label="In Store"><?php echo (int) $row['quantity_in_store']; ?></td>
+                        <td data-label="Hired"><?php echo (int) $row['quantity_hired_out']; ?></td>
+                        <td data-label="Owner"><?php echo e($row['owner_type']); ?></td>
+                        <td data-label="Status"><?php echo e($row['status']); ?></td>
+                        <td data-label="Action"><button class="btn btn-ghost" type="button" data-modal-open="edit-item-<?php echo (int) $row['id']; ?>">Edit</button></td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php if (!$rows): ?><tr class="no-items-row"><td colspan="9" class="muted">No items found for the selected filter.</td></tr><?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </section>
 
     <section class="card">
@@ -127,21 +198,23 @@ $contentRenderer = function (): void {
             </form>
             <button class="btn btn-primary" type="button" data-modal-open="add-provider-modal">+ Provider</button>
         </div>
-        <table class="table">
-            <thead><tr><th>Provider</th><th>Contact</th><th>Phone</th><th>Email</th><th>Status</th></tr></thead>
-            <tbody>
-            <?php foreach ($providers as $provider): ?>
-                <tr>
-                    <td><?php echo e($provider['provider_name']); ?></td>
-                    <td><?php echo e($provider['contact_person']); ?></td>
-                    <td><?php echo e($provider['phone']); ?></td>
-                    <td><?php echo e($provider['email']); ?></td>
-                    <td><?php echo e($provider['status']); ?></td>
-                </tr>
-            <?php endforeach; ?>
-            <?php if (!$providers): ?><tr><td colspan="5" class="muted">No providers found for the selected filter.</td></tr><?php endif; ?>
-            </tbody>
-        </table>
+        <div class="providers-table-wrap">
+            <table class="table providers-table">
+                <thead><tr><th>Provider</th><th>Contact</th><th>Phone</th><th>Email</th><th>Status</th></tr></thead>
+                <tbody>
+                <?php foreach ($providers as $provider): ?>
+                    <tr>
+                        <td data-label="Provider"><?php echo e($provider['provider_name']); ?></td>
+                        <td data-label="Contact"><?php echo e($provider['contact_person']); ?></td>
+                        <td data-label="Phone"><?php echo e($provider['phone']); ?></td>
+                        <td data-label="Email"><?php echo e($provider['email']); ?></td>
+                        <td data-label="Status"><?php echo e($provider['status']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php if (!$providers): ?><tr class="no-providers-row"><td colspan="5" class="muted">No providers found for the selected filter.</td></tr><?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </section>
 
     <div class="modal-backdrop" id="add-item-modal">

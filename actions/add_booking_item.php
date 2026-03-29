@@ -18,16 +18,55 @@ if ($bookingId <= 0 || $itemId <= 0 || $quantity <= 0) {
 }
 
 $mysqli = db();
-$stockStmt = $mysqli->prepare('SELECT quantity_in_store FROM items WHERE id = ? AND tenant_id = ? LIMIT 1');
+$bookingStmt = $mysqli->prepare('SELECT event_date, status FROM bookings WHERE id = ? AND tenant_id = ? LIMIT 1');
+$bookingStmt->bind_param('ii', $bookingId, $tenantId);
+$bookingStmt->execute();
+$booking = $bookingStmt->get_result()->fetch_assoc();
+$bookingStmt->close();
+
+if (!$booking) {
+    flash('error', 'Booking not found for this tenant.');
+    action_redirect_back('modules/bookings/index.php');
+}
+
+$stockStmt = $mysqli->prepare('SELECT quantity_in_store, quantity_hired_out FROM items WHERE id = ? AND tenant_id = ? LIMIT 1');
 $stockStmt->bind_param('ii', $itemId, $tenantId);
 $stockStmt->execute();
 $stockRow = $stockStmt->get_result()->fetch_assoc();
 $stockStmt->close();
 
-$available = (int) ($stockRow['quantity_in_store'] ?? 0);
-if ($quantity > $available) {
-    flash('error', 'Requested quantity exceeds available stock.');
+$totalStock = (int) (($stockRow['quantity_in_store'] ?? 0) + ($stockRow['quantity_hired_out'] ?? 0));
+if ($totalStock <= 0) {
+    flash('error', 'Selected item has no stock configured.');
     action_redirect_back('modules/bookings/index.php');
+}
+
+$bookingStatus = (string) ($booking['status'] ?? 'draft');
+$eventDate = (string) ($booking['event_date'] ?? '');
+$activeStatuses = ['confirmed', 'in_progress', 'awaiting_return', 'partially_returned'];
+
+if (in_array($bookingStatus, $activeStatuses, true)) {
+    $reserved = 0;
+    $reservedStmt = $mysqli->prepare('SELECT COALESCE(SUM(bi.quantity),0) qty
+        FROM booking_items bi
+        INNER JOIN bookings b ON b.id = bi.booking_id AND b.tenant_id = bi.tenant_id
+        WHERE bi.tenant_id = ?
+          AND bi.item_id = ?
+          AND (
+              (b.status = "confirmed" AND b.event_date = ?)
+              OR b.status IN ("in_progress", "awaiting_return", "partially_returned")
+          )');
+    $reservedStmt->bind_param('iis', $tenantId, $itemId, $eventDate);
+    $reservedStmt->execute();
+    $reservedRow = $reservedStmt->get_result()->fetch_assoc();
+    $reservedStmt->close();
+    $reserved = (int) ($reservedRow['qty'] ?? 0);
+
+    $available = max($totalStock - $reserved, 0);
+    if ($quantity > $available) {
+        flash('error', 'Requested quantity exceeds available stock for active bookings on this date.');
+        action_redirect_back('modules/bookings/index.php');
+    }
 }
 
 $amount = $quantity * $rate;
@@ -39,12 +78,7 @@ try {
     $lineId = (int) $insert->insert_id;
     $insert->close();
 
-    $stock = $mysqli->prepare('UPDATE items SET quantity_hired_out = quantity_hired_out + ?, quantity_in_store = quantity_in_store - ?, updated_at = NOW() WHERE id = ? AND tenant_id = ?');
-    $stock->bind_param('iiii', $quantity, $quantity, $itemId, $tenantId);
-    $stock->execute();
-    $stock->close();
-
-    $move = $mysqli->prepare('INSERT INTO item_stock_movements (tenant_id, item_id, movement_type, quantity, reference_type, reference_id, notes, created_at) VALUES (?, ?, "hire_out", ?, "booking", ?, "Booking allocation", NOW())');
+    $move = $mysqli->prepare('INSERT INTO item_stock_movements (tenant_id, item_id, movement_type, quantity, reference_type, reference_id, notes, created_at) VALUES (?, ?, "hire_out", ?, "booking", ?, "Booking reservation", NOW())');
     $move->bind_param('iiii', $tenantId, $itemId, $quantity, $bookingId);
     $move->execute();
     $move->close();

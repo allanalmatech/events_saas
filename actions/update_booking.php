@@ -52,6 +52,57 @@ if (!$customer) {
     action_redirect_back('modules/bookings/index.php');
 }
 
+$activeStatuses = ['confirmed', 'in_progress', 'awaiting_return', 'partially_returned'];
+if (in_array($status, $activeStatuses, true)) {
+    $itemsStmt = $mysqli->prepare('SELECT item_id, COALESCE(SUM(quantity),0) qty FROM booking_items WHERE tenant_id = ? AND booking_id = ? GROUP BY item_id');
+    $itemsStmt->bind_param('ii', $tenantId, $bookingId);
+    $itemsStmt->execute();
+    $bookingItems = $itemsStmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $itemsStmt->close();
+
+    foreach ($bookingItems as $line) {
+        $itemId = (int) ($line['item_id'] ?? 0);
+        $requiredQty = (int) ($line['qty'] ?? 0);
+        if ($itemId <= 0 || $requiredQty <= 0) {
+            continue;
+        }
+
+        $stockStmt = $mysqli->prepare('SELECT item_name, quantity_in_store, quantity_hired_out FROM items WHERE id = ? AND tenant_id = ? LIMIT 1');
+        $stockStmt->bind_param('ii', $itemId, $tenantId);
+        $stockStmt->execute();
+        $stock = $stockStmt->get_result()->fetch_assoc();
+        $stockStmt->close();
+        if (!$stock) {
+            flash('error', 'An item linked to this booking is missing.');
+            action_redirect_back('modules/bookings/index.php');
+        }
+
+        $totalStock = (int) (($stock['quantity_in_store'] ?? 0) + ($stock['quantity_hired_out'] ?? 0));
+
+        $reservedStmt = $mysqli->prepare('SELECT COALESCE(SUM(bi.quantity),0) qty
+            FROM booking_items bi
+            INNER JOIN bookings b ON b.id = bi.booking_id AND b.tenant_id = bi.tenant_id
+            WHERE bi.tenant_id = ?
+              AND bi.item_id = ?
+              AND b.id <> ?
+              AND (
+                  (b.status = "confirmed" AND b.event_date = ?)
+                  OR b.status IN ("in_progress", "awaiting_return", "partially_returned")
+              )');
+        $reservedStmt->bind_param('iiis', $tenantId, $itemId, $bookingId, $eventDate);
+        $reservedStmt->execute();
+        $reservedRow = $reservedStmt->get_result()->fetch_assoc();
+        $reservedStmt->close();
+        $reservedQty = (int) ($reservedRow['qty'] ?? 0);
+
+        $availableQty = max($totalStock - $reservedQty, 0);
+        if ($requiredQty > $availableQty) {
+            flash('error', 'Cannot set booking to active. Item "' . (string) ($stock['item_name'] ?? 'Unknown') . '" is overbooked for the selected date.');
+            action_redirect_back('modules/bookings/index.php');
+        }
+    }
+}
+
 $stmt = $mysqli->prepare('UPDATE bookings SET customer_id = ?, event_date = ?, event_location = ?, event_type = ?, notes = ?, status = ?, updated_at = NOW() WHERE id = ? AND tenant_id = ?');
 $stmt->bind_param('isssssii', $customerId, $eventDate, $eventLocation, $eventType, $notes, $status, $bookingId, $tenantId);
 $stmt->execute();

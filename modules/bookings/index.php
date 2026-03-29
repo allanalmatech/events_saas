@@ -25,7 +25,7 @@ $contentRenderer = function (): void {
         $customers = $c->get_result()->fetch_all(MYSQLI_ASSOC);
         $c->close();
 
-        $itemStmt = $mysqli->prepare('SELECT id, item_name, quantity_in_store FROM items WHERE tenant_id = ? ORDER BY item_name');
+        $itemStmt = $mysqli->prepare('SELECT id, item_name, quantity_in_store, quantity_hired_out FROM items WHERE tenant_id = ? ORDER BY item_name');
         $itemStmt->bind_param('i', $tenantId);
         $itemStmt->execute();
         $items = $itemStmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -187,7 +187,7 @@ $contentRenderer = function (): void {
             <form method="post" action="<?php echo e(app_url('actions/add_booking_item.php')); ?>">
                 <?php echo csrf_input(); ?>
                 <div class="field"><label>Booking</label><select name="booking_id"><?php foreach ($rows as $row): ?><option value="<?php echo (int) $row['id']; ?>"><?php echo e($row['booking_ref']); ?></option><?php endforeach; ?></select></div>
-                <div class="field"><label>Item</label><select name="item_id"><?php foreach ($items as $item): ?><option value="<?php echo (int) $item['id']; ?>"><?php echo e($item['item_name']); ?> (In store: <?php echo (int) $item['quantity_in_store']; ?>)</option><?php endforeach; ?></select></div>
+                <div class="field"><label>Item</label><select name="item_id"><?php foreach ($items as $item): ?><option value="<?php echo (int) $item['id']; ?>"><?php echo e($item['item_name']); ?> (Total stock: <?php echo (int) (($item['quantity_in_store'] ?? 0) + ($item['quantity_hired_out'] ?? 0)); ?>)</option><?php endforeach; ?></select></div>
                 <div class="field"><label>Quantity</label><input type="number" min="1" name="quantity" value="1"></div>
                 <div class="field"><label>Rate</label><input type="number" min="0" step="0.01" name="rate" value="0"></div>
                 <button class="btn btn-primary" type="submit">Allocate Item</button>

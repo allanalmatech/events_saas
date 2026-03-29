@@ -13,6 +13,7 @@ require_once __DIR__ . '/subscription.php';
 require_once __DIR__ . '/feature_limits.php';
 require_once __DIR__ . '/billing.php';
 require_once __DIR__ . '/theme.php';
+require_once __DIR__ . '/marketplace.php';
 
 function app_boot(): void
 {

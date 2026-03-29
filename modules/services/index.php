@@ -14,7 +14,11 @@ $contentRenderer = function (): void {
     $status = get_str('status');
 
     if ($tenantId > 0 && ($mysqli = db_try())) {
-        $sql = 'SELECT id, service_name, pricing_type, price, status, created_at FROM services WHERE tenant_id = ?';
+        $sql = 'SELECT s.id, s.service_name, s.pricing_type, s.price, s.description, s.status, s.created_at,
+                EXISTS(SELECT 1 FROM booking_services bs WHERE bs.tenant_id = s.tenant_id AND bs.service_id = s.id) AS in_booking,
+                EXISTS(SELECT 1 FROM invoice_items ii WHERE ii.tenant_id = s.tenant_id AND ii.line_type = "service" AND ii.reference_id = s.id) AS in_invoice
+                FROM services s
+                WHERE s.tenant_id = ?';
         $types = 'i';
         $params = [$tenantId];
 
@@ -57,6 +61,7 @@ $contentRenderer = function (): void {
         .modal-backdrop.open { display:flex; }
         .modal-card { width:100%; max-width:620px; max-height:90vh; overflow:auto; }
         .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+        .action-col { width:70px; }
     </style>
 
     <section class="card">
@@ -71,7 +76,7 @@ $contentRenderer = function (): void {
         </div>
 
         <table class="table">
-            <thead><tr><th>Name</th><th>Type</th><th>Price</th><th>Status</th><th>Created</th></tr></thead>
+            <thead><tr><th>Name</th><th>Type</th><th>Price</th><th>Status</th><th>Created</th><th class="action-col">Edit</th></tr></thead>
             <tbody>
             <?php foreach ($rows as $row): ?>
                 <tr>
@@ -80,9 +85,10 @@ $contentRenderer = function (): void {
                     <td><?php echo number_format((float) $row['price'], 2); ?></td>
                     <td><?php echo e($row['status']); ?></td>
                     <td><?php echo e($row['created_at']); ?></td>
+                    <td><button class="btn btn-ghost" type="button" data-modal-open="edit-service-<?php echo (int) $row['id']; ?>" title="Edit service"><i class="fa-solid fa-pencil"></i></button></td>
                 </tr>
             <?php endforeach; ?>
-            <?php if (!$rows): ?><tr><td colspan="5" class="muted">No services found.</td></tr><?php endif; ?>
+            <?php if (!$rows): ?><tr><td colspan="6" class="muted">No services found.</td></tr><?php endif; ?>
             </tbody>
         </table>
     </section>
@@ -100,6 +106,32 @@ $contentRenderer = function (): void {
             </form>
         </div>
     </div>
+
+    <?php foreach ($rows as $row): ?>
+        <?php $inUse = !empty($row['in_booking']) || !empty($row['in_invoice']); ?>
+        <div class="modal-backdrop" id="edit-service-<?php echo (int) $row['id']; ?>">
+            <div class="card modal-card">
+                <div class="modal-header"><h3 style="margin:0;">Edit Service: <?php echo e($row['service_name']); ?></h3><button class="btn btn-ghost" type="button" data-modal-close>Close</button></div>
+                <form method="post" action="<?php echo e(app_url('actions/update_service.php')); ?>">
+                    <?php echo csrf_input(); ?>
+                    <input type="hidden" name="service_id" value="<?php echo (int) $row['id']; ?>">
+                    <div class="field"><label>Service Name</label><input name="service_name" value="<?php echo e($row['service_name']); ?>" required></div>
+                    <div class="field"><label>Price</label><input type="number" step="0.01" min="0" name="price" value="<?php echo e((string) $row['price']); ?>"></div>
+                    <div class="field"><label>Pricing Type</label><select name="pricing_type"><option value="flat" <?php echo $row['pricing_type'] === 'flat' ? 'selected' : ''; ?>>Flat</option><option value="unit" <?php echo $row['pricing_type'] === 'unit' ? 'selected' : ''; ?>>Per Unit</option></select></div>
+                    <div class="field"><label>Status</label><select name="status"><option value="active" <?php echo $row['status'] === 'active' ? 'selected' : ''; ?>>Active</option><option value="inactive" <?php echo $row['status'] === 'inactive' ? 'selected' : ''; ?>>Inactive</option></select></div>
+                    <div class="field"><label>Description</label><textarea name="description"><?php echo e($row['description']); ?></textarea></div>
+                    <button class="btn btn-primary" type="submit">Update Service</button>
+                </form>
+
+                <form method="post" action="<?php echo e(app_url('actions/delete_service.php')); ?>" style="margin-top:10px;">
+                    <?php echo csrf_input(); ?>
+                    <input type="hidden" name="service_id" value="<?php echo (int) $row['id']; ?>">
+                    <button class="btn btn-ghost" type="submit" data-confirm="<?php echo $inUse ? 'This service is already in use and will be deactivated. Continue?' : 'Delete this service? This cannot be undone.'; ?>"><?php echo $inUse ? 'Deactivate Service' : 'Delete Service'; ?></button>
+                    <?php if ($inUse): ?><div class="muted" style="margin-top:6px;">Service is in transactions, so it can only be deactivated.</div><?php endif; ?>
+                </form>
+            </div>
+        </div>
+    <?php endforeach; ?>
 
     <script>
         (function () {

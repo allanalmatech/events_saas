@@ -17,6 +17,10 @@ $listingType = post_str('listing_type', 'service');
 $description = post_str('description');
 $availability = post_str('availability_status', 'Available');
 
+if (!in_array($listingType, ['service', 'item'], true)) {
+    $listingType = 'service';
+}
+
 if ($title === '') {
     flash('error', 'Listing title is required.');
     action_redirect_back('modules/marketplace/index.php');

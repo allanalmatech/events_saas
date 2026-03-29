@@ -18,6 +18,7 @@ $contentRenderer = function (): void {
     if ($isDirector) {
         $platform = platform_settings();
         $tzOptions = supported_timezones();
+        $themeOptions = theme_palettes();
         $systemLogoPath = trim((string) ($platform['system_logo_path'] ?? ''));
         $coverPath = trim((string) ($platform['login_cover_image_path'] ?? ''));
         ?>
@@ -50,6 +51,7 @@ $contentRenderer = function (): void {
                     <div class="field"><label>Support Phone</label><input name="support_phone" value="<?php echo e($platform['support_phone']); ?>"></div>
                     <div class="field"><label>Default Timezone</label><select name="default_timezone"><?php foreach ($tzOptions as $tz): ?><option value="<?php echo e($tz); ?>" <?php echo (($platform['default_timezone'] ?? APP_TIMEZONE) === $tz) ? 'selected' : ''; ?>><?php echo e($tz); ?></option><?php endforeach; ?></select></div>
                     <div class="field"><label>Default Currency</label><input name="default_currency" value="<?php echo e($platform['default_currency']); ?>"></div>
+                    <div class="field"><label>Admin Portal Theme</label><select name="admin_theme_key"><?php foreach ($themeOptions as $themeKey => $themeData): ?><option value="<?php echo e($themeKey); ?>" <?php echo (($platform['admin_theme_key'] ?? 'dark_terra') === $themeKey) ? 'selected' : ''; ?>><?php echo e($themeKey); ?></option><?php endforeach; ?></select></div>
                     <div class="field"><label>Allow Auto-Lock</label><select name="allow_auto_lock"><option value="1" <?php echo !empty($platform['allow_auto_lock']) ? 'selected' : ''; ?>>Yes</option><option value="0" <?php echo empty($platform['allow_auto_lock']) ? 'selected' : ''; ?>>No</option></select></div>
                     <button class="btn btn-primary" type="submit">Save Platform Settings</button>
                 </form>

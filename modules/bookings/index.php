@@ -37,7 +37,12 @@ $contentRenderer = function (): void {
         $services = $serviceStmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $serviceStmt->close();
 
-        $sql = 'SELECT b.id, b.booking_ref, b.event_date, b.status, c.full_name AS customer_name, b.event_location FROM bookings b INNER JOIN customers c ON c.id = b.customer_id WHERE b.tenant_id = ?';
+        $sql = 'SELECT b.id, b.booking_ref, b.customer_id, b.event_date, b.status, b.event_type, b.notes, c.full_name AS customer_name, b.event_location,
+                EXISTS(SELECT 1 FROM invoices i WHERE i.tenant_id = b.tenant_id AND i.booking_id = b.id) AS has_invoices,
+                EXISTS(SELECT 1 FROM returns r WHERE r.tenant_id = b.tenant_id AND r.booking_id = b.id) AS has_returns
+                FROM bookings b
+                INNER JOIN customers c ON c.id = b.customer_id
+                WHERE b.tenant_id = ?';
         $types = 'i';
         $params = [$tenantId];
 
@@ -87,6 +92,7 @@ $contentRenderer = function (): void {
         .modal-backdrop.open { display:flex; }
         .modal-card { width:100%; max-width:700px; max-height:90vh; overflow:auto; }
         .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+        .action-col { width:70px; }
     </style>
 
     <section class="card">
@@ -116,7 +122,7 @@ $contentRenderer = function (): void {
         </div>
 
         <table class="table">
-            <thead><tr><th>Ref</th><th>Customer</th><th>Date</th><th>Location</th><th>Status</th></tr></thead>
+            <thead><tr><th>Ref</th><th>Customer</th><th>Date</th><th>Location</th><th>Status</th><th class="action-col">Edit</th></tr></thead>
             <tbody>
             <?php foreach ($rows as $row): ?>
                 <tr>
@@ -125,12 +131,40 @@ $contentRenderer = function (): void {
                     <td><?php echo e($row['event_date']); ?></td>
                     <td><?php echo e($row['event_location']); ?></td>
                     <td><?php echo e($row['status']); ?></td>
+                    <td><button class="btn btn-ghost" type="button" data-modal-open="edit-booking-<?php echo (int) $row['id']; ?>" title="Edit booking"><i class="fa-solid fa-pencil"></i></button></td>
                 </tr>
             <?php endforeach; ?>
-            <?php if (!$rows): ?><tr><td colspan="5" class="muted">No bookings found.</td></tr><?php endif; ?>
+            <?php if (!$rows): ?><tr><td colspan="6" class="muted">No bookings found.</td></tr><?php endif; ?>
             </tbody>
         </table>
     </section>
+
+    <?php foreach ($rows as $row): ?>
+        <?php $hasTransaction = !empty($row['has_invoices']) || !empty($row['has_returns']); ?>
+        <div class="modal-backdrop" id="edit-booking-<?php echo (int) $row['id']; ?>">
+            <div class="card modal-card">
+                <div class="modal-header"><h3 style="margin:0;">Edit Booking: <?php echo e($row['booking_ref']); ?></h3><button class="btn btn-ghost" type="button" data-modal-close>Close</button></div>
+                <form method="post" action="<?php echo e(app_url('actions/update_booking.php')); ?>">
+                    <?php echo csrf_input(); ?>
+                    <input type="hidden" name="booking_id" value="<?php echo (int) $row['id']; ?>">
+                    <div class="field"><label>Customer</label><select name="customer_id" required><?php foreach ($customers as $customer): ?><option value="<?php echo (int) $customer['id']; ?>" <?php echo (int) $row['customer_id'] === (int) $customer['id'] ? 'selected' : ''; ?>><?php echo e($customer['full_name']); ?></option><?php endforeach; ?></select></div>
+                    <div class="field"><label>Event Date</label><input type="date" name="event_date" value="<?php echo e($row['event_date']); ?>" min="<?php echo e(date('Y-m-d')); ?>" required></div>
+                    <div class="field"><label>Event Location</label><input name="event_location" value="<?php echo e($row['event_location']); ?>"></div>
+                    <div class="field"><label>Event Type</label><input name="event_type" value="<?php echo e($row['event_type']); ?>"></div>
+                    <div class="field"><label>Status</label><select name="status"><option value="draft" <?php echo $row['status'] === 'draft' ? 'selected' : ''; ?>>Draft</option><option value="confirmed" <?php echo $row['status'] === 'confirmed' ? 'selected' : ''; ?>>Confirmed</option><option value="in_progress" <?php echo $row['status'] === 'in_progress' ? 'selected' : ''; ?>>In Progress</option><option value="awaiting_return" <?php echo $row['status'] === 'awaiting_return' ? 'selected' : ''; ?>>Awaiting Return</option><option value="partially_returned" <?php echo $row['status'] === 'partially_returned' ? 'selected' : ''; ?>>Partially Returned</option><option value="completed" <?php echo $row['status'] === 'completed' ? 'selected' : ''; ?>>Completed</option><option value="cancelled" <?php echo $row['status'] === 'cancelled' ? 'selected' : ''; ?>>Cancelled</option></select></div>
+                    <div class="field"><label>Notes</label><textarea name="notes"><?php echo e($row['notes']); ?></textarea></div>
+                    <button class="btn btn-primary" type="submit">Update Booking</button>
+                </form>
+
+                <form method="post" action="<?php echo e(app_url('actions/delete_booking.php')); ?>" style="margin-top:10px;">
+                    <?php echo csrf_input(); ?>
+                    <input type="hidden" name="booking_id" value="<?php echo (int) $row['id']; ?>">
+                    <button class="btn btn-ghost" type="submit" <?php echo $hasTransaction ? 'disabled' : ''; ?> data-confirm="Delete this booking? This action cannot be undone.">Delete Booking</button>
+                    <?php if ($hasTransaction): ?><div class="muted" style="margin-top:6px;">Cannot delete: booking is already involved in a transaction.</div><?php endif; ?>
+                </form>
+            </div>
+        </div>
+    <?php endforeach; ?>
 
     <div class="modal-backdrop" id="create-booking-modal">
         <div class="card modal-card">

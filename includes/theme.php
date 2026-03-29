@@ -78,10 +78,17 @@ function current_user_theme_settings(): array
 
 function current_theme_tokens(): array
 {
-    $settings = current_user_theme_settings();
     $palettes = theme_palettes();
-    $key = (string) ($settings['theme_key'] ?? 'brown_default');
-    $dark = (int) ($settings['dark_mode_enabled'] ?? 0) === 1;
+    $dark = false;
+
+    if (auth_role() === 'director') {
+        $key = function_exists('platform_setting') ? (string) platform_setting('admin_theme_key', 'dark_terra') : 'dark_terra';
+    } else {
+        $settings = current_user_theme_settings();
+        $key = (string) ($settings['theme_key'] ?? 'brown_default');
+        $dark = (int) ($settings['dark_mode_enabled'] ?? 0) === 1;
+    }
+
     $base = $palettes[$key] ?? $palettes['brown_default'];
 
     $tokens = [

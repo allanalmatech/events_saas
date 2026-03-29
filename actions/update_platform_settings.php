@@ -66,6 +66,7 @@ $supportPhone = post_str('support_phone', (string) ($existing['support_phone'] ?
 $defaultTimezone = post_str('default_timezone', APP_TIMEZONE);
 $defaultCurrency = post_str('default_currency', APP_CURRENCY);
 $allowAutoLock = (int) post_str('allow_auto_lock', !empty($existing['allow_auto_lock']) ? '1' : '0') === 1;
+$adminThemeKey = post_str('admin_theme_key', (string) ($existing['admin_theme_key'] ?? 'dark_terra'));
 $loginHeading = post_str('login_heading', (string) ($existing['login_heading'] ?? 'Sign In'));
 $loginSubheading = post_str('login_subheading', (string) ($existing['login_subheading'] ?? 'Access your account'));
 $loginCoverDescription = post_str('login_cover_description', (string) ($existing['login_cover_description'] ?? ''));
@@ -90,6 +91,11 @@ if (!in_array($loginTheme, ['earth', 'ocean', 'mono'], true)) {
     $loginTheme = 'earth';
 }
 
+$themeKeys = array_keys(theme_palettes());
+if (!in_array($adminThemeKey, $themeKeys, true)) {
+    $adminThemeKey = 'dark_terra';
+}
+
 try {
     $systemLogoPath = (string) ($existing['system_logo_path'] ?? '');
     $coverImagePath = (string) ($existing['login_cover_image_path'] ?? '');
@@ -112,6 +118,7 @@ try {
         'default_timezone' => $defaultTimezone,
         'default_currency' => $defaultCurrency,
         'allow_auto_lock' => $allowAutoLock,
+        'admin_theme_key' => $adminThemeKey,
         'login_heading' => $loginHeading,
         'login_subheading' => $loginSubheading,
         'login_cover_description' => $loginCoverDescription,

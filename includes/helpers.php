@@ -129,6 +129,7 @@ function platform_settings(): array
         'default_timezone' => APP_TIMEZONE,
         'default_currency' => APP_CURRENCY,
         'allow_auto_lock' => true,
+        'admin_theme_key' => 'dark_terra',
         'login_heading' => 'Sign In',
         'login_subheading' => 'Access your account',
         'login_theme' => 'earth',

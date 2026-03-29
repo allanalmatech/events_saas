@@ -88,6 +88,8 @@ $contentRenderer = function (): void {
     <style>
         .toolbar { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px; align-items:end; }
         .toolbar .field { margin:0; min-width:160px; }
+        .booking-search-panel { margin-bottom:12px; }
+        .booking-search-toggle { display:none; }
         .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,0.55); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; z-index:9999; padding:16px; }
         .modal-backdrop.open { display:flex; }
         .modal-card { width:100%; max-width:700px; max-height:90vh; overflow:auto; }
@@ -100,6 +102,9 @@ $contentRenderer = function (): void {
             .toolbar form.toolbar { width:100%; }
             .toolbar .field { min-width:100%; }
             .toolbar .btn { width:100%; }
+            .booking-search-toggle { display:inline-flex; width:100%; }
+            .booking-search-panel { display:none; }
+            .booking-search-panel.open { display:block; }
 
             .bookings-table thead { display:none; }
             .bookings-table,
@@ -154,6 +159,14 @@ $contentRenderer = function (): void {
 
     <section class="card">
         <div class="toolbar">
+            <button class="btn btn-ghost booking-search-toggle" type="button" id="booking-search-toggle" aria-expanded="false"><i class="fa-solid fa-magnifying-glass"></i> Search & Filters</button>
+            <button class="btn btn-primary" type="button" data-modal-open="create-booking-modal">+ Booking</button>
+            <button class="btn btn-ghost" type="button" data-modal-open="add-booking-item-modal">+ Booking Item</button>
+            <button class="btn btn-ghost" type="button" data-modal-open="add-booking-service-modal">+ Booking Service</button>
+            <button class="btn btn-ghost" type="button" data-modal-open="add-outsourced-modal">+ Outsourced Item</button>
+        </div>
+
+        <div class="booking-search-panel" id="booking-search-panel">
             <form method="get" action="<?php echo e(app_url('modules/bookings/index.php')); ?>" class="toolbar" style="flex:1;">
                 <div class="field"><label>Search</label><input name="q" value="<?php echo e($q); ?>" placeholder="ref, customer, location"></div>
                 <div class="field"><label>Status</label>
@@ -172,10 +185,6 @@ $contentRenderer = function (): void {
                 <div class="field"><label>To</label><input type="date" name="date_to" value="<?php echo e($dateTo); ?>"></div>
                 <button class="btn btn-ghost" type="submit">Filter</button>
             </form>
-            <button class="btn btn-primary" type="button" data-modal-open="create-booking-modal">+ Booking</button>
-            <button class="btn btn-ghost" type="button" data-modal-open="add-booking-item-modal">+ Booking Item</button>
-            <button class="btn btn-ghost" type="button" data-modal-open="add-booking-service-modal">+ Booking Service</button>
-            <button class="btn btn-ghost" type="button" data-modal-open="add-outsourced-modal">+ Outsourced Item</button>
         </div>
 
         <div class="bookings-table-wrap">
@@ -288,6 +297,8 @@ $contentRenderer = function (): void {
         (function () {
             var openButtons = document.querySelectorAll('[data-modal-open]');
             var closeButtons = document.querySelectorAll('[data-modal-close]');
+            var searchToggle = document.getElementById('booking-search-toggle');
+            var searchPanel = document.getElementById('booking-search-panel');
 
             function openModal(id) {
                 var modal = document.getElementById(id);
@@ -304,6 +315,12 @@ $contentRenderer = function (): void {
             }
             for (var j = 0; j < closeButtons.length; j++) {
                 closeButtons[j].addEventListener('click', function () { closeModal(this); });
+            }
+            if (searchToggle && searchPanel) {
+                searchToggle.addEventListener('click', function () {
+                    var isOpen = searchPanel.classList.toggle('open');
+                    searchToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                });
             }
 
             var backdrops = document.querySelectorAll('.modal-backdrop');

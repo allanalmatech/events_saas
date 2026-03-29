@@ -26,16 +26,26 @@ $contentRenderer = function (): void {
         $msg->close();
     }
     ?>
+    <style>
+        .toolbar { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
+        .compose-panel { display:none; }
+        .compose-panel.open { display:block; }
+    </style>
     <section class="grid cols-2">
         <article class="card">
-            <h3 style="margin-top:0;">Send Tenant Message</h3>
-            <form method="post" action="<?php echo e(app_url('actions/send_message.php')); ?>">
-                <?php echo csrf_input(); ?>
-                <div class="field"><label>To Tenant</label><select name="to_tenant_id"><?php foreach ($tenants as $tenant): ?><option value="<?php echo (int) $tenant['id']; ?>"><?php echo e($tenant['business_name']); ?></option><?php endforeach; ?></select></div>
-                <div class="field"><label>Subject</label><input name="subject"></div>
-                <div class="field"><label>Message</label><textarea name="message" required></textarea></div>
-                <button class="btn btn-primary" type="submit">Send</button>
-            </form>
+            <div class="toolbar">
+                <h3 style="margin:0;">Send Tenant Message</h3>
+                <button class="btn btn-primary" type="button" id="compose-toggle"><i class="fa-solid fa-pen-to-square"></i> Compose</button>
+            </div>
+            <div id="compose-panel" class="compose-panel">
+                <form method="post" action="<?php echo e(app_url('actions/send_message.php')); ?>">
+                    <?php echo csrf_input(); ?>
+                    <div class="field"><label>To Tenant</label><select name="to_tenant_id"><?php foreach ($tenants as $tenant): ?><option value="<?php echo (int) $tenant['id']; ?>"><?php echo e($tenant['business_name']); ?></option><?php endforeach; ?></select></div>
+                    <div class="field"><label>Subject</label><input name="subject"></div>
+                    <div class="field"><label>Message</label><textarea name="message" required></textarea></div>
+                    <button class="btn btn-primary" type="submit">Send</button>
+                </form>
+            </div>
         </article>
         <article class="card">
             <h3 style="margin-top:0;">Incoming Messages</h3>
@@ -50,6 +60,19 @@ $contentRenderer = function (): void {
             </table>
         </article>
     </section>
+    <script>
+        (function () {
+            var toggle = document.getElementById('compose-toggle');
+            var panel = document.getElementById('compose-panel');
+            if (!toggle || !panel) {
+                return;
+            }
+            toggle.addEventListener('click', function () {
+                var isOpen = panel.classList.toggle('open');
+                toggle.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i> Close' : '<i class="fa-solid fa-pen-to-square"></i> Compose';
+            });
+        })();
+    </script>
     <?php
 };
 

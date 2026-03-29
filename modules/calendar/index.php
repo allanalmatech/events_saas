@@ -33,6 +33,7 @@ $contentRenderer = function (): void {
             .calendar-mode { display:flex; gap:8px; }
             .calendar-mode .btn.active { border-color:var(--primary); background:color-mix(in srgb, var(--primary) 18%, transparent); }
             .calendar-title { font-weight:700; min-width:190px; text-align:center; }
+            .calendar-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; }
             .calendar-weekdays { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:8px; margin-bottom:8px; }
             .calendar-weekday { font-size:12px; color:var(--muted); text-align:center; }
             .calendar-grid { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:8px; }
@@ -53,11 +54,67 @@ $contentRenderer = function (): void {
             .year-day { min-height:20px; border-radius:6px; font-size:11px; text-align:center; padding-top:2px; border:1px solid transparent; }
             .year-day.has-events { background:color-mix(in srgb, var(--primary) 28%, transparent); border-color:color-mix(in srgb, var(--primary) 55%, transparent); cursor:pointer; }
             .events-table-wrap { margin-top:14px; }
+            .events-table-wrap .table { width:100%; }
+            .events-empty-row td { text-align:left; }
             @media (max-width:980px) { .year-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
             @media (max-width:760px) {
-                .calendar-grid, .calendar-weekdays, .week-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-                .calendar-day, .week-day { min-height:86px; }
+                .calendar-toolbar { align-items:stretch; }
+                .calendar-nav { justify-content:space-between; width:100%; }
+                .calendar-title { min-width:0; flex:1; font-size:14px; }
+                .calendar-mode { width:100%; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); }
+                .calendar-mode .btn { width:100%; }
+
+                .calendar-weekdays,
+                .calendar-grid,
+                .week-grid { min-width:700px; }
+                .calendar-day,
+                .week-day { min-height:78px; padding:6px; }
+                .day-num { font-size:12px; }
+                .event-dot { width:16px; height:16px; font-size:10px; right:6px; bottom:6px; }
+
                 .year-grid { grid-template-columns:1fr; }
+
+                .events-table thead { display:none; }
+                .events-table,
+                .events-table tbody,
+                .events-table tr,
+                .events-table td { display:block; width:100%; }
+
+                .events-table tr {
+                    border:1px solid var(--outline);
+                    border-radius:10px;
+                    padding:8px;
+                    margin-bottom:8px;
+                    background:var(--surface-soft);
+                }
+
+                .events-table tr.events-empty-row {
+                    border:none;
+                    padding:0;
+                    margin:0;
+                    background:transparent;
+                }
+
+                .events-table td {
+                    display:flex;
+                    justify-content:space-between;
+                    gap:8px;
+                    border:none;
+                    padding:6px 0;
+                    text-align:right;
+                }
+
+                .events-table td::before {
+                    content: attr(data-label);
+                    color:var(--muted);
+                    font-size:11px;
+                    text-transform:uppercase;
+                    letter-spacing:0.3px;
+                    text-align:left;
+                }
+
+                .events-table tr.events-empty-row td { display:block; text-align:left; }
+                .events-table tr.events-empty-row td::before { content:''; }
             }
         </style>
 
@@ -74,13 +131,15 @@ $contentRenderer = function (): void {
             </div>
         </div>
 
-        <div id="calendar-weekdays" class="calendar-weekdays"></div>
-        <div id="calendar-view"></div>
+        <div class="calendar-scroll">
+            <div id="calendar-weekdays" class="calendar-weekdays"></div>
+            <div id="calendar-view"></div>
+        </div>
         <div id="calendar-tooltip" class="calendar-tooltip"></div>
 
         <div class="events-table-wrap">
             <h3 style="margin-top:0;" id="day-events-title">Events</h3>
-            <table class="table">
+            <table class="table events-table">
                 <thead>
                     <tr>
                         <?php if ($isDirector): ?><th>Tenant</th><?php endif; ?>
@@ -88,7 +147,7 @@ $contentRenderer = function (): void {
                     </tr>
                 </thead>
                 <tbody id="day-events-body">
-                    <tr><td colspan="<?php echo $isDirector ? '6' : '5'; ?>" class="muted">Select a day with events.</td></tr>
+                    <tr class="events-empty-row"><td colspan="<?php echo $isDirector ? '6' : '5'; ?>" class="muted">Select a day with events.</td></tr>
                 </tbody>
             </table>
         </div>
@@ -200,6 +259,7 @@ $contentRenderer = function (): void {
                     if (!dateKey || !eventsByDate[dateKey] || !eventsByDate[dateKey].length) {
                         dayEventsTitle.textContent = 'Events';
                         var emptyRow = document.createElement('tr');
+                        emptyRow.className = 'events-empty-row';
                         emptyRow.innerHTML = '<td colspan="' + (isDirector ? '6' : '5') + '" class="muted">Select a day with events.</td>';
                         dayEventsBody.appendChild(emptyRow);
                         return;
@@ -211,13 +271,13 @@ $contentRenderer = function (): void {
                         var row = document.createElement('tr');
                         var html = '';
                         if (isDirector) {
-                            html += '<td>' + String(rows[i].business_name || '-') + '</td>';
+                            html += '<td data-label="Tenant">' + String(rows[i].business_name || '-') + '</td>';
                         }
-                        html += '<td>' + String(rows[i].booking_ref || '-') + '</td>';
-                        html += '<td>' + String(rows[i].customer_name || '-') + '</td>';
-                        html += '<td>' + String(rows[i].event_type || '-') + '</td>';
-                        html += '<td>' + String(rows[i].event_location || '-') + '</td>';
-                        html += '<td>' + String(rows[i].status || '-') + '</td>';
+                        html += '<td data-label="Booking Ref">' + String(rows[i].booking_ref || '-') + '</td>';
+                        html += '<td data-label="Customer">' + String(rows[i].customer_name || '-') + '</td>';
+                        html += '<td data-label="Type">' + String(rows[i].event_type || '-') + '</td>';
+                        html += '<td data-label="Location">' + String(rows[i].event_location || '-') + '</td>';
+                        html += '<td data-label="Status">' + String(rows[i].status || '-') + '</td>';
                         row.innerHTML = html;
                         dayEventsBody.appendChild(row);
                     }

@@ -112,15 +112,80 @@ $contentRenderer = function (): void {
         }
     }
     ?>
+    <style>
+        .toolbar { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px; align-items:end; }
+        .toolbar .field { margin:0; min-width:160px; }
+        .audit-filter-panel { margin-bottom:12px; }
+        .audit-filter-toggle { display:none; }
+        .audit-table-wrap { width:100%; overflow-x:auto; }
+
+        @media (max-width: 860px) {
+            .toolbar { align-items:stretch; }
+            .toolbar form.toolbar { width:100%; }
+            .toolbar .field { min-width:100%; }
+            .toolbar .btn { width:100%; }
+            .audit-filter-toggle { display:inline-flex; width:100%; }
+            .audit-filter-panel { display:none; }
+            .audit-filter-panel.open { display:block; }
+
+            .audit-table thead { display:none; }
+            .audit-table,
+            .audit-table tbody,
+            .audit-table tr,
+            .audit-table td { display:block; width:100%; }
+
+            .audit-table tr {
+                border:1px solid var(--outline);
+                border-radius:12px;
+                padding:10px;
+                margin-bottom:10px;
+                background:var(--surface-soft);
+            }
+
+            .audit-table tr.no-audit-row {
+                border:none;
+                padding:0;
+                margin:0;
+                background:transparent;
+            }
+
+            .audit-table td {
+                display:flex;
+                justify-content:space-between;
+                gap:10px;
+                border:none;
+                padding:8px 0;
+                text-align:right;
+            }
+
+            .audit-table td::before {
+                content: attr(data-label);
+                color:var(--muted);
+                font-size:12px;
+                text-transform:uppercase;
+                letter-spacing:0.3px;
+                text-align:left;
+            }
+
+            .audit-table tr.no-audit-row td { display:block; text-align:left; }
+            .audit-table tr.no-audit-row td::before { content: ''; }
+        }
+    </style>
     <section class="card">
-        <form method="get" class="toolbar" style="margin-bottom:12px; display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; align-items:end;">
-            <div class="field"><label>Module</label><select name="module_key"><option value="">All</option><?php foreach ($moduleOptions as $opt): ?><option value="<?php echo e($opt['module_key']); ?>" <?php echo $moduleFilter === $opt['module_key'] ? 'selected' : ''; ?>><?php echo e($opt['module_key']); ?></option><?php endforeach; ?></select></div>
-            <div class="field"><label>Action</label><select name="action_key"><option value="">All</option><?php foreach ($actionOptions as $opt): ?><option value="<?php echo e($opt['action_key']); ?>" <?php echo $actionFilter === $opt['action_key'] ? 'selected' : ''; ?>><?php echo e($opt['action_key']); ?></option><?php endforeach; ?></select></div>
-            <div class="field"><label>Role</label><select name="actor_role"><option value="">All</option><?php foreach ($roleOptions as $opt): ?><option value="<?php echo e($opt['actor_role']); ?>" <?php echo $roleFilter === $opt['actor_role'] ? 'selected' : ''; ?>><?php echo e($opt['actor_role']); ?></option><?php endforeach; ?></select></div>
-            <div class="field"><label>From</label><input type="date" name="date_from" value="<?php echo e($dateFrom); ?>"></div>
-            <div class="field"><label>To</label><input type="date" name="date_to" value="<?php echo e($dateTo); ?>"></div>
-            <button class="btn btn-primary" type="submit">Filter</button>
-        </form>
+        <div class="toolbar">
+            <button class="btn btn-ghost audit-filter-toggle" type="button" id="audit-filter-toggle" aria-expanded="false"><i class="fa-solid fa-magnifying-glass"></i> Search & Filters</button>
+        </div>
+
+        <div class="audit-filter-panel" id="audit-filter-panel">
+            <form method="get" class="toolbar" style="margin-bottom:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; align-items:end;">
+                <div class="field"><label>Module</label><select name="module_key"><option value="">All</option><?php foreach ($moduleOptions as $opt): ?><option value="<?php echo e($opt['module_key']); ?>" <?php echo $moduleFilter === $opt['module_key'] ? 'selected' : ''; ?>><?php echo e($opt['module_key']); ?></option><?php endforeach; ?></select></div>
+                <div class="field"><label>Action</label><select name="action_key"><option value="">All</option><?php foreach ($actionOptions as $opt): ?><option value="<?php echo e($opt['action_key']); ?>" <?php echo $actionFilter === $opt['action_key'] ? 'selected' : ''; ?>><?php echo e($opt['action_key']); ?></option><?php endforeach; ?></select></div>
+                <div class="field"><label>Role</label><select name="actor_role"><option value="">All</option><?php foreach ($roleOptions as $opt): ?><option value="<?php echo e($opt['actor_role']); ?>" <?php echo $roleFilter === $opt['actor_role'] ? 'selected' : ''; ?>><?php echo e($opt['actor_role']); ?></option><?php endforeach; ?></select></div>
+                <div class="field"><label>From</label><input type="date" name="date_from" value="<?php echo e($dateFrom); ?>"></div>
+                <div class="field"><label>To</label><input type="date" name="date_to" value="<?php echo e($dateTo); ?>"></div>
+                <button class="btn btn-primary" type="submit">Filter</button>
+            </form>
+        </div>
 
         <?php if ($isDirector): ?>
             <form method="post" action="<?php echo e(app_url('actions/delete_audit_logs.php')); ?>" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; align-items:end; margin-bottom:12px;">
@@ -131,16 +196,38 @@ $contentRenderer = function (): void {
             </form>
         <?php endif; ?>
 
-        <table class="table">
-            <thead><tr><th>Role</th><th>Module</th><th>Action</th><th>Record</th><th>IP</th><th>Time</th></tr></thead>
-            <tbody>
-            <?php foreach ($rows as $row): ?>
-                <tr><td><?php echo e($row['actor_role']); ?></td><td><?php echo e($row['module_key']); ?></td><td><?php echo e($row['action_key']); ?></td><td><?php echo e($row['record_table'] . ':' . $row['record_id']); ?></td><td><?php echo e($row['ip_address']); ?></td><td><?php echo e($row['created_at']); ?></td></tr>
-            <?php endforeach; ?>
-            <?php if (!$rows): ?><tr><td colspan="6" class="muted">No audit records yet.</td></tr><?php endif; ?>
-            </tbody>
-        </table>
+        <div class="audit-table-wrap">
+            <table class="table audit-table">
+                <thead><tr><th>Role</th><th>Module</th><th>Action</th><th>Record</th><th>IP</th><th>Time</th></tr></thead>
+                <tbody>
+                <?php foreach ($rows as $row): ?>
+                    <tr>
+                        <td data-label="Role"><?php echo e($row['actor_role']); ?></td>
+                        <td data-label="Module"><?php echo e($row['module_key']); ?></td>
+                        <td data-label="Action"><?php echo e($row['action_key']); ?></td>
+                        <td data-label="Record"><?php echo e($row['record_table'] . ':' . $row['record_id']); ?></td>
+                        <td data-label="IP"><?php echo e($row['ip_address']); ?></td>
+                        <td data-label="Time"><?php echo e($row['created_at']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php if (!$rows): ?><tr class="no-audit-row"><td colspan="6" class="muted">No audit records yet.</td></tr><?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </section>
+    <script>
+        (function () {
+            var filterToggle = document.getElementById('audit-filter-toggle');
+            var filterPanel = document.getElementById('audit-filter-panel');
+            if (!filterToggle || !filterPanel) {
+                return;
+            }
+            filterToggle.addEventListener('click', function () {
+                var isOpen = filterPanel.classList.toggle('open');
+                filterToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+        })();
+    </script>
     <?php
 };
 

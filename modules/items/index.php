@@ -81,6 +81,8 @@ $contentRenderer = function (): void {
     <style>
         .toolbar { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px; align-items:end; }
         .toolbar .field { margin:0; min-width:160px; }
+        .items-search-panel, .providers-search-panel { margin-bottom:12px; }
+        .items-search-toggle, .providers-search-toggle { display:none; }
         .actions-inline { display:flex; gap:6px; flex-wrap:wrap; }
         .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,0.55); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; z-index:9999; padding:16px; }
         .modal-backdrop.open { display:flex; }
@@ -93,6 +95,9 @@ $contentRenderer = function (): void {
             .toolbar form.toolbar { width:100%; }
             .toolbar .field { min-width:100%; }
             .toolbar .btn { width:100%; }
+            .items-search-toggle, .providers-search-toggle { display:inline-flex; width:100%; }
+            .items-search-panel, .providers-search-panel { display:none; }
+            .items-search-panel.open, .providers-search-panel.open { display:block; }
 
             .items-table thead,
             .providers-table thead { display:none; }
@@ -159,13 +164,16 @@ $contentRenderer = function (): void {
 
     <section class="card" style="margin-bottom:14px;">
         <div class="toolbar">
+            <button class="btn btn-ghost items-search-toggle" type="button" id="items-search-toggle" aria-expanded="false"><i class="fa-solid fa-magnifying-glass"></i> Search Items</button>
+            <button class="btn btn-primary" type="button" data-modal-open="add-item-modal">+ Item</button>
+        </div>
+        <div class="items-search-panel" id="items-search-panel">
             <form method="get" action="<?php echo e(app_url('modules/items/index.php')); ?>" class="toolbar" style="flex:1;">
                 <div class="field"><label>Search Items</label><input name="q" value="<?php echo e($q); ?>" placeholder="name or sku"></div>
                 <div class="field"><label>Owner</label><select name="owner"><option value="">All</option><option value="owned" <?php echo $owner === 'owned' ? 'selected' : ''; ?>>Owned</option><option value="external" <?php echo $owner === 'external' ? 'selected' : ''; ?>>External</option></select></div>
                 <div class="field"><label>Status</label><select name="status"><option value="">All</option><option value="active" <?php echo $status === 'active' ? 'selected' : ''; ?>>Active</option><option value="inactive" <?php echo $status === 'inactive' ? 'selected' : ''; ?>>Inactive</option></select></div>
                 <button class="btn btn-ghost" type="submit">Filter</button>
             </form>
-            <button class="btn btn-primary" type="button" data-modal-open="add-item-modal">+ Item</button>
         </div>
         <div class="items-table-wrap">
             <table class="table items-table">
@@ -192,11 +200,14 @@ $contentRenderer = function (): void {
 
     <section class="card">
         <div class="toolbar">
+            <button class="btn btn-ghost providers-search-toggle" type="button" id="providers-search-toggle" aria-expanded="false"><i class="fa-solid fa-magnifying-glass"></i> Search Providers</button>
+            <button class="btn btn-primary" type="button" data-modal-open="add-provider-modal">+ Provider</button>
+        </div>
+        <div class="providers-search-panel" id="providers-search-panel">
             <form method="get" action="<?php echo e(app_url('modules/items/index.php')); ?>" class="toolbar" style="flex:1;">
                 <div class="field"><label>Search Providers</label><input name="provider_q" value="<?php echo e($providerQ); ?>" placeholder="name, contact, phone"></div>
                 <button class="btn btn-ghost" type="submit">Filter</button>
             </form>
-            <button class="btn btn-primary" type="button" data-modal-open="add-provider-modal">+ Provider</button>
         </div>
         <div class="providers-table-wrap">
             <table class="table providers-table">
@@ -279,6 +290,10 @@ $contentRenderer = function (): void {
         (function () {
             var openButtons = document.querySelectorAll('[data-modal-open]');
             var closeButtons = document.querySelectorAll('[data-modal-close]');
+            var itemsSearchToggle = document.getElementById('items-search-toggle');
+            var itemsSearchPanel = document.getElementById('items-search-panel');
+            var providersSearchToggle = document.getElementById('providers-search-toggle');
+            var providersSearchPanel = document.getElementById('providers-search-panel');
             function openModal(id) {
                 var modal = document.getElementById(id);
                 if (modal) {
@@ -300,6 +315,19 @@ $contentRenderer = function (): void {
             for (var j = 0; j < closeButtons.length; j++) {
                 closeButtons[j].addEventListener('click', function () {
                     closeModal(this);
+                });
+            }
+
+            if (itemsSearchToggle && itemsSearchPanel) {
+                itemsSearchToggle.addEventListener('click', function () {
+                    var isOpen = itemsSearchPanel.classList.toggle('open');
+                    itemsSearchToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                });
+            }
+            if (providersSearchToggle && providersSearchPanel) {
+                providersSearchToggle.addEventListener('click', function () {
+                    var isOpen = providersSearchPanel.classList.toggle('open');
+                    providersSearchToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
                 });
             }
 

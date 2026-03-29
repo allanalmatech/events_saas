@@ -57,6 +57,8 @@ $contentRenderer = function (): void {
     <style>
         .toolbar { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px; align-items:end; }
         .toolbar .field { margin:0; min-width:180px; }
+        .services-search-panel { margin-bottom:12px; }
+        .services-search-toggle { display:none; }
         .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,0.55); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; z-index:9999; padding:16px; }
         .modal-backdrop.open { display:flex; }
         .modal-card { width:100%; max-width:620px; max-height:90vh; overflow:auto; }
@@ -69,6 +71,9 @@ $contentRenderer = function (): void {
             .toolbar form.toolbar { width:100%; }
             .toolbar .field { min-width:100%; }
             .toolbar .btn { width:100%; }
+            .services-search-toggle { display:inline-flex; width:100%; }
+            .services-search-panel { display:none; }
+            .services-search-panel.open { display:block; }
 
             .services-table thead { display:none; }
             .services-table,
@@ -123,13 +128,17 @@ $contentRenderer = function (): void {
 
     <section class="card">
         <div class="toolbar">
+            <button class="btn btn-ghost services-search-toggle" type="button" id="services-search-toggle" aria-expanded="false"><i class="fa-solid fa-magnifying-glass"></i> Search & Filters</button>
+            <button class="btn btn-primary" type="button" data-modal-open="add-service-modal">+ Service</button>
+        </div>
+
+        <div class="services-search-panel" id="services-search-panel">
             <form method="get" action="<?php echo e(app_url('modules/services/index.php')); ?>" class="toolbar" style="flex:1;">
                 <div class="field"><label>Search</label><input name="q" value="<?php echo e($q); ?>" placeholder="service name"></div>
                 <div class="field"><label>Pricing Type</label><select name="pricing_type"><option value="">All</option><option value="flat" <?php echo $pricingType === 'flat' ? 'selected' : ''; ?>>Flat</option><option value="unit" <?php echo $pricingType === 'unit' ? 'selected' : ''; ?>>Per Unit</option></select></div>
                 <div class="field"><label>Status</label><select name="status"><option value="">All</option><option value="active" <?php echo $status === 'active' ? 'selected' : ''; ?>>Active</option><option value="inactive" <?php echo $status === 'inactive' ? 'selected' : ''; ?>>Inactive</option></select></div>
                 <button class="btn btn-ghost" type="submit">Filter</button>
             </form>
-            <button class="btn btn-primary" type="button" data-modal-open="add-service-modal">+ Service</button>
         </div>
 
         <div class="services-table-wrap">
@@ -196,6 +205,8 @@ $contentRenderer = function (): void {
         (function () {
             var openButtons = document.querySelectorAll('[data-modal-open]');
             var closeButtons = document.querySelectorAll('[data-modal-close]');
+            var searchToggle = document.getElementById('services-search-toggle');
+            var searchPanel = document.getElementById('services-search-panel');
             function openModal(id) {
                 var modal = document.getElementById(id);
                 if (modal) { modal.classList.add('open'); }
@@ -209,6 +220,12 @@ $contentRenderer = function (): void {
             }
             for (var j = 0; j < closeButtons.length; j++) {
                 closeButtons[j].addEventListener('click', function () { closeModal(this); });
+            }
+            if (searchToggle && searchPanel) {
+                searchToggle.addEventListener('click', function () {
+                    var isOpen = searchPanel.classList.toggle('open');
+                    searchToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                });
             }
             var backdrops = document.querySelectorAll('.modal-backdrop');
             for (var k = 0; k < backdrops.length; k++) {

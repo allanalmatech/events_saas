@@ -31,6 +31,58 @@ $contentRenderer = function (): void {
         .modal-backdrop.open { display:flex; }
         .modal-card { width:100%; max-width:680px; max-height:90vh; overflow:auto; }
         .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+        .receipts-table-wrap { width:100%; overflow-x:auto; }
+
+        @media (max-width: 760px) {
+            .receipts-table thead { display:none; }
+            .receipts-table,
+            .receipts-table tbody,
+            .receipts-table tr,
+            .receipts-table td { display:block; width:100%; }
+
+            .receipts-table tr {
+                border:1px solid var(--outline);
+                border-radius:12px;
+                padding:10px;
+                margin-bottom:10px;
+                background:var(--surface-soft);
+            }
+
+            .receipts-table tr.no-receipts-row {
+                border:none;
+                padding:0;
+                margin:0;
+                background:transparent;
+            }
+
+            .receipts-table td {
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:10px;
+                border:none;
+                padding:8px 0;
+                text-align:right;
+            }
+
+            .receipts-table td::before {
+                content: attr(data-label);
+                font-size:12px;
+                color:var(--muted);
+                text-transform:uppercase;
+                letter-spacing:0.4px;
+                text-align:left;
+            }
+
+            .receipts-table tr.no-receipts-row td {
+                display:block;
+                text-align:left;
+            }
+
+            .receipts-table tr.no-receipts-row td::before {
+                content:'';
+            }
+        }
     </style>
 
     <section class="card">
@@ -38,15 +90,24 @@ $contentRenderer = function (): void {
             <h3 style="margin:0;">Recent Receipts</h3>
             <button class="btn btn-primary" type="button" data-modal-open="add-receipt-modal">+ Receipt</button>
         </div>
-        <table class="table">
-            <thead><tr><th>No</th><th>Date</th><th>Amount</th><th>Method</th><th>Balance After</th><th>Print</th></tr></thead>
-            <tbody>
-            <?php foreach ($rows as $row): ?>
-                <tr><td><?php echo e($row['receipt_no']); ?></td><td><?php echo e($row['receipt_date']); ?></td><td><?php echo number_format((float) $row['amount_paid'], 2); ?></td><td><?php echo e($row['payment_method']); ?></td><td><?php echo number_format((float) $row['balance_after'], 2); ?></td><td><a class="btn btn-ghost" href="<?php echo e(app_url('modules/receipts/print.php?id=' . (int) $row['id'])); ?>" target="_blank">Print</a></td></tr>
-            <?php endforeach; ?>
-            <?php if (!$rows): ?><tr><td colspan="6" class="muted">No receipts available.</td></tr><?php endif; ?>
-            </tbody>
-        </table>
+        <div class="receipts-table-wrap">
+            <table class="table receipts-table">
+                <thead><tr><th>No</th><th>Date</th><th>Amount</th><th>Method</th><th>Balance After</th><th>Print</th></tr></thead>
+                <tbody>
+                <?php foreach ($rows as $row): ?>
+                    <tr>
+                        <td data-label="No"><?php echo e($row['receipt_no']); ?></td>
+                        <td data-label="Date"><?php echo e($row['receipt_date']); ?></td>
+                        <td data-label="Amount"><?php echo number_format((float) $row['amount_paid'], 2); ?></td>
+                        <td data-label="Method"><?php echo e($row['payment_method']); ?></td>
+                        <td data-label="Balance After"><?php echo number_format((float) $row['balance_after'], 2); ?></td>
+                        <td data-label="Print"><a class="btn btn-ghost" href="<?php echo e(app_url('modules/receipts/print.php?id=' . (int) $row['id'])); ?>" target="_blank">Print</a></td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php if (!$rows): ?><tr class="no-receipts-row"><td colspan="6" class="muted">No receipts available.</td></tr><?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </section>
 
     <div class="modal-backdrop" id="add-receipt-modal">

@@ -57,7 +57,59 @@ $contentRenderer = function (): void {
         .line-item-remove { margin-top:8px; }
         .customer-picker-row { display:grid; grid-template-columns: 1fr auto; gap:8px; align-items:end; }
         .customer-picker-row .btn { padding-left:12px; padding-right:12px; }
-        @media (max-width: 760px) { .line-item-grid { grid-template-columns: 1fr; } }
+        .invoices-table-wrap { width:100%; overflow-x:auto; }
+        @media (max-width: 760px) {
+            .line-item-grid { grid-template-columns: 1fr; }
+
+            .invoices-table thead { display:none; }
+            .invoices-table,
+            .invoices-table tbody,
+            .invoices-table tr,
+            .invoices-table td { display:block; width:100%; }
+
+            .invoices-table tr {
+                border:1px solid var(--outline);
+                border-radius:12px;
+                padding:10px;
+                margin-bottom:10px;
+                background:var(--surface-soft);
+            }
+
+            .invoices-table tr.no-invoices-row {
+                border:none;
+                padding:0;
+                margin:0;
+                background:transparent;
+            }
+
+            .invoices-table td {
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:10px;
+                border:none;
+                padding:8px 0;
+                text-align:right;
+            }
+
+            .invoices-table td::before {
+                content: attr(data-label);
+                font-size:12px;
+                color:var(--muted);
+                text-transform:uppercase;
+                letter-spacing:0.4px;
+                text-align:left;
+            }
+
+            .invoices-table tr.no-invoices-row td {
+                display:block;
+                text-align:left;
+            }
+
+            .invoices-table tr.no-invoices-row td::before {
+                content:'';
+            }
+        }
     </style>
 
     <section class="card">
@@ -66,15 +118,24 @@ $contentRenderer = function (): void {
             <button class="btn btn-primary" type="button" data-modal-open="add-invoice-modal">+ Invoice</button>
         </div>
 
-        <table class="table">
-            <thead><tr><th>No</th><th>Total</th><th>Paid</th><th>Balance</th><th>Status</th><th>Print</th></tr></thead>
-            <tbody>
-            <?php foreach ($rows as $row): ?>
-                <tr><td><?php echo e($row['invoice_no']); ?></td><td><?php echo number_format((float) $row['total_amount'], 2); ?></td><td><?php echo number_format((float) $row['amount_paid'], 2); ?></td><td><?php echo number_format((float) $row['balance_amount'], 2); ?></td><td><?php echo e($row['invoice_status']); ?></td><td><a class="btn btn-ghost" href="<?php echo e(app_url('modules/invoices/print.php?id=' . (int) $row['id'])); ?>" target="_blank">Print</a></td></tr>
-            <?php endforeach; ?>
-            <?php if (!$rows): ?><tr><td colspan="6" class="muted">No invoices yet.</td></tr><?php endif; ?>
-            </tbody>
-        </table>
+        <div class="invoices-table-wrap">
+            <table class="table invoices-table">
+                <thead><tr><th>No</th><th>Total</th><th>Paid</th><th>Balance</th><th>Status</th><th>Print</th></tr></thead>
+                <tbody>
+                <?php foreach ($rows as $row): ?>
+                    <tr>
+                        <td data-label="No"><?php echo e($row['invoice_no']); ?></td>
+                        <td data-label="Total"><?php echo number_format((float) $row['total_amount'], 2); ?></td>
+                        <td data-label="Paid"><?php echo number_format((float) $row['amount_paid'], 2); ?></td>
+                        <td data-label="Balance"><?php echo number_format((float) $row['balance_amount'], 2); ?></td>
+                        <td data-label="Status"><?php echo e($row['invoice_status']); ?></td>
+                        <td data-label="Print"><a class="btn btn-ghost" href="<?php echo e(app_url('modules/invoices/print.php?id=' . (int) $row['id'])); ?>" target="_blank">Print</a></td>
+                    </tr>
+                <?php endforeach; ?>
+                <?php if (!$rows): ?><tr class="no-invoices-row"><td colspan="6" class="muted">No invoices yet.</td></tr><?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </section>
 
     <div class="modal-backdrop" id="add-invoice-modal">
